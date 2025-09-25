@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     }
 
     const baseUrl = process.env.BACKEND_BASE_URL || "http://localhost:5000";
-    const apiUrl = `${baseUrl}/rest-assured-test`;
+    const apiUrl = `${baseUrl}/rest-assured-test/gemini`;
 
     const response = await fetch(apiUrl, {
       method: "POST",
