@@ -6,7 +6,9 @@ from pydantic import BaseModel, Field
 from langchain_google_genai import ChatGoogleGenerativeAI
 import json
 import re
-from flask import jsonify, app, request
+from flask import Flask, jsonify, request
+app = Flask(__name__)
+
 
 
 # ====================================
@@ -245,7 +247,7 @@ def enhance_test(llm, api_code, basic_test):
 
 
 @app.route("/rest-assured-test/gemini", methods=["POST"])
-def generate_restassured_test(api_code, api_key=None):
+def generate_restassured_test():
     """
     Fonction principale pour générer un test RestAssured complet à partir d'un code API Spring Boot.
 
@@ -253,10 +255,6 @@ def generate_restassured_test(api_code, api_key=None):
     1. Analyse du code API
     2. Génération d'un test de base
     3. Amélioration du test avec des scénarios avancés
-
-    Arguments:
-        api_code: Code Java Spring Boot à tester
-        api_key: Clé API Google Gemini (facultative)
 
     Retourne:
         Le code Java du test RestAssured amélioré ou None si une erreur survient
@@ -271,12 +269,12 @@ def generate_restassured_test(api_code, api_key=None):
 
     try:
         # Initialiser le modèle de langage
-        llm = setup_llm(api_key)
+        llm = setup_llm()
 
         # Étape 1: Analyser l'API
         api_info = analyze_api_code(llm, api_code)
         if not api_info:
-            return None
+            return jsonify({"error": "API analysis failed"}), 500
 
         # Étape 2: Générer un test de base
         basic_test = generate_basic_test(llm, api_code, api_info)
@@ -288,5 +286,8 @@ def generate_restassured_test(api_code, api_key=None):
 
     except Exception as e:
         print(f"Erreur lors de la génération du test: {str(e)}")
-        return None
+        return jsonify({"error": str(e)}), 500
+    
 
+if __name__ == "__main__":
+    app.run(debug=True)
