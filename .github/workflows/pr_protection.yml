@@ -1,0 +1,15 @@
+name: Block PRs to upstream
+
+on:
+  pull_request_target:
+
+jobs:
+  check-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if PR is targeting upstream
+        run: |
+          if [[ "${{ github.repository }}" != "PFE04-A25/PFE04" ]]; then
+            echo "❌ Pull requests must not target upstream!"
+            exit 1
+          fi
