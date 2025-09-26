@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    console.log("Request received with API code");
 
     if (!body.api_code) {
       return NextResponse.json(
@@ -13,6 +14,8 @@ export async function POST(req: Request) {
 
     const baseUrl = process.env.BACKEND_BASE_URL || "http://localhost:5000";
     const apiUrl = `${baseUrl}/rest-assured-test/gemini`;
+    console.log(`Making request to: ${apiUrl}`);
+
 
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -21,9 +24,11 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({ api_code: body.api_code }),
     });
+    console.log(`Response status: ${response.status} ${response.statusText}`);
 
     if (!response.ok) {
       const errorText = await response.text();
+      console.error(`Error response from backend: ${errorText}`);
       return NextResponse.json(
         { error: `Server error: ${errorText}` },
         { status: response.status },
@@ -31,6 +36,13 @@ export async function POST(req: Request) {
     }
 
     const data = await response.json();
+    console.log("Response data:", {
+      hasGeneratedTest: !!data.generated_test,
+      generatedTestLength: data.generated_test?.length || 0,
+      // Only log the first few lines for brevity
+      testPreview: data.generated_test?.split('\n').slice(0, 5).join('\n') + '...'
+    });
+    
     return NextResponse.json(data);
   } catch (error) {
     console.error("Error:", error);

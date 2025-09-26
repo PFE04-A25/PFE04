@@ -6,10 +6,10 @@ from pydantic import BaseModel, Field
 from langchain_google_genai import ChatGoogleGenerativeAI
 import json
 import re
-from flask import Flask, jsonify, request
-app = Flask(__name__)
+import traceback
+from flask import jsonify, Flask, request
 
-
+app = Flask(__name__)  # Create Flask application instance
 
 # ====================================
 # MODÈLES DE DONNÉES
@@ -153,7 +153,7 @@ def setup_llm(api_key=None):
         raise ValueError("Clé API Google Gemini non fournie et non trouvée dans les variables d'environnement")
 
     return ChatGoogleGenerativeAI(
-        model="gemini-1.5-pro",
+        model="gemini-2.5-flash",
         google_api_key=api_key,
         temperature=0.2,  # Valeur basse pour des résultats cohérents
         top_p=0.95,  # Légèrement créatif tout en restant focalisé
@@ -267,25 +267,42 @@ def generate_restassured_test():
 
     api_code = data["api_code"]
 
+    api_key = os.environ.get("GEMINI_API_KEY", api_key)
+    if not api_key:
+        return jsonify({"error": "Missing GEMINI_API_KEY in environment variables"}), 400
+
     try:
         # Initialiser le modèle de langage
-        llm = setup_llm()
+        print("Setting up LLM...")
+        llm = setup_llm(api_key)
+        print("LLM setup complete.")
 
         # Étape 1: Analyser l'API
         api_info = analyze_api_code(llm, api_code)
         if not api_info:
-            return jsonify({"error": "API analysis failed"}), 500
+            print("API analysis failed!")
+            return jsonify({"error": "Failed to analyze API code"}), 500
+
+        print("API analysis successful:", json.dumps(api_info, indent=2)[:500] + "...")
+
 
         # Étape 2: Générer un test de base
         basic_test = generate_basic_test(llm, api_code, api_info)
-
+        print("\n--- BASIC TEST ---\n")
+        print(basic_test[:1000] + "..." if len(basic_test) > 1000 else basic_test)
+        print("\n------------------\n")
         # Étape 3: Améliorer le test
         enhanced_test = enhance_test(llm, api_code, basic_test)
 
-        return jsonify({"generated_test": enhanced_test})
+        print("\n=== FINAL ENHANCED TEST ===\n")
+        print(enhanced_test)
+        print("\n==========================\n")
+
+        return jsonify({"generated_test": basic_test})
 
     except Exception as e:
         print(f"Erreur lors de la génération du test: {str(e)}")
+        print(traceback.print_exc())
         return jsonify({"error": str(e)}), 500
     
 
