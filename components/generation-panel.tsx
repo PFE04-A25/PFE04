@@ -7,6 +7,7 @@ import PromptTeaxtarea from "./prompt-textarea";
 import SelectTests from "./select-test-type";
 import ModelTemperatureSlider from "./model-temperature-slider";
 import { GenerationOutput } from "./generation-output";
+import { useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import { sendRequest } from "@/hooks/sendrequest";
 
@@ -41,7 +42,10 @@ export function GenerationPanel({
           <ModelTemperatureSlider />
           <Separator />
           <h2 className="text-lg font-semibold tracking-tight">Output</h2>
-          <GenerationOutput />
+          <GenerationOutput 
+            generatedTest={outputCode} 
+            isLoading={isLoading} 
+          />
         </div>
       </ScrollArea>
 
