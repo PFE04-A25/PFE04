@@ -1,5 +1,6 @@
 # Ignorer l'environnement virtuel
-venv/
+**venv/**
+
 
 # Ignorer tous les fichiers liés à l'IDE dans le dossier backend/.idea
 backend/.idea/
