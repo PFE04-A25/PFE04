@@ -6,3 +6,5 @@
 backend/.idea/
 
 /logs/**
+
+**/__pycache__/**
