@@ -8,8 +8,52 @@ import json
 import re
 import traceback
 from flask import jsonify, Flask, request
+from dotenv import load_dotenv
+import logging
+from datetime import datetime
+import sys
+
+
+# Configure logger
+def setup_logger():
+    # Create logs directory if it doesn't exist
+    if not os.path.exists('logs'):
+        os.makedirs('logs')
+        
+    # Get current date for log filename
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    
+    # Configure logger
+    logger = logging.getLogger('gemini_api')
+    logger.setLevel(logging.DEBUG)
+    
+    # Log format
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    
+    # Console handler
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
+    console_handler.setFormatter(formatter)
+    
+    # File handler
+    file_handler = logging.FileHandler(f'logs/gemini_api_{current_date}.log')
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+    
+    # Add handlers to logger
+    logger.addHandler(console_handler)
+    logger.addHandler(file_handler)
+    
+    return logger
+
+# Initialize logger
+logger = setup_logger()
+
+load_dotenv()
+logger.info("Environment variables loaded.")
 
 app = Flask(__name__)  # Create Flask application instance
+logger.info("Flask app initialized.")
 
 # ====================================
 # MODÈLES DE DONNÉES
@@ -150,10 +194,13 @@ def setup_llm(api_key=None):
     api_key = api_key or os.environ.get("GEMINI_API_KEY")
 
     if not api_key:
+        logger.error("Clé API Google Gemini non fournie et non trouvée dans les variables d'environnement")
         raise ValueError("Clé API Google Gemini non fournie et non trouvée dans les variables d'environnement")
 
+    model = "gemini-2.5-flash"
+    logger.info(f"Using Gemini model: {model}")
     return ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",
+        model=model,
         google_api_key=api_key,
         temperature=0.2,  # Valeur basse pour des résultats cohérents
         top_p=0.95,  # Légèrement créatif tout en restant focalisé
@@ -173,23 +220,29 @@ def analyze_api_code(llm, api_code):
         Dictionnaire contenant les informations structurées sur l'API ou None en cas d'erreur
     """
     try:
+        logger.info("Starting API code analysis...")
         # Utiliser l'API du model avec LangChain
         chain = api_analysis_prompt | llm
+        logger.info("Prompt chain created.")
         response = chain.invoke({"api_code": api_code})
 
         # Extraire le JSON de la réponse (peut être encapsulé dans des blocs de code)
         json_match = re.search(r'```json\s*([\s\S]*?)\s*```', response.content)
         if json_match:
+            logger.debug("JSON block found in response.")
             json_str = json_match.group(1) # Si un bloc JSON est trouvé, on l'extrait
         else:
+            logger.debug("No JSON block found, using full response content.")
             json_str = response.content # Sinon, on prend tout le texte brute
 
         # Nettoyer et parser le JSON
         api_info = json.loads(json_str)
+        logger.info(f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints")
         return api_info
     except Exception as e:
-        print(f"Erreur lors de l'analyse: {str(e)}")
-        print(f"Réponse reçue: {response.content if 'response' in locals() else 'N/A'}")
+        logger.error(f"Erreur lors de l'analyse: {str(e)}")
+        logger.debug(f"Response received: {response.content if 'response' in locals() else 'N/A'}")
+        logger.exception("Full traceback:")
         return None
 
 
@@ -205,19 +258,29 @@ def generate_basic_test(llm, api_code, api_info):
     Retourne:
         Code Java du test RestAssured généré
     """
+    logger.info("Generating basic RestAssured test...")
     # Convertir api_info en chaîne formatée pour le prompt
     api_info_str = json.dumps(api_info, indent=2)
 
     # Génération du test
     chain = basic_test_prompt | llm
+    logger.debug("Prompt chain for basic test created.")
     response = chain.invoke({"api_code": api_code, "api_info": api_info_str})
+    logger.info(f"Input tokens: {response.usage_metadata['input_tokens']}, "
+            f"Max tokens allowed: {llm.max_tokens}")
 
     # Extraire le code Java de la réponse
     java_match = re.search(r'```(?:java)?\s*([\s\S]*?)\s*```', response.content)
     if java_match:
-        return java_match.group(1).strip()
+        logger.debug("Java code block found in response.")
+        test_code = java_match.group(1).strip()
+        logger.info(f"Basic test generated successfully: {len(test_code)} characters")
+        return test_code
+    
 
     # Si pas de bloc de code, retourner tout le texte
+    logger.warning("No Java code block found in response, returning raw content")
+    logger.debug(f"Response: {response}")
     return response.content.strip()
 
 
@@ -233,16 +296,31 @@ def enhance_test(llm, api_code, basic_test):
     Retourne:
         Code Java du test RestAssured amélioré
     """
+    logger.info("Enhancing test with advanced scenarios")
+    
     # Générer le test amélioré
     chain = advanced_test_prompt | llm
+    logger.debug("Invoking LLM for test enhancement")
     response = chain.invoke({"api_code": api_code, "basic_test": basic_test})
+    logger.info(f"Input tokens: {response.usage_metadata['input_tokens']}, "
+            f"Max tokens allowed: {llm.max_tokens}")
+
+    filled_prompt = advanced_test_prompt.format_prompt(api_code=api_code, basic_test=basic_test).text
+    logger.debug(f"Enhancement prompt length: {len(filled_prompt)} characters")
+    logger.debug(f"Final enhancement prompt:\n{filled_prompt}")
 
     # Extraire le code Java de la réponse
     java_match = re.search(r'```(?:java)?\s*([\s\S]*?)\s*```', response.content)
     if java_match:
-        return java_match.group(1).strip()
-
+        logger.debug("Java code block found in enhanced test response")
+        enhanced_code = java_match.group(1).strip()
+        logger.info(f"Test enhanced successfully: {len(enhanced_code)} characters")
+        return enhanced_code
+    
     # Si pas de bloc de code, retourner tout le texte
+    logger.warning("No Java code block found in enhanced test response, returning raw content")
+    logger.debug(f"Response: {response}")
+    logger.debug(f"Enhanced test preview: {response.content[:500]}{'...' if len(response.content) > 500 else ''}"   )
     return response.content.strip()
 
 
@@ -259,50 +337,59 @@ def generate_restassured_test():
     Retourne:
         Le code Java du test RestAssured amélioré ou None si une erreur survient
     """
-
+    logger.info("REST API endpoint /rest-assured-test/gemini called")
+    
     data = request.get_json()
+    logger.debug(f"Request received with content type: {request.content_type}")
 
     if "api_code" not in data:
+        logger.warning("Request missing api_code parameter")
         return jsonify({"error": "Missing api_code parameter"}), 400
 
     api_code = data["api_code"]
+    logger.debug(f"Received API code of length: {len(api_code)} characters")
 
-    api_key = os.environ.get("GEMINI_API_KEY", api_key)
+    api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
+        logger.error("GEMINI_API_KEY not found in environment variables")
         return jsonify({"error": "Missing GEMINI_API_KEY in environment variables"}), 400
 
     try:
         # Initialiser le modèle de langage
-        print("Setting up LLM...")
+        logger.info("Setting up LLM...")
         llm = setup_llm(api_key)
-        print("LLM setup complete.")
+        logger.info("LLM setup complete.")
 
         # Étape 1: Analyser l'API
+        logger.info("Step 1: Analyzing API code")
         api_info = analyze_api_code(llm, api_code)
         if not api_info:
-            print("API analysis failed!")
+            logger.error("API analysis failed!")
             return jsonify({"error": "Failed to analyze API code"}), 500
 
-        print("API analysis successful:", json.dumps(api_info, indent=2)[:500] + "...")
-
+        logger.info(f"API analysis successful")
+        logger.debug(f"API analysis details: {json.dumps(api_info, indent=2)[:500]}")
 
         # Étape 2: Générer un test de base
+        logger.info("Step 2: Generating basic test")
         basic_test = generate_basic_test(llm, api_code, api_info)
-        print("\n--- BASIC TEST ---\n")
-        print(basic_test[:1000] + "..." if len(basic_test) > 1000 else basic_test)
-        print("\n------------------\n")
+        logger.info("Basic test generation successful")
+        logger.debug("Basic test:\n" + basic_test)
+        
         # Étape 3: Améliorer le test
+        logger.info("Step 3: Enhancing test")
         enhanced_test = enhance_test(llm, api_code, basic_test)
 
-        print("\n=== FINAL ENHANCED TEST ===\n")
-        print(enhanced_test)
-        print("\n==========================\n")
+        logger.info("Enhanced test generation successful")
+        logger.debug("Enhanced test preview: " + (enhanced_test[:500] + "..." if len(enhanced_test) > 500 else enhanced_test))
 
+        logger.info("Test generation completed successfully")
+        # return jsonify({"generated_test": enhanced_test}) # The enhanced test are always empty using basic_test for now
         return jsonify({"generated_test": basic_test})
 
     except Exception as e:
-        print(f"Erreur lors de la génération du test: {str(e)}")
-        print(traceback.print_exc())
+        logger.error(f"Error occurred while generating test: {str(e)}")
+        logger.exception("Full traceback:")
         return jsonify({"error": str(e)}), 500
     
 
