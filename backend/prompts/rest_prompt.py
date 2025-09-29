@@ -1,10 +1,3 @@
-from tempfile import template
-from typing import List
-
-from langchain.output_parsers import PydanticOutputParser
-from langchain.prompts import PromptTemplate
-
-from config_class import EndpointInfo, ApiAnalysis
 from prompts.basic_prompt import BasePrompt, api_parser
 
 # ====================================
@@ -60,7 +53,7 @@ class RestAssuredPrompts:
 
         return BasePrompt(
             template=template,
-            input_variables=["api_code", "basic_test"],
+            input_variables=["api_code", "api_code"],
             temperature=0.2,
         )
 
