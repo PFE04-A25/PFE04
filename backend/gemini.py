@@ -377,15 +377,19 @@ def generate_restassured_test():
         logger.debug("Basic test:\n" + basic_test)
         
         # Étape 3: Améliorer le test
-        logger.info("Step 3: Enhancing test")
-        enhanced_test = enhance_test(llm, api_code, basic_test)
+        skipping_enhancement = True
+        # The enhanced test are always empty using basic_test for now
+        if not skipping_enhancement:
+            logger.info("Step 3: Enhancing test")
+            enhanced_test = enhance_test(llm, api_code, basic_test)
 
-        logger.info("Enhanced test generation successful")
-        logger.debug("Enhanced test preview: " + (enhanced_test[:500] + "..." if len(enhanced_test) > 500 else enhanced_test))
+            logger.info("Enhanced test generation successful")
+            logger.debug("Enhanced test preview: " + (enhanced_test[:500] + "..." if len(enhanced_test) > 500 else enhanced_test))
 
-        logger.info("Test generation completed successfully")
-        # return jsonify({"generated_test": enhanced_test}) # The enhanced test are always empty using basic_test for now
-        return jsonify({"generated_test": basic_test})
+            logger.info("Test generation completed successfully")
+            return jsonify({"generated_test": enhanced_test}) 
+        else:
+            return jsonify({"generated_test": basic_test})
 
     except Exception as e:
         logger.error(f"Error occurred while generating test: {str(e)}")
