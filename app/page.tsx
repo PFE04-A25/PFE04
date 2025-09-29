@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useEffect } from "react";
 
 import { GenerationPanel } from "@/components/generation-panel";
 import {
@@ -17,6 +18,16 @@ export default function Home() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [selectedTest, setSelectedTest] = React.useState("restassured");
 
+  // debugging to track state changes
+  useEffect(() => {
+    console.log("Output code updated:", outputCode ? `${outputCode.substring(0, 50)}...` : "empty");
+  }, [outputCode]);
+
+  // Fix the typo in the prop name
+  const handleSetOutputCode = (code: string) => {
+    console.log("Setting output code:", code ? `${code.substring(0, 50)}...` : "empty");
+    setOutputCode(code);
+  };
   return (
     <ResizablePanelGroup
       direction="horizontal"

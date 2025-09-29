@@ -19,11 +19,12 @@ export function exctractTestCaseCode(texte: string): string[] {
   const regex = /```java\s*([\s\S]*?)```/g;
   const matches = [];
   let match;
-
+  console.log("Extracting code from:", texte?.substring(0, 100) + "...");
+    
   while ((match = regex.exec(texte)) !== null) {
     matches.push(match[1].trim());
   }
-
+  console.log("Extracted code successfully:");
   return matches;
 }
 

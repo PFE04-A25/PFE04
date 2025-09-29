@@ -59,7 +59,27 @@ export const sendRequest = async ({
   }
 
   const data = await response.json();
+
+  console.log("API Response received:", {
+  hasGeneratedTest: !!data.generated_test,
+  responseLength: data.generated_test?.length || 0
+  });
+  // Check if data.generated_test exists
+  if (!data.generated_test) {
+    toast.error("No test generated", {
+      description: "The server response didn't contain any generated test code"
+    });
+    setIsLoading(false);
+    return;
+  }
   const codeFilter = exctractTestCaseCode(data.generated_test);
-  setOuputCode(codeFilter[0]);
+  if (codeFilter && codeFilter.length > 0) {
+    console.log("Extracted code successfully, length:", codeFilter[0].length);
+    setOuputCode(codeFilter[0]);
+  } else {
+    console.error("Failed to extract code from response:", data.generated_test);
+    toast.error("Failed to parse response");
+    setOuputCode(data.generated_test); // Fallback to using raw response
+  }
   setIsLoading(false);
 };
