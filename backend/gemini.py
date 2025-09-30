@@ -10,7 +10,7 @@ from config_class import EndpointInfo, ApiAnalysis
 from prompts.rest_prompt import (
     RestAssuredPrompts,
 )
-
+from db.services.test_case import TestCaseService
 
 # Initialize logger
 logger = setup_logger()
@@ -20,6 +20,9 @@ logger.info("Environment variables loaded.")
 
 app = Flask(__name__)  # Create Flask application instance
 logger.info("Flask app initialized.")
+
+test_case_service = TestCaseService()
+logger.info("TestCaseService initialized.")
 
 
 def setup_llm(api_key=None)-> ChatGoogleGenerativeAI:
@@ -271,6 +274,31 @@ def generate_restassured_test():
         logger.exception("Full traceback:")
         return jsonify({"error": str(e)}), 500
 
+
+@app.route("/db/testcases", methods=["POST"])
+def create_test_case():
+    data = request.json
+    result = test_case_service.create_test_case(
+        test_type=data.get('testType'),
+        source_code=data.get('sourceCode'),
+        test_case=data.get('testCase')
+    )
+    return jsonify({
+        "id": str(result.id),
+        "testType": result.test_type,
+        "createdAt": result.created_at.isoformat()
+    })
+
+@app.route("/db/testcases", methods=["GET"])
+def get_test_cases():
+    test_cases = test_case_service.get_test_cases()
+    return jsonify([{
+        "id": str(tc.id),
+        "testType": tc.test_type,
+        "sourceCode": tc.source_code,
+        "testCase": tc.test_case,
+        "createdAt": tc.created_at.isoformat()
+    } for tc in test_cases])
 
 if __name__ == "__main__":
     app.run(debug=True)
