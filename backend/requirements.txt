@@ -6,3 +6,5 @@ pydantic==2.10.6
 requests==2.31.0
 dotenv==0.9.9
 pymongo>=4.15.1
+pytest>=8.4.2
+mongomock>=4.3.0
