@@ -22,7 +22,7 @@ app = Flask(__name__)  # Create Flask application instance
 logger.info("Flask app initialized.")
 
 
-def setup_llm(api_key=None):
+def setup_llm(api_key=None)-> ChatGoogleGenerativeAI:
     """
     Configure et retourne l'instance du modèle LLM.
 
@@ -71,7 +71,7 @@ def analyze_api_code(llm, api_code):
     try:
         logger.info("Starting API code analysis...")
         # Utiliser l'API du model avec LangChain
-        api_analysis_prompt = RestAssuredPrompts.get_api_analysis_prompt()
+        api_analysis_prompt = RestAssuredPrompts.get_api_analysis_prompt().prompt
         chain = api_analysis_prompt | llm
         logger.info("Prompt chain created.")
         response = chain.invoke({"api_code": api_code})
@@ -100,7 +100,7 @@ def analyze_api_code(llm, api_code):
         return None
 
 
-def generate_basic_test(llm, api_code, api_info):
+def generate_basic_test(llm: ChatGoogleGenerativeAI, api_code, api_info):
     """
     Génère un test RestAssured de base pour l'API.
 
@@ -117,13 +117,13 @@ def generate_basic_test(llm, api_code, api_info):
     api_info_str = json.dumps(api_info, indent=2)
 
     # Génération du test
-    basic_test_prompt = RestAssuredPrompts.get_basic_test_prompt()
+    basic_test_prompt = RestAssuredPrompts.get_basic_test_prompt().prompt
     chain = basic_test_prompt | llm
     logger.debug("Prompt chain for basic test created.")
     response = chain.invoke({"api_code": api_code, "api_info": api_info_str})
     logger.info(
         f"Input tokens: {response.usage_metadata['input_tokens']}, "
-        f"Max tokens allowed: {llm.max_tokens}"
+        f"Max tokens allowed: {llm.max_output_tokens}"
     )
 
     # Extraire le code Java de la réponse
@@ -140,7 +140,7 @@ def generate_basic_test(llm, api_code, api_info):
     return response.content.strip()
 
 
-def enhance_test(llm, api_code, basic_test):
+def enhance_test(llm: ChatGoogleGenerativeAI, api_code, basic_test):
     """
     Améliore le test de base avec des scénarios avancés et des techniques sophistiquées.
 
@@ -155,13 +155,13 @@ def enhance_test(llm, api_code, basic_test):
     logger.info("Enhancing test with advanced scenarios")
 
     # Générer le test amélioré
-    advanced_test_prompt = RestAssuredPrompts.get_advanced_test_prompt()
+    advanced_test_prompt = RestAssuredPrompts.get_advanced_test_prompt().prompt
     chain = advanced_test_prompt | llm
     logger.debug("Invoking LLM for test enhancement")
     response = chain.invoke({"api_code": api_code, "basic_test": basic_test})
     logger.info(
         f"Input tokens: {response.usage_metadata['input_tokens']}, "
-        f"Max tokens allowed: {llm.max_tokens}"
+        f"Max tokens allowed: {llm.max_output_tokens}"
     )
 
     filled_prompt = advanced_test_prompt.format_prompt(
@@ -233,7 +233,7 @@ def generate_restassured_test():
         api_info = analyze_api_code(llm, api_code)
         if not api_info:
             logger.error("API analysis failed!")
-            return jsonify({"error": "Failed to analyze API code"}), 500
+            raise Exception("API analysis failed")
 
         logger.info(f"API analysis successful")
         logger.debug(f"API analysis details: {json.dumps(api_info, indent=2)[:500]}")

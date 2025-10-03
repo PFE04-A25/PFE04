@@ -17,19 +17,29 @@ class BasePrompt:
     """Base class for all prompts with common functionality"""
 
     def __init__(
-        self, template: str, input_variables: List[str], temperature: float = 0.2
+        self,
+        template: str,
+        input_variables: List[str],
+        partial_variables: dict = None,
+        temperature: float = 0.2,
     ):
         self.template = template
         self.input_variables = input_variables
+        self.partial_variables = partial_variables or {}
         self.temperature = temperature
         self._prompt = PromptTemplate(
-            template=template, input_variables=input_variables
+            template=self.template, input_variables=self.input_variables, partial_variables=self.partial_variables
         )
 
     @property
     def prompt(self) -> PromptTemplate:
         """Return the LangChain PromptTemplate object"""
         return self._prompt
+    
+    def format(self, **kwargs):
+        """Format the prompt template with the given variables"""
+        # Use LangChain's formatting which already handles partial_variables
+        return self._prompt.format(**kwargs)
 
     def get_chain(self, llm):
         """Create a prompt chain with the given LLM"""

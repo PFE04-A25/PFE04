@@ -21,13 +21,14 @@ class RestAssuredPrompts:
         {format_instructions}
 
         Fournir une analyse détaillée et précise."""
-        return BasePrompt(
+        prompt = BasePrompt(
             template=template,
             input_variables=["api_code"],
             partial_variables={
                 "format_instructions": api_parser.get_format_instructions()
             },
-        )
+        ) 
+        return prompt
 
     @staticmethod
     def get_basic_test_prompt() -> BasePrompt:
