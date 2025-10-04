@@ -80,7 +80,7 @@ pip install -r requirements.txt
 Run the backend server:
 
 ```bash
-python server.py
+python gemini.py
 ```
 
 The server will start on [http://localhost:5000](http://localhost:5000).
