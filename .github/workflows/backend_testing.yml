@@ -31,5 +31,5 @@ jobs:
         cd backend
         python -m pytest -v
       env:
-        MONGODB_URL: {{ secrets.MONGODB_URL }}
+        MONGODB_URL: ${{ secrets.MONGODB_URL }}
         GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
