@@ -1,5 +1,3 @@
-import os
-
 from db.repositories.base_repository import BaseRepository
 from db.models.test_case import TestCase
 

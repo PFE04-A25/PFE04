@@ -16,7 +16,9 @@ class BaseRepository(Generic[T]):
         mongo_uri: str = None,
     ):
         self.model_class = model_class
-        mongo_uri = mongo_uri or os.environ.get("MONGODB_URI", "mongodb://localhost:27017")
+        mongo_uri = mongo_uri or os.environ.get("MONGODB_URI")
+        if not mongo_uri:
+            raise ValueError("MONGODB_URI environment variable not set")
         self.client = MongoClient(mongo_uri)
         self.db = self.client.test_generator
         self.collection = self.db[model_class.collection_name]
