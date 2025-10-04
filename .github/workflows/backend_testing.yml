@@ -32,4 +32,4 @@ jobs:
         python -m pytest -v
       env:
         MONGODB_URL: ${{ secrets.MONGODB_URL }}
-        GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
