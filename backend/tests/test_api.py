@@ -1,11 +1,11 @@
 import json
 import pytest
 
-def test_create_test_case_endpoint(client):
+def test_create_test_case_endpoint(client, cleanup_db):
     """Test the create test case endpoint."""
     # Prepare test data
     test_data = {
-        "testType": "restassured",
+        "testType": "test_restassured",
         "sourceCode": "public class ExampleApi {}",
         "testCase": "public class ExampleTest {}"
     }
@@ -21,13 +21,13 @@ def test_create_test_case_endpoint(client):
     assert response.status_code == 200
     data = json.loads(response.data)
     assert "id" in data
-    assert data["testType"] == "restassured"
+    assert data["testType"] == "test_restassured"
 
-def test_get_test_cases_endpoint(client):
+def test_get_test_cases_endpoint(client, cleanup_db):
     """Test the get test cases endpoint."""
     # Create a test case first
     test_data = {
-        "testType": "restassured",
+        "testType": "test_restassured",
         "sourceCode": "public class ExampleApi {}",
         "testCase": "public class ExampleTest {}"
     }
@@ -46,15 +46,15 @@ def test_get_test_cases_endpoint(client):
     assert isinstance(data, list)
     assert len(data) > 0
     assert "testType" in data[0]
-    assert data[0]["testType"] == "restassured"
+    assert data[0]["testType"] == "test_restassured"
 
-def test_filter_test_cases_endpoint(client):
+def test_filter_test_cases_endpoint(client, cleanup_db):
     """Test filtering test cases by test type."""
     # Create test cases with different types
     client.post(
         "/db/testcases",
         data=json.dumps({
-            "testType": "restassured",
+            "testType": "test_restassured",
             "sourceCode": "public class RestApi {}",
             "testCase": "public class RestTest {}"
         }),
@@ -64,7 +64,7 @@ def test_filter_test_cases_endpoint(client):
     client.post(
         "/db/testcases",
         data=json.dumps({
-            "testType": "unit",
+            "testType": "test_unit",
             "sourceCode": "public class UnitApi {}",
             "testCase": "public class UnitTest {}"
         }),
@@ -72,10 +72,10 @@ def test_filter_test_cases_endpoint(client):
     )
     
     # Filter by testType
-    response = client.get("/db/testcases?testType=unit")
+    response = client.get("/db/testcases?testType=test_unit")
     
     # Check response
     assert response.status_code == 200
     data = json.loads(response.data)
     assert isinstance(data, list)
-    assert all(tc["testType"] == "unit" for tc in data)
+    assert all(tc["testType"] == "test_unit" for tc in data)

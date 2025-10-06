@@ -47,3 +47,23 @@ def test_case_service(mock_mongo):
     """Create a test case service with mock MongoDB."""
     return TestCaseService()
 
+@pytest.fixture(scope="function", autouse=True)
+def cleanup_db():
+    """Fixture to clean up test data before and after tests."""
+    # Pre-test cleanup (optional)
+    yield
+    # Post-test cleanup
+    try:
+        from db.services.test_case import TestCaseService
+        service = TestCaseService()
+        
+        # Find all test data (using a prefix convention)
+        test_cases = service.get_test_cases({"testType": {"$regex": "^test_"}})
+        
+        # Delete all test data
+        for case in test_cases:
+            service.delete_test_case(case.id)
+        
+        print(f"Cleaned up {len(test_cases)} test records")
+    except Exception as e:
+        print(f"Error during test cleanup: {e}")

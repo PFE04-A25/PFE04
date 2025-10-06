@@ -383,12 +383,22 @@ def get_test_cases():
                 for tc in test_cases
             ]
         )
-
     except Exception as e:
         logger.error(f"Error retrieving test cases: {str(e)}")
         logger.exception("Full traceback:")
         return jsonify({"error": f"Failed to retrieve test cases: {str(e)}"}), 500
 
+@app.route("/db/testcases/<id>", methods=["DELETE"])
+def delete_test_case(id):
+    try:
+        success = test_case_service.delete_test_case(id)
+        if success:
+            return jsonify({"message": "Test case deleted"}), 200
+        else:
+            return jsonify({"error": "Test case not found"}), 404
+    except Exception as e:
+        logger.error(f"Error deleting test case: {str(e)}")
+        return jsonify({"error": f"Failed to delete test case: {str(e)}"}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
