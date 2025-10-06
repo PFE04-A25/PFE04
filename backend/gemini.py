@@ -10,7 +10,7 @@ from config_class import EndpointInfo, ApiAnalysis
 from prompts.rest_prompt import (
     RestAssuredPrompts,
 )
-
+from db.services.test_case import TestCaseService
 
 # Initialize logger
 logger = setup_logger()
@@ -20,6 +20,9 @@ logger.info("Environment variables loaded.")
 
 app = Flask(__name__)  # Create Flask application instance
 logger.info("Flask app initialized.")
+
+test_case_service = TestCaseService()
+logger.info("TestCaseService initialized.")
 
 
 def setup_llm(api_key=None)-> ChatGoogleGenerativeAI:
@@ -271,6 +274,180 @@ def generate_restassured_test():
         logger.exception("Full traceback:")
         return jsonify({"error": str(e)}), 500
 
+
+@app.route("/db/testcases", methods=["POST"])
+def create_test_case():
+    data = request.json
+
+    # Vérifier si la requête contient des données JSON
+    if not data:
+        logger.warning("Request body is empty")
+        return jsonify({"error": "Request body is required"}), 400
+
+    # Vérifier la présence des champs requis
+    required_fields = ["testType", "sourceCode", "testCase"]
+    missing_fields = [
+        field
+        for field in required_fields
+        if field not in data or data.get(field) is None
+    ]
+
+    if missing_fields:
+        logger.warning(f"Missing required fields: {', '.join(missing_fields)}")
+        return (
+            jsonify({"error": f"Missing required fields: {', '.join(missing_fields)}"}),
+            400,
+        )
+
+    # Validation des types de données
+    if not isinstance(data.get("testType"), str):
+        return jsonify({"error": "testType must be a string"}), 400
+
+    if not isinstance(data.get("sourceCode"), str):
+        return jsonify({"error": "sourceCode must be a string"}), 400
+
+    if not isinstance(data.get("testCase"), str):
+        return jsonify({"error": "testCase must be a string"}), 400
+
+    try:
+        result = test_case_service.create_test_case(
+            test_type=data.get("testType"),
+            source_code=data.get("sourceCode"),
+            test_case=data.get("testCase"),
+        )
+
+        return jsonify(
+            {
+                "id": str(result.id),
+                "testType": result.test_type,
+                "createdAt": result.created_at.isoformat(),
+            }
+        )
+    except Exception as e:
+        logger.error(f"Error creating test case: {str(e)}")
+        return jsonify({"error": f"Failed to create test case: {str(e)}"}), 500
+
+
+@app.route("/db/testcases", methods=["GET"])
+def get_test_cases():
+    try:
+        # Récupération et validation des paramètres de requête
+        test_type = request.args.get("testType")
+        limit = request.args.get("limit")
+        offset = request.args.get("offset")
+
+        # Validation des paramètres numériques
+        if limit:
+            try:
+                limit = int(limit)
+                if limit <= 0:
+                    return jsonify({"error": "limit must be a positive integer"}), 400
+            except ValueError:
+                return jsonify({"error": "limit must be a valid integer"}), 400
+
+        if offset:
+            try:
+                offset = int(offset)
+                if offset < 0:
+                    return (
+                        jsonify({"error": "offset must be a non-negative integer"}),
+                        400,
+                    )
+            except ValueError:
+                return jsonify({"error": "offset must be a valid integer"}), 400
+
+        # Vous pouvez adapter le service pour prendre en compte ces paramètres ou un dict de filtre
+        # Pour le moment, nous utilisons l'appel existant retournant tout les cas de test
+        test_cases = test_case_service.get_test_cases()
+
+        # Filtrer par type de test si spécifié
+        if test_type:
+            test_cases = [tc for tc in test_cases if tc.test_type == test_type]
+
+        # Appliquer pagination si spécifiée
+        if offset and limit:
+            test_cases = test_cases[offset : offset + limit]
+        elif limit:
+            test_cases = test_cases[:limit]
+
+        # Formatage de la réponse
+        return jsonify(
+            [
+                {
+                    "id": str(tc.id),
+                    "testType": tc.test_type,
+                    "sourceCode": tc.source_code,
+                    "testCase": tc.test_case,
+                    "createdAt": tc.created_at.isoformat(),
+                }
+                for tc in test_cases
+            ]
+        )
+    except Exception as e:
+        logger.error(f"Error retrieving test cases: {str(e)}")
+        logger.exception("Full traceback:")
+        return jsonify({"error": f"Failed to retrieve test cases: {str(e)}"}), 500
+
+@app.route("/db/testcases/<id>", methods=["DELETE"])
+def delete_test_case(id):
+    try:
+        success = test_case_service.delete_test_case(id)
+        if success:
+            return jsonify({"message": "Test case deleted"}), 200
+        else:
+            return jsonify({"error": "Test case not found"}), 404
+    except Exception as e:
+        logger.error(f"Error deleting test case: {str(e)}")
+        return jsonify({"error": f"Failed to delete test case: {str(e)}"}), 500
+    
+@app.route("/db/testcases/<id>", methods=["PUT"])
+def update_test_case(id):
+    data = request.json
+
+    # Verify request contains JSON data
+    if not data:
+        logger.warning("Request body is empty")
+        return jsonify({"error": "Request body is required"}), 400
+
+    # Check for fields to update and convert from camelCase to snake_case
+    update_data = {}
+    
+    if "testType" in data:
+        if not isinstance(data["testType"], str):
+            return jsonify({"error": "testType must be a string"}), 400
+        update_data["test_type"] = data["testType"]
+        
+    if "sourceCode" in data:
+        if not isinstance(data["sourceCode"], str):
+            return jsonify({"error": "sourceCode must be a string"}), 400
+        update_data["source_code"] = data["sourceCode"]
+        
+    if "testCase" in data:
+        if not isinstance(data["testCase"], str):
+            return jsonify({"error": "testCase must be a string"}), 400
+        update_data["test_case"] = data["testCase"]
+    
+    if not update_data:
+        return jsonify({"error": "No valid fields to update"}), 400
+
+    try:
+        # Call service method
+        result = test_case_service.update_test_case(id, update_data)
+        
+        if not result:
+            return jsonify({"error": "Test case not found"}), 404
+            
+        return jsonify({
+            "id": str(result.id),
+            "testType": result.test_type,
+            "sourceCode": result.source_code,
+            "testCase": result.test_case,
+            "createdAt": result.created_at.isoformat(),
+            "updatedAt": result.updated_at.isoformat() if hasattr(result, "updated_at") else None
+        })
+    except Exception as e:
+        logger.error(f"Error updating test case: {str(e)}")
+        return jsonify({"error": f"Failed to update test case: {str(e)}"}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

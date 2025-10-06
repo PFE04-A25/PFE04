@@ -15,14 +15,28 @@ export async function createTestCase({
   testCase,
 }: Params) {
   try {
-    connectToDB();
-    await TestCase.create({
-      testType,
-      sourceCode,
-      testCase,
+    const baseUrl = process.env.BACKEND_BASE_URL || "http://127.0.0.1:5000"; // Adjust as needed (http://127.0.0.1:5000)
+    
+    const response = await fetch(`${baseUrl}/db/testcases`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        testType,
+        sourceCode,
+        testCase,
+      }),
+      cache: "no-store",
     });
-    return { success: true };
+
+    if (!response.ok) {
+      throw new Error(`Failed with status ${response.status}`);
+    }
+
+    return await response.json();
   } catch (error: unknown) {
+    console.error("Error saving to database:", error);
     throw new Error(`Failed to create test case: ${error}`);
   }
 }
