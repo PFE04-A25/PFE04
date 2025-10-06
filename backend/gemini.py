@@ -11,6 +11,7 @@ from config_class import EndpointInfo, ApiAnalysis
 from prompts.rest_prompt import (
     RestAssuredPrompts,
 )
+from db.services.test_case import TestCaseService
 from code_manipulation import java as java_utils
 
 from execute import JavaTestExecutor
@@ -27,6 +28,10 @@ CORS(
     app, origins=["http://localhost:3000", "http://localhost:3001"]
 )  # Enable CORS for Next.js frontend
 logger.info("Flask app initialized with CORS.")
+logger.info("Flask app initialized.")
+
+test_case_service = TestCaseService()
+logger.info("TestCaseService initialized.")
 
 
 def setup_llm(api_key=None) -> ChatGoogleGenerativeAI:
@@ -467,6 +472,362 @@ def get_detailed_metrics(execution_id):
         logger.error(f"Error retrieving detailed metrics: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
+
+executor = None # temporary global executor instance en attendant l'implémentation complète de la DB
+
+@app.route("/execute-tests", methods=["POST"])
+def execute_tests():
+    """Endpoint pour exécuter les tests Java et retourner un ID d'exécution"""
+    try:
+        data = request.get_json()
+        test_code = data.get("test_code", "")
+        api_code = data.get("api_code", "")
+        language = "java" #TODO - ajouter une méthode dynamique de choisir le language
+
+        if not test_code.strip():
+            return jsonify({"error": "Test code is required"}), 400
+
+        if language.lower() == "java":
+            # Générer un executeur de test java
+            executor = JavaTestExecutor(
+                logger=logger, test_code=test_code, api_code=api_code
+            )
+        elif language.lower() == "python":
+            return jsonify({"error": "Python execution not implemented yet"}), 501
+        execution_id = executor.id
+
+        # Lancer l'exécution en arrière-plan
+        thread = executor.get_thread()
+        thread.start()
+
+        logger.info(f"Started test execution with ID: {execution_id}")
+        return jsonify(
+            {
+                "execution_id": execution_id,
+                "status": "started",
+                "message": "Test execution started",
+            }
+        )
+
+    except Exception as e:
+        logger.error(f"Error starting test execution: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/execution-status/<execution_id>", methods=["GET"])
+def get_execution_status(execution_id):
+    """Endpoint pour récupérer le statut et les résultats d'une exécution"""
+    try:
+        # Check temporaire en attendant l'implémentation complète de la DB
+        if executor is None:
+            return jsonify({"error": "No test execution in progress"}), 404
+        if isinstance(executor, JavaTestExecutor):
+            if execution_id not in executor.test_executions.keys():
+                return jsonify({"error": "Execution ID not found"}), 404
+            else:
+                test_executions = executor.test_executions
+        else:
+            return jsonify({"error": "Unsupported executor type"}), 500
+
+        execution_data = test_executions[execution_id]
+
+        return jsonify(
+            {
+                "execution_id": execution_id,
+                "status": execution_data["status"],
+                "logs": execution_data["logs"],
+                "metrics": execution_data["metrics"],
+                "start_time": execution_data.get("start_time"),
+                "end_time": execution_data.get("end_time"),
+            }
+        )
+
+    except Exception as e:
+        logger.error(f"Error retrieving execution status: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/execution-metrics/<execution_id>", methods=["GET"])
+def get_detailed_metrics(execution_id):
+    """Endpoint pour récupérer les métriques détaillées avec analyse de couverture"""
+    try:
+        # Check temporaire en attendant l'implémentation complète de la DB
+        if executor is None:
+            return jsonify({"error": "No test execution in progress"}), 404
+        if isinstance(executor, JavaTestExecutor):
+            if execution_id not in executor.test_executions.keys():
+                return jsonify({"error": "Execution ID not found"}), 404
+            else:
+                test_executions = executor.test_executions
+        else:
+            return jsonify({"error": "Unsupported executor type"}), 500
+
+        execution_data = test_executions[execution_id]
+        metrics = execution_data.get("metrics", {})
+
+        # Analyser les métriques de qualité
+        quality_analysis = {
+            "coverage_quality": "poor",  # poor, fair, good, excellent
+            "test_completeness": "insufficient",  # insufficient, minimal, adequate, comprehensive
+            "overall_score": 0.0,  # 0-100
+        }
+
+        # Évaluer la qualité de la couverture
+        line_coverage = metrics.get("line_coverage", 0)
+        branch_coverage = metrics.get("branch_coverage", 0)
+
+        if line_coverage >= 90 and branch_coverage >= 85:
+            quality_analysis["coverage_quality"] = "excellent"
+        elif line_coverage >= 80 and branch_coverage >= 70:
+            quality_analysis["coverage_quality"] = "good"
+        elif line_coverage >= 60 and branch_coverage >= 50:
+            quality_analysis["coverage_quality"] = "fair"
+        else:
+            quality_analysis["coverage_quality"] = "poor"
+
+        # Évaluer la complétude des tests
+        tests_per_endpoint = metrics.get("tests_per_endpoint", 0)
+        endpoints_count = metrics.get("endpoints_count", 0)
+
+        if tests_per_endpoint >= 3:
+            quality_analysis["test_completeness"] = "comprehensive"
+        elif tests_per_endpoint >= 2:
+            quality_analysis["test_completeness"] = "adequate"
+        elif tests_per_endpoint >= 1:
+            quality_analysis["test_completeness"] = "minimal"
+        else:
+            quality_analysis["test_completeness"] = "insufficient"
+
+        # Score global (pondéré)
+        coverage_score = (
+            line_coverage * 0.4
+            + branch_coverage * 0.4
+            + metrics.get("instruction_coverage", 0) * 0.2
+        )
+        test_score = min(
+            100, tests_per_endpoint * 25
+        )  # 25 points par test par endpoint, max 100
+
+        quality_analysis["overall_score"] = coverage_score * 0.7 + test_score * 0.3
+
+        # Recommandations
+        recommendations = []
+
+        if line_coverage < 70:
+            recommendations.append("Augmenter la couverture de lignes (cible: 80%+)")
+        if branch_coverage < 60:
+            recommendations.append(
+                "Améliorer la couverture des branches - tester tous les cas if/else/switch"
+            )
+        if tests_per_endpoint < 2:
+            recommendations.append(
+                "Ajouter plus de tests par endpoint (recommandé: 2-3 tests minimum)"
+            )
+        if endpoints_count > 0 and metrics.get("tests_run", 0) == 0:
+            recommendations.append(
+                "Aucun test détecté - implémenter des tests pour tous les endpoints"
+            )
+
+        if not recommendations:
+            recommendations.append(
+                "Excellente couverture de tests ! Continuer les bonnes pratiques."
+            )
+
+        return jsonify(
+            {
+                "execution_id": execution_id,
+                "metrics": metrics,
+                "quality_analysis": quality_analysis,
+                "recommendations": recommendations,
+                "coverage_summary": {
+                    "line_coverage": f"{line_coverage:.1f}%",
+                    "branch_coverage": f"{branch_coverage:.1f}%",
+                    "instruction_coverage": f"{metrics.get('instruction_coverage', 0):.1f}%",
+                    "tests_per_endpoint": f"{tests_per_endpoint:.1f}",
+                    "total_endpoints": endpoints_count,
+                    "total_tests": metrics.get("tests_run", 0),
+                },
+            }
+        )
+
+    except Exception as e:
+        logger.error(f"Error retrieving detailed metrics: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/db/testcases", methods=["POST"])
+def create_test_case():
+    data = request.json
+
+    # Vérifier si la requête contient des données JSON
+    if not data:
+        logger.warning("Request body is empty")
+        return jsonify({"error": "Request body is required"}), 400
+
+    # Vérifier la présence des champs requis
+    required_fields = ["testType", "sourceCode", "testCase"]
+    missing_fields = [
+        field
+        for field in required_fields
+        if field not in data or data.get(field) is None
+    ]
+
+    if missing_fields:
+        logger.warning(f"Missing required fields: {', '.join(missing_fields)}")
+        return (
+            jsonify({"error": f"Missing required fields: {', '.join(missing_fields)}"}),
+            400,
+        )
+
+    # Validation des types de données
+    if not isinstance(data.get("testType"), str):
+        return jsonify({"error": "testType must be a string"}), 400
+
+    if not isinstance(data.get("sourceCode"), str):
+        return jsonify({"error": "sourceCode must be a string"}), 400
+
+    if not isinstance(data.get("testCase"), str):
+        return jsonify({"error": "testCase must be a string"}), 400
+
+    try:
+        result = test_case_service.create_test_case(
+            test_type=data.get("testType"),
+            source_code=data.get("sourceCode"),
+            test_case=data.get("testCase"),
+        )
+
+        return jsonify(
+            {
+                "id": str(result.id),
+                "testType": result.test_type,
+                "createdAt": result.created_at.isoformat(),
+            }
+        )
+    except Exception as e:
+        logger.error(f"Error creating test case: {str(e)}")
+        return jsonify({"error": f"Failed to create test case: {str(e)}"}), 500
+
+
+@app.route("/db/testcases", methods=["GET"])
+def get_test_cases():
+    try:
+        # Récupération et validation des paramètres de requête
+        test_type = request.args.get("testType")
+        limit = request.args.get("limit")
+        offset = request.args.get("offset")
+
+        # Validation des paramètres numériques
+        if limit:
+            try:
+                limit = int(limit)
+                if limit <= 0:
+                    return jsonify({"error": "limit must be a positive integer"}), 400
+            except ValueError:
+                return jsonify({"error": "limit must be a valid integer"}), 400
+
+        if offset:
+            try:
+                offset = int(offset)
+                if offset < 0:
+                    return (
+                        jsonify({"error": "offset must be a non-negative integer"}),
+                        400,
+                    )
+            except ValueError:
+                return jsonify({"error": "offset must be a valid integer"}), 400
+
+        # Vous pouvez adapter le service pour prendre en compte ces paramètres ou un dict de filtre
+        # Pour le moment, nous utilisons l'appel existant retournant tout les cas de test
+        test_cases = test_case_service.get_test_cases()
+
+        # Filtrer par type de test si spécifié
+        if test_type:
+            test_cases = [tc for tc in test_cases if tc.test_type == test_type]
+
+        # Appliquer pagination si spécifiée
+        if offset and limit:
+            test_cases = test_cases[offset : offset + limit]
+        elif limit:
+            test_cases = test_cases[:limit]
+
+        # Formatage de la réponse
+        return jsonify(
+            [
+                {
+                    "id": str(tc.id),
+                    "testType": tc.test_type,
+                    "sourceCode": tc.source_code,
+                    "testCase": tc.test_case,
+                    "createdAt": tc.created_at.isoformat(),
+                }
+                for tc in test_cases
+            ]
+        )
+    except Exception as e:
+        logger.error(f"Error retrieving test cases: {str(e)}")
+        logger.exception("Full traceback:")
+        return jsonify({"error": f"Failed to retrieve test cases: {str(e)}"}), 500
+
+@app.route("/db/testcases/<id>", methods=["DELETE"])
+def delete_test_case(id):
+    try:
+        success = test_case_service.delete_test_case(id)
+        if success:
+            return jsonify({"message": "Test case deleted"}), 200
+        else:
+            return jsonify({"error": "Test case not found"}), 404
+    except Exception as e:
+        logger.error(f"Error deleting test case: {str(e)}")
+        return jsonify({"error": f"Failed to delete test case: {str(e)}"}), 500
+    
+@app.route("/db/testcases/<id>", methods=["PUT"])
+def update_test_case(id):
+    data = request.json
+
+    # Verify request contains JSON data
+    if not data:
+        logger.warning("Request body is empty")
+        return jsonify({"error": "Request body is required"}), 400
+
+    # Check for fields to update and convert from camelCase to snake_case
+    update_data = {}
+    
+    if "testType" in data:
+        if not isinstance(data["testType"], str):
+            return jsonify({"error": "testType must be a string"}), 400
+        update_data["test_type"] = data["testType"]
+        
+    if "sourceCode" in data:
+        if not isinstance(data["sourceCode"], str):
+            return jsonify({"error": "sourceCode must be a string"}), 400
+        update_data["source_code"] = data["sourceCode"]
+        
+    if "testCase" in data:
+        if not isinstance(data["testCase"], str):
+            return jsonify({"error": "testCase must be a string"}), 400
+        update_data["test_case"] = data["testCase"]
+    
+    if not update_data:
+        return jsonify({"error": "No valid fields to update"}), 400
+
+    try:
+        # Call service method
+        result = test_case_service.update_test_case(id, update_data)
+        
+        if not result:
+            return jsonify({"error": "Test case not found"}), 404
+            
+        return jsonify({
+            "id": str(result.id),
+            "testType": result.test_type,
+            "sourceCode": result.source_code,
+            "testCase": result.test_case,
+            "createdAt": result.created_at.isoformat(),
+            "updatedAt": result.updated_at.isoformat() if hasattr(result, "updated_at") else None
+        })
+    except Exception as e:
+        logger.error(f"Error updating test case: {str(e)}")
+        return jsonify({"error": f"Failed to update test case: {str(e)}"}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

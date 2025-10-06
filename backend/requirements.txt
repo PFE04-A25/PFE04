@@ -37,3 +37,6 @@ lxml==4.9.3
 
 # Subprocess Management
 psutil==5.9.6
+pymongo>=4.15.1
+pytest>=8.4.2
+mongomock>=4.3.0
