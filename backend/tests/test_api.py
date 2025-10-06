@@ -45,8 +45,8 @@ def test_get_test_cases_endpoint(client, cleanup_db):
     data = json.loads(response.data)
     assert isinstance(data, list)
     assert len(data) > 0
-    assert "testType" in data[0]
-    assert data[0]["testType"] == "test_restassured"
+    assert "testType" in data[-1]
+    assert data[-1]["testType"] == "test_restassured"
 
 def test_filter_test_cases_endpoint(client, cleanup_db):
     """Test filtering test cases by test type."""
