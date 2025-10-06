@@ -399,6 +399,55 @@ def delete_test_case(id):
     except Exception as e:
         logger.error(f"Error deleting test case: {str(e)}")
         return jsonify({"error": f"Failed to delete test case: {str(e)}"}), 500
+    
+@app.route("/db/testcases/<id>", methods=["PUT"])
+def update_test_case(id):
+    data = request.json
+
+    # Verify request contains JSON data
+    if not data:
+        logger.warning("Request body is empty")
+        return jsonify({"error": "Request body is required"}), 400
+
+    # Check for fields to update and convert from camelCase to snake_case
+    update_data = {}
+    
+    if "testType" in data:
+        if not isinstance(data["testType"], str):
+            return jsonify({"error": "testType must be a string"}), 400
+        update_data["test_type"] = data["testType"]
+        
+    if "sourceCode" in data:
+        if not isinstance(data["sourceCode"], str):
+            return jsonify({"error": "sourceCode must be a string"}), 400
+        update_data["source_code"] = data["sourceCode"]
+        
+    if "testCase" in data:
+        if not isinstance(data["testCase"], str):
+            return jsonify({"error": "testCase must be a string"}), 400
+        update_data["test_case"] = data["testCase"]
+    
+    if not update_data:
+        return jsonify({"error": "No valid fields to update"}), 400
+
+    try:
+        # Call service method
+        result = test_case_service.update_test_case(id, update_data)
+        
+        if not result:
+            return jsonify({"error": "Test case not found"}), 404
+            
+        return jsonify({
+            "id": str(result.id),
+            "testType": result.test_type,
+            "sourceCode": result.source_code,
+            "testCase": result.test_case,
+            "createdAt": result.created_at.isoformat(),
+            "updatedAt": result.updated_at.isoformat() if hasattr(result, "updated_at") else None
+        })
+    except Exception as e:
+        logger.error(f"Error updating test case: {str(e)}")
+        return jsonify({"error": f"Failed to update test case: {str(e)}"}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

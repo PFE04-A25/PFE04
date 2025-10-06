@@ -9,7 +9,7 @@ def test_db_connection(test_case_service=TestCaseService()):
     test_cases = test_case_service.get_test_cases()
     assert isinstance(test_cases, list)
 
-def test_db_crud(test_case_service=TestCaseService()):
+def test_testcase_crud(test_case_service=TestCaseService()):
     """Test that we can insert data into the database."""
     # Get all test cases before insertion
     before_insert = test_case_service.get_test_cases()
@@ -30,6 +30,16 @@ def test_db_crud(test_case_service=TestCaseService()):
     test_cases = test_case_service.get_test_cases()
     assert len(test_cases) == before_count + 1
     assert test_cases[-1].test_type == "test_db"
+
+    # Update the test case
+    updated = test_case_service.update_test_case(result.id, {"test_type": "test_updated_db"})
+    assert updated is not None
+    assert updated.test_type == "test_updated_db"
+
+    # Verify we can retrieve the updated test case
+    fetched = test_case_service.get_test_case(result.id)
+    assert fetched is not None
+    assert fetched.test_type == "test_updated_db"
 
     test_case_service.repository.delete(result.id)  # Clean up
 

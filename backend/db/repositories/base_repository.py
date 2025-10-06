@@ -44,7 +44,7 @@ class BaseRepository(Generic[T]):
 
     def update(self, id: str, update_dict: Dict) -> Optional[T]:
         """Update document by ID"""
-        update_dict["updated_at"] = datetime.utcnow()
+        update_dict["updated_at"] = datetime.datetime.now()
         result = self.collection.update_one(
             {"_id": ObjectId(id)}, {"$set": update_dict}
         )
