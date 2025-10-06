@@ -16,7 +16,7 @@ Previously, our application directly connected to MongoDB from the frontend usin
 
 ### Repository Design Pattern
 
-We've implemented the Repository Design Pattern, which provides:
+We've implemented the **Repository Design Pattern**, which provides:
 
 - A clean separation between data access logic and business logic
 - Abstraction of the underlying database technology
@@ -31,6 +31,83 @@ db/
 ├── models/          # Data models representing database entities
 ├── repositories/    # Data access layer for CRUD operations
 └── services/        # Business logic layer using repositories
+
+```
+
+```mermaid
+
+classDiagram
+    %% Base Classes
+    class BaseModel {
+        +str collection_name
+        +ObjectId id
+        +datetime created_at
+        +datetime updated_at
+        +__init__(**kwargs)
+        +to_dict() Dict
+    }
+
+    class BaseRepository~T~ {
+        +Type[T] model_class
+        +MongoClient client
+        +Database db
+        +Collection collection
+        +__init__(model_class, mongo_uri)
+        +create(model: T) T
+        +find_by_id(id: str) Optional[T]
+        +find_all(filter_dict: Dict) List[T]
+        +update(id: str, update_dict: Dict) Optional[T]
+        +delete(id: str) bool
+    }
+
+    %% TestCase Classes
+    class TestCase {
+        +str collection_name = "testcases"
+        +str test_type
+        +str source_code
+        +str test_case
+        +__init__(**kwargs)
+    }
+
+    class TestCaseRepository {
+        +__init__(mongo_uri: str)
+        +find_by_test_type(test_type: str) List[TestCase]
+    }
+
+    class TestCaseService {
+        +TestCaseRepository repository
+        +__init__()
+        +create_test_case(test_type, source_code, test_case) TestCase
+        +get_test_cases(filter_dict) List[TestCase]
+        +get_test_case(id) Optional[TestCase]
+        +update_test_case(id, update_data) Optional[TestCase]
+        +delete_test_case(id) bool
+    }
+
+    %% External Interfaces
+    class FlaskAPI {
+        +create_test_case() Response
+        +get_test_cases() Response
+        +update_test_case(id) Response
+        +delete_test_case(id) Response
+    }
+
+    class MongoDB {
+    }
+
+    %% Relationships
+    FlaskAPI ..> TestCaseService : uses
+    BaseModel <|-- TestCase : inherits
+    BaseRepository <|-- TestCaseRepository : inherits
+    
+    TestCaseRepository --> TestCase : uses
+    TestCaseRepository ..> MongoDB : interacts
+    
+    TestCaseService --> TestCaseRepository : contains
+    
+    
+    %% Generic Type Binding
+    BaseRepository ..> BaseModel : T extends
 
 ```
 
