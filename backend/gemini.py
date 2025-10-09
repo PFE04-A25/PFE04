@@ -5,19 +5,21 @@ import re
 from flask import jsonify, Flask, request
 from dotenv import load_dotenv
 
-from logger import setup_logger
+from logger import get_logger
 from config_class import EndpointInfo, ApiAnalysis
-from prompts.rest_prompt import (
-    RestAssuredPrompts,
-)
-from backend.pipelines import (
+
+from pipelines import (
     rest_pipeline,
     unit_pipeline,
 )
 
+class EnhancedTestGenerationError(Exception):
+    """Custom exception for errors during enhanced test generation."""
+    pass
+
 
 # Initialize logger
-logger = setup_logger()
+logger = get_logger()
 
 load_dotenv()
 logger.info("Environment variables loaded.")
@@ -140,11 +142,14 @@ def generate_unit_test():
             raise Exception("API analysis failed")
 
         logger.info(f"API analysis successful")
-        logger.debug(f"API analysis details: {json.dumps(api_info, indent=2)[:500]}")
+        logger.debug(f"API analysis details: {json.dumps(api_info, indent=2)}")
 
         # Étape 2: Générer un test de base
         logger.info("Step 2: Generating basic test")
         basic_test = unit_pipeline.generate_basic_test(llm, api_code, api_info)
+        if basic_test is None:
+            logger.error("Basic test generation failed!")
+            raise Exception("Basic test generation failed")
         logger.info("Basic test generation successful")
         logger.debug("Basic test:\n" + basic_test)
 
@@ -153,8 +158,10 @@ def generate_unit_test():
         # The enhanced test are always empty using basic_test for now
         if not skipping_enhancement:
             logger.info("Step 3: Enhancing test")
-            enhanced_test = unit_pipeline.enhance_test(llm, api_code, basic_test)
-
+            enhanced_test = unit_pipeline.enhance_test(llm, api_code, api_info,basic_test)
+            if enhanced_test is None:
+                logger.error("Enhanced test generation failed!")
+                raise EnhancedTestGenerationError("Enhanced test generation failed")
             logger.info("Enhanced test generation successful")
             logger.debug(
                 "Enhanced test preview: "
@@ -169,7 +176,9 @@ def generate_unit_test():
             return jsonify({"generated_test": enhanced_test})
         else:
             return jsonify({"generated_test": basic_test})
-
+    except EnhancedTestGenerationError as etge:
+        logger.error(f"Enhanced test generation error: {str(etge)}")
+        return jsonify({"generated_test": basic_test})
     except Exception as e:
         logger.error(f"Error occurred while generating unit test pipeline: {str(e)}")
         logger.exception("Full traceback:")

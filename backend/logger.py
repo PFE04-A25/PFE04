@@ -3,6 +3,7 @@ from datetime import datetime
 import sys
 import os
 
+self_logger = None
 
 # Configure logger
 def setup_logger(name: str = "gemini_api"):
@@ -36,4 +37,14 @@ def setup_logger(name: str = "gemini_api"):
     logger.addHandler(console_handler)
     logger.addHandler(file_handler)
 
+    # make self_logger point to this logger
+    global self_logger
+    self_logger = logger
+
     return logger
+
+def get_logger():
+    global self_logger
+    if self_logger is None:
+        self_logger = setup_logger()
+    return self_logger

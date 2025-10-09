@@ -1,7 +1,7 @@
 import re
-from logger import setup_logger
+from logger import get_logger
 
-logger = setup_logger()
+logger = get_logger()
 
 def cleanup_raw_code_output(output: str, language: str = None) -> tuple[bool, str]:
     """

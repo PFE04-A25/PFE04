@@ -1,14 +1,14 @@
 
 import json
 import re
-from logger import setup_logger
+from logger import get_logger
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 from prompts.rest_prompt import (
     RestAssuredPrompts,
 )
 
-logger = setup_logger()
+logger = get_logger()
 
 def analyze_api_code(llm, api_code):
     """
@@ -76,6 +76,8 @@ def generate_basic_test(llm: ChatGoogleGenerativeAI, api_code, api_info):
     response = chain.invoke({"api_code": api_code, "api_info": api_info_str})
     logger.info(
         f"Input tokens: {response.usage_metadata['input_tokens']}, "
+        f"Output tokens: {response.usage_metadata['output_tokens']}, "
+        f"Finish reason: {response.response_metadata['finish_reason']}, "
         f"Max tokens allowed: {llm.max_output_tokens}"
     )
 
@@ -114,6 +116,8 @@ def enhance_test(llm: ChatGoogleGenerativeAI, api_code, basic_test):
     response = chain.invoke({"api_code": api_code, "basic_test": basic_test})
     logger.info(
         f"Input tokens: {response.usage_metadata['input_tokens']}, "
+        f"Output tokens: {response.usage_metadata['output_tokens']}, "
+        f"Finish reason: {response.response_metadata['finish_reason']}, "
         f"Max tokens allowed: {llm.max_output_tokens}"
     )
 

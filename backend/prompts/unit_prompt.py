@@ -30,11 +30,11 @@ class UnitPrompts:
 
         ## Output format:
         **RESPOND ONLY WITH A SINGLE, VALID CODE JSON OBJECT** DO NOT use markdown code fences (```json) around the object. Adhere to the following structure. Do not include any introductory or concluding text
-        {
+        {{
             "language": "Python",
             "dependencies_to_mock": [ "...", "..." ],
             "methods": [
-                {
+                {{
                 "name": "method_name",
                 "signature": "full_method_signature",
                 "return_type": "...",
@@ -42,10 +42,10 @@ class UnitPrompts:
                 "expected_exceptions": [ "..." ],
                 "suggested_test_categories": [ "Happy Path", "Null Input", "division by zero","Boundary Condition X" ],
                 "extracted_docs": "..."
-                }
+                }}
                 // ... other methods
             ]
-        }
+        }}
 
         ## Provided Input:
         - Source Code (in Python):
