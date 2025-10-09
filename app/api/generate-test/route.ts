@@ -11,9 +11,25 @@ export async function POST(req: Request) {
         { status: 400 },
       );
     }
+    // Get the test type from the request body
+    const testType = body.testType;
+    console.log(`Generating ${testType} tests`);
 
     const baseUrl = process.env.BACKEND_BASE_URL || "http://localhost:5000";
-    const apiUrl = `${baseUrl}/rest-assured-test/gemini`;
+    // Choose the API endpoint based on the test type
+    let apiUrl;
+    switch (testType) {
+      case "unit":
+        apiUrl = `${baseUrl}/unit-test/gemini`;
+        break;
+      case "restassured":
+        apiUrl = `${baseUrl}/rest-assured-test/gemini`;
+        break;
+      default:
+        apiUrl = `${baseUrl}/rest-assured-test/gemini`;
+        break;
+    }
+    
     console.log(`Making request to: ${apiUrl}`);
 
 
