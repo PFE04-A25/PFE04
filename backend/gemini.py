@@ -13,8 +13,10 @@ from pipelines import (
     unit_pipeline,
 )
 
+
 class EnhancedTestGenerationError(Exception):
     """Custom exception for errors during enhanced test generation."""
+
     pass
 
 
@@ -27,7 +29,8 @@ logger.info("Environment variables loaded.")
 app = Flask(__name__)  # Create Flask application instance
 logger.info("Flask app initialized.")
 
-def validate_request_data(data)->bool:
+
+def validate_request_data(data) -> bool:
     """
     Validate the incoming request data.
     Requirements:
@@ -45,8 +48,9 @@ def validate_request_data(data)->bool:
     except Exception as e:
         logger.error(f"Error validating request data: {str(e)}")
         return False
-    
-def get_gemini_key()->str:
+
+
+def get_gemini_key() -> str:
     """
     Retrieve the Gemini API key from environment variables.
 
@@ -60,7 +64,7 @@ def get_gemini_key()->str:
     return api_key
 
 
-def setup_llm(api_key:str=None)-> ChatGoogleGenerativeAI:
+def setup_llm(api_key: str = None) -> ChatGoogleGenerativeAI:
     """
     Configure et retourne l'instance du modèle LLM.
 
@@ -110,7 +114,7 @@ def generate_unit_test():
     """
 
     logger.info("Unit test endpoint /unit-test/gemini called")
-    
+
     data = request.get_json()
     logger.debug(f"Request received with content type: {request.content_type}")
 
@@ -127,7 +131,7 @@ def generate_unit_test():
             jsonify({"error": "Missing GEMINI_API_KEY in environment variables"}),
             400,
         )
-    
+
     try:
         # Initialiser le modèle de langage
         logger.info("Setting up LLM...")
@@ -158,7 +162,9 @@ def generate_unit_test():
         # The enhanced test are always empty using basic_test for now
         if not skipping_enhancement:
             logger.info("Step 3: Enhancing test")
-            enhanced_test = unit_pipeline.enhance_test(llm, api_code, api_info,basic_test)
+            enhanced_test = unit_pipeline.enhance_test(
+                llm, api_code, api_info, basic_test
+            )
             if enhanced_test is None:
                 logger.error("Enhanced test generation failed!")
                 raise EnhancedTestGenerationError("Enhanced test generation failed")

@@ -85,7 +85,7 @@ def generate_basic_test(
             f"Finish reason: {response.response_metadata['finish_reason']}, "
             f"Max tokens allowed: {llm.max_output_tokens}"
         )
-    
+
         contains_code_marker, cleaned_raw_code = cleanup_raw_code_output(
             response.content, language=language
         )

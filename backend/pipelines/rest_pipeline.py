@@ -1,4 +1,3 @@
-
 import json
 import re
 from logger import get_logger
@@ -9,6 +8,7 @@ from prompts.rest_prompt import (
 )
 
 logger = get_logger()
+
 
 def analyze_api_code(llm, api_code):
     """

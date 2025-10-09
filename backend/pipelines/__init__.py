@@ -3,6 +3,7 @@ from logger import get_logger
 
 logger = get_logger()
 
+
 def cleanup_raw_code_output(output: str, language: str = None) -> tuple[bool, str]:
     """
     This function checks if the output from an LLM is raw code or contains
@@ -21,7 +22,7 @@ def cleanup_raw_code_output(output: str, language: str = None) -> tuple[bool, st
     """
     # Check for code block markers
     contains_code_markers = "```" in output
-    
+
     # Clean the output if needed
     if contains_code_markers:
         logger.debug("Code block markers detected, cleaning output.")
@@ -29,24 +30,26 @@ def cleanup_raw_code_output(output: str, language: str = None) -> tuple[bool, st
         if language is not None and language.strip() != "":
             language = language.strip().lower()
             # Handle both newline and space after language spec
-            code_pattern = re.compile(r'```(?:{})?[\s\n](.*?)```'.format(language), re.DOTALL)
+            code_pattern = re.compile(
+                r"```(?:{})?[\s\n](.*?)```".format(language), re.DOTALL
+            )
             matches = code_pattern.findall(output)
             if matches:
                 cleaned_output = matches[0]
             else:
                 # Remove language tags first
-                cleaned_output = re.sub(r'```{}[\s\n]?'.format(language), '', output)
+                cleaned_output = re.sub(r"```{}[\s\n]?".format(language), "", output)
                 # Then remove any remaining backticks
                 cleaned_output = cleaned_output.replace("```", "")
         else:
             # Try to extract from any language code block
-            code_pattern = re.compile(r'```(?:[a-zA-Z]*)?[\s\n](.*?)```', re.DOTALL)
+            code_pattern = re.compile(r"```(?:[a-zA-Z]*)?[\s\n](.*?)```", re.DOTALL)
             matches = code_pattern.findall(output)
             if matches:
                 cleaned_output = matches[0]
             else:
                 # Remove any language tags first
-                cleaned_output = re.sub(r'```[a-zA-Z]*[\s\n]?', '', output)
+                cleaned_output = re.sub(r"```[a-zA-Z]*[\s\n]?", "", output)
                 # Then remove any remaining backticks
                 cleaned_output = cleaned_output.replace("```", "")
     else:
