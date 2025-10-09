@@ -28,10 +28,16 @@ def analyze_code(llm, api_code)-> dict:
         api_analysis_prompt = UnitPrompts.get_code_analysis_prompt().prompt
         chain = api_analysis_prompt | llm
         logger.info("Prompt chain created.")
-        response = chain.invoke({"api_code": api_code})
+        response = chain.invoke({"source_code": api_code})
         # Extraire le JSON de la réponse (peut être encapsulé dans des blocs de code)
         contains_code_marker,json_str = cleanup_raw_code_output(response.content, language="json")[1]
 
+        if contains_code_marker:
+            logger.warning("Response contained code block markers that were removed.")
+        if json_str.strip() == "":
+            logger.error("Extracted JSON string is empty.")
+            return None
+        
         # Nettoyer et parser le JSON
         api_info = json.loads(json_str)
         logger.info(
@@ -66,7 +72,7 @@ def generate_basic_test(llm: ChatGoogleGenerativeAI, api_code, api_info, languag
         basic_test_prompt = UnitPrompts.get_basic_test_prompt().prompt
         chain = basic_test_prompt | llm
         logger.debug("Prompt chain for basic test created.")
-        response = chain.invoke({"api_code": api_code, "api_info": api_info_str})
+        response = chain.invoke({"raw_source_code": api_code, "analysis_json": api_info_str})
         logger.info(
             f"Input tokens: {response.usage_metadata['input_tokens']}, "
             f"Max tokens allowed: {llm.max_output_tokens}"
@@ -82,3 +88,43 @@ def generate_basic_test(llm: ChatGoogleGenerativeAI, api_code, api_info, languag
         logger.error(f"Erreur lors de la génération du test: {str(e)}")
         logger.exception("Full traceback:")
         return None
+
+
+
+def enhance_test(llm: ChatGoogleGenerativeAI, api_code, api_info, basic_test):
+    """
+    Améliore le test de base avec des scénarios avancés et des techniques sophistiquées.
+
+    Arguments:
+        llm: Instance du modèle de langage
+        api_code: Code Java de l'API
+        basic_test: Code du test de base généré précédemment
+
+    Retourne:
+        Code Java du test RestAssured amélioré
+    """
+    logger.info("Enhancing test with advanced scenarios")
+
+    # Générer le test amélioré
+    advanced_test_prompt = UnitPrompts.get_advanced_test_prompt().prompt
+    chain = advanced_test_prompt | llm
+    logger.debug("Invoking LLM for test enhancement")
+    response = chain.invoke({"raw_source_code": api_code, "analysis_json": api_info, "basic_unit_tests": basic_test})
+    logger.info(
+        f"Input tokens: {response.usage_metadata['input_tokens']}, "
+        f"Max tokens allowed: {llm.max_output_tokens}"
+    )
+
+    contains_code_marker, cleaned_raw_code = cleanup_raw_code_output(response.content, language="python")
+    is_empty = cleaned_raw_code.strip() == ""
+
+    if contains_code_marker:
+        logger.warning(
+            "code block found in enhanced test response, returning Cleaned raw content"
+        )
+
+    if is_empty:
+        logger.error("Cleaned code output is empty.")
+        return None
+
+    return cleaned_raw_code

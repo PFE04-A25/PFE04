@@ -134,7 +134,7 @@ def generate_unit_test():
 
         # Étape 1: Analyser l'API
         logger.info("Step 1: Analyzing API code")
-        api_info = None
+        api_info = unit_pipeline.analyze_code(llm, api_code)
         if not api_info:
             logger.error("API analysis failed!")
             raise Exception("API analysis failed")
@@ -144,7 +144,7 @@ def generate_unit_test():
 
         # Étape 2: Générer un test de base
         logger.info("Step 2: Generating basic test")
-        basic_test = None
+        basic_test = unit_pipeline.generate_basic_test(llm, api_code, api_info)
         logger.info("Basic test generation successful")
         logger.debug("Basic test:\n" + basic_test)
 
@@ -153,7 +153,7 @@ def generate_unit_test():
         # The enhanced test are always empty using basic_test for now
         if not skipping_enhancement:
             logger.info("Step 3: Enhancing test")
-            enhanced_test = None
+            enhanced_test = unit_pipeline.enhance_test(llm, api_code, basic_test)
 
             logger.info("Enhanced test generation successful")
             logger.debug(
