@@ -49,7 +49,7 @@ class UnitPrompts:
 
         ## Provided Input:
         - Source Code (in Python):
-        ```
+        ```python
         {source_code}
         ```
         """
@@ -88,7 +88,7 @@ class UnitPrompts:
         
         ## Provided Inputs:
         - Raw Source Code (in Python):
-        ```
+        ```python
         {raw_source_code}
         ```
         - Analysis JSON:
