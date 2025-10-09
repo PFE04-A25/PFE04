@@ -9,5 +9,4 @@ class TestGenerationRepository(BaseRepository[TestGeneration]):
     """
 
     def __init__(self, mongo_uri: str = None):
-        # Initialise la collection 'test_generations'
         super().__init__(TestGeneration, mongo_uri)
