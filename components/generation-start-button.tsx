@@ -8,6 +8,7 @@ interface StartButtonProps {
   className?: string;
   isLoading?: boolean;
   icon?: React.ReactNode;
+  disabled?: boolean;
 }
 export function StartButton({
   action,
@@ -15,12 +16,13 @@ export function StartButton({
   className,
   isLoading,
   icon,
+  disabled,
 }: StartButtonProps) {
   return (
     <Button
       className={cn(`group`, className)}
       onClick={action}
-      disabled={isLoading}
+      disabled={isLoading || disabled}
     >
       {icon}
       {buttonText}
