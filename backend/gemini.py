@@ -79,9 +79,10 @@ def wrap_user_code_in_controller(user_code):
     # Vérifier si c'est une ou plusieurs méthodes (contient @GetMapping, @PostMapping, etc.)
     if any(annotation in user_code for annotation in ['@GetMapping', '@PostMapping', '@PutMapping', '@DeleteMapping', '@RequestMapping']):
         # C'est une ou plusieurs méthodes - les encapsuler dans un contrôleur
+        # Utiliser une classe package-private (pas public) pour éviter les erreurs de compilation
         controller_code = f"""
 @RestController
-public class ApiController {{
+class ApiController {{
     {user_code}
 }}"""
         return controller_code
@@ -363,8 +364,12 @@ def run_java_tests_async(execution_id, test_code, api_code=""):
         with tempfile.TemporaryDirectory() as temp_dir:
             # Extraire le nom de la classe publique du code généré
             import re
-            class_match = re.search(r'public\s+class\s+(\w+)', test_code)
+            class_match = re.search(r'class\s+(\w+)', test_code)
             class_name = class_match.group(1) if class_match else "GeneratedTest"
+            
+            # S'assurer que le nom de la classe se termine par "Test" pour Maven
+            if not class_name.endswith('Test'):
+                class_name = class_name + 'Test'
             
             # Écrire le code de test dans un fichier avec le bon nom
             test_file = os.path.join(temp_dir, f"{class_name}.java")
@@ -444,6 +449,9 @@ def run_java_tests_async(execution_id, test_code, api_code=""):
                         <include>**/*Test.java</include>
                         <include>**/*Tests.java</include>
                     </includes>
+                    <systemPropertyVariables>
+                        <java.awt.headless>true</java.awt.headless>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
@@ -515,7 +523,7 @@ class HelloController {
             # Exécuter les tests avec Maven (chemin complet pour éviter les problèmes de PATH)
             mvn_path = r'C:\Users\samsd\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\maven\latest\bin\mvn.cmd'
             result = subprocess.run(
-                [mvn_path, 'test', '-q'],
+                [mvn_path, 'test', '-X'],  # Mode debug pour voir pourquoi les tests ne sont pas détectés
                 cwd=temp_dir,
                 capture_output=True,
                 text=True,
