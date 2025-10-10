@@ -426,6 +426,14 @@ def run_java_tests_async(execution_id, test_code, api_code=""):
             <scope>test</scope>
         </dependency>
         
+        <!-- JaCoCo for code coverage -->
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.10</version>
+            <scope>test</scope>
+        </dependency>
+        
         <!-- Exclude conflicting logging -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -452,7 +460,70 @@ def run_java_tests_async(execution_id, test_code, api_code=""):
                     <systemPropertyVariables>
                         <java.awt.headless>true</java.awt.headless>
                     </systemPropertyVariables>
+                    <!-- Arguments JVM pour JaCoCo -->
+                    <argLine>${jacoco.agent.argLine}</argLine>
                 </configuration>
+            </plugin>
+            
+            <!-- Plugin JaCoCo pour la couverture de code -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+                <executions>
+                    <!-- Préparer l'agent JaCoCo -->
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <propertyName>jacoco.agent.argLine</propertyName>
+                        </configuration>
+                    </execution>
+                    
+                    <!-- Générer le rapport de couverture -->
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <formats>
+                                <format>XML</format>
+                                <format>HTML</format>
+                            </formats>
+                        </configuration>
+                    </execution>
+                    
+                    <!-- Vérifier les seuils de couverture -->
+                    <execution>
+                        <id>check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.50</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.50</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -520,10 +591,10 @@ class HelloController {
             import shutil
             shutil.move(test_file, os.path.join(src_test_java, f"{class_name}.java"))
             
-            # Exécuter les tests avec Maven (chemin complet pour éviter les problèmes de PATH)
+            # Exécuter les tests avec Maven + JaCoCo pour la couverture
             mvn_path = r'C:\Users\samsd\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\maven\latest\bin\mvn.cmd'
             result = subprocess.run(
-                [mvn_path, 'test', '-X'],  # Mode debug pour voir pourquoi les tests ne sont pas détectés
+                [mvn_path, 'clean', 'test', 'jacoco:report'],  # Inclure JaCoCo
                 cwd=temp_dir,
                 capture_output=True,
                 text=True,
@@ -538,6 +609,22 @@ class HelloController {
             
             # Extraire les métriques des logs Maven
             metrics = parse_maven_test_results(output)
+            
+            # Ajouter les métriques de couverture JaCoCo
+            coverage_metrics = parse_jacoco_coverage_report(temp_dir)
+            metrics.update(coverage_metrics)
+            
+            # Compter les endpoints dans le code API
+            endpoints_count = count_endpoints_in_api(api_code)
+            metrics['endpoints_count'] = endpoints_count
+            
+            # Calculer le ratio tests/endpoints
+            if endpoints_count > 0:
+                metrics['tests_per_endpoint'] = metrics['tests_run'] / endpoints_count
+            else:
+                metrics['tests_per_endpoint'] = 0.0
+            
+            # Métriques d'exécution
             metrics['execution_time'] = execution_time
             metrics['return_code'] = result.returncode
             
@@ -566,6 +653,90 @@ class HelloController {
         logger.error(f"Test execution {execution_id} failed: {str(e)}")
 
 
+def count_endpoints_in_api(api_code):
+    """
+    Analyse le code API pour compter le nombre d'endpoints définis
+    """
+    if not api_code:
+        return 0
+    
+    # Patterns pour détecter les annotations Spring Web
+    endpoint_patterns = [
+        r'@GetMapping',
+        r'@PostMapping', 
+        r'@PutMapping',
+        r'@DeleteMapping',
+        r'@PatchMapping',
+        r'@RequestMapping'
+    ]
+    
+    endpoint_count = 0
+    for pattern in endpoint_patterns:
+        matches = re.findall(pattern, api_code, re.IGNORECASE)
+        endpoint_count += len(matches)
+    
+    return endpoint_count
+
+
+def parse_jacoco_coverage_report(temp_dir):
+    """
+    Parse le rapport de couverture JaCoCo pour extraire les métriques
+    """
+    coverage_metrics = {
+        'line_coverage': 0.0,
+        'instruction_coverage': 0.0,
+        'branch_coverage': 0.0,
+        'lines_covered': 0,
+        'lines_total': 0,
+        'branches_covered': 0,
+        'branches_total': 0,
+        'instructions_covered': 0,
+        'instructions_total': 0
+    }
+    
+    try:
+        # Chemin vers le rapport XML JaCoCo
+        jacoco_xml_path = os.path.join(temp_dir, 'target', 'site', 'jacoco', 'jacoco.xml')
+        
+        if os.path.exists(jacoco_xml_path):
+            import xml.etree.ElementTree as ET
+            
+            tree = ET.parse(jacoco_xml_path)
+            root = tree.getroot()
+            
+            # Parcourir les counters dans le rapport
+            for counter in root.findall('.//counter'):
+                counter_type = counter.get('type')
+                covered = int(counter.get('covered', 0))
+                missed = int(counter.get('missed', 0))
+                total = covered + missed
+                
+                if counter_type == 'LINE':
+                    coverage_metrics['lines_covered'] = covered
+                    coverage_metrics['lines_total'] = total
+                    coverage_metrics['line_coverage'] = (covered / total * 100) if total > 0 else 0.0
+                    
+                elif counter_type == 'BRANCH':
+                    coverage_metrics['branches_covered'] = covered
+                    coverage_metrics['branches_total'] = total
+                    coverage_metrics['branch_coverage'] = (covered / total * 100) if total > 0 else 0.0
+                    
+                elif counter_type == 'INSTRUCTION':
+                    coverage_metrics['instructions_covered'] = covered
+                    coverage_metrics['instructions_total'] = total
+                    coverage_metrics['instruction_coverage'] = (covered / total * 100) if total > 0 else 0.0
+            
+            logger.info(f"Coverage report parsed successfully: Line={coverage_metrics['line_coverage']:.1f}%, Branch={coverage_metrics['branch_coverage']:.1f}%")
+        
+        else:
+            logger.warning(f"JaCoCo report not found at {jacoco_xml_path}")
+    
+    except Exception as e:
+        logger.error(f"Error parsing JaCoCo coverage report: {str(e)}")
+    
+    return coverage_metrics
+
+
 def parse_maven_test_results(output):
     """Parse Maven test output to extract metrics"""
     metrics = {
@@ -574,7 +745,19 @@ def parse_maven_test_results(output):
         'errors': 0,
         'skipped': 0,
         'success_rate': 0.0,
-        'build_success': False
+        'build_success': False,
+        # Nouvelles métriques de couverture
+        'line_coverage': 0.0,
+        'instruction_coverage': 0.0,
+        'branch_coverage': 0.0,
+        'lines_covered': 0,
+        'lines_total': 0,
+        'branches_covered': 0,
+        'branches_total': 0,
+        'instructions_covered': 0,
+        'instructions_total': 0,
+        'endpoints_count': 0,
+        'tests_per_endpoint': 0.0
     }
     
     try:
@@ -600,6 +783,38 @@ def parse_maven_test_results(output):
         
         # Vérifier si le build a réussi
         metrics['build_success'] = 'BUILD SUCCESS' in output
+        
+        # Extraire les métriques JaCoCo depuis les logs si disponibles
+        try:
+            # Pattern pour JaCoCo dans les logs Maven
+            jacoco_patterns = {
+                'instruction': r'Instructions\s*:\s*(\d+(?:\.\d+)?)%\s*\(\s*(\d+)/(\d+)\s*\)',
+                'branch': r'Branches\s*:\s*(\d+(?:\.\d+)?)%\s*\(\s*(\d+)/(\d+)\s*\)',
+                'line': r'Lines\s*:\s*(\d+(?:\.\d+)?)%\s*\(\s*(\d+)/(\d+)\s*\)'
+            }
+            
+            for coverage_type, pattern in jacoco_patterns.items():
+                match = re.search(pattern, output, re.IGNORECASE)
+                if match:
+                    percentage = float(match.group(1))
+                    covered = int(match.group(2))
+                    total = int(match.group(3))
+                    
+                    if coverage_type == 'instruction':
+                        metrics['instruction_coverage'] = percentage
+                        metrics['instructions_covered'] = covered
+                        metrics['instructions_total'] = total
+                    elif coverage_type == 'branch':
+                        metrics['branch_coverage'] = percentage
+                        metrics['branches_covered'] = covered
+                        metrics['branches_total'] = total
+                    elif coverage_type == 'line':
+                        metrics['line_coverage'] = percentage
+                        metrics['lines_covered'] = covered
+                        metrics['lines_total'] = total
+        
+        except Exception as coverage_error:
+            logger.warning(f"Could not parse JaCoCo metrics from logs: {coverage_error}")
         
         # Extraire les erreurs de compilation si présentes
         if 'COMPILATION ERROR' in output:
@@ -666,6 +881,90 @@ def get_execution_status(execution_id):
         
     except Exception as e:
         logger.error(f"Error retrieving execution status: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/execution-metrics/<execution_id>', methods=['GET'])
+def get_detailed_metrics(execution_id):
+    """Endpoint pour récupérer les métriques détaillées avec analyse de couverture"""
+    try:
+        if execution_id not in test_executions:
+            return jsonify({'error': 'Execution ID not found'}), 404
+        
+        execution_data = test_executions[execution_id]
+        metrics = execution_data.get('metrics', {})
+        
+        # Analyser les métriques de qualité
+        quality_analysis = {
+            'coverage_quality': 'poor',  # poor, fair, good, excellent
+            'test_completeness': 'insufficient',  # insufficient, minimal, adequate, comprehensive
+            'overall_score': 0.0  # 0-100
+        }
+        
+        # Évaluer la qualité de la couverture
+        line_coverage = metrics.get('line_coverage', 0)
+        branch_coverage = metrics.get('branch_coverage', 0)
+        
+        if line_coverage >= 90 and branch_coverage >= 85:
+            quality_analysis['coverage_quality'] = 'excellent'
+        elif line_coverage >= 80 and branch_coverage >= 70:
+            quality_analysis['coverage_quality'] = 'good'
+        elif line_coverage >= 60 and branch_coverage >= 50:
+            quality_analysis['coverage_quality'] = 'fair'
+        else:
+            quality_analysis['coverage_quality'] = 'poor'
+        
+        # Évaluer la complétude des tests
+        tests_per_endpoint = metrics.get('tests_per_endpoint', 0)
+        endpoints_count = metrics.get('endpoints_count', 0)
+        
+        if tests_per_endpoint >= 3:
+            quality_analysis['test_completeness'] = 'comprehensive'
+        elif tests_per_endpoint >= 2:
+            quality_analysis['test_completeness'] = 'adequate'
+        elif tests_per_endpoint >= 1:
+            quality_analysis['test_completeness'] = 'minimal'
+        else:
+            quality_analysis['test_completeness'] = 'insufficient'
+        
+        # Score global (pondéré)
+        coverage_score = (line_coverage * 0.4 + branch_coverage * 0.4 + metrics.get('instruction_coverage', 0) * 0.2)
+        test_score = min(100, tests_per_endpoint * 25)  # 25 points par test par endpoint, max 100
+        
+        quality_analysis['overall_score'] = (coverage_score * 0.7 + test_score * 0.3)
+        
+        # Recommandations
+        recommendations = []
+        
+        if line_coverage < 70:
+            recommendations.append("Augmenter la couverture de lignes (cible: 80%+)")
+        if branch_coverage < 60:
+            recommendations.append("Améliorer la couverture des branches - tester tous les cas if/else/switch")
+        if tests_per_endpoint < 2:
+            recommendations.append("Ajouter plus de tests par endpoint (recommandé: 2-3 tests minimum)")
+        if endpoints_count > 0 and metrics.get('tests_run', 0) == 0:
+            recommendations.append("Aucun test détecté - implémenter des tests pour tous les endpoints")
+        
+        if not recommendations:
+            recommendations.append("Excellente couverture de tests ! Continuer les bonnes pratiques.")
+        
+        return jsonify({
+            'execution_id': execution_id,
+            'metrics': metrics,
+            'quality_analysis': quality_analysis,
+            'recommendations': recommendations,
+            'coverage_summary': {
+                'line_coverage': f"{line_coverage:.1f}%",
+                'branch_coverage': f"{branch_coverage:.1f}%",
+                'instruction_coverage': f"{metrics.get('instruction_coverage', 0):.1f}%",
+                'tests_per_endpoint': f"{tests_per_endpoint:.1f}",
+                'total_endpoints': endpoints_count,
+                'total_tests': metrics.get('tests_run', 0)
+            }
+        })
+        
+    except Exception as e:
+        logger.error(f"Error retrieving detailed metrics: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 

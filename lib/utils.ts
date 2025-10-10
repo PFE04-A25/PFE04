@@ -8,10 +8,9 @@ export function cn(...inputs: ClassValue[]) {
 
 // This default java source code is displayed in the
 // code editor when the main page is loaded
-export const defaultSourceCode = `public class Main {
-  public static void main(String[] args) {
-    System.out.println("Hello World");
-  }
+export const defaultSourceCode = `@GetMapping(value = "/hello", produces = "text/plain")
+public String hello() {
+return "Hello, world!";
 }`;
 
 // This function extracts the java code from the generated test case

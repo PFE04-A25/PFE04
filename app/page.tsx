@@ -3,13 +3,13 @@
 import * as React from "react";
 import { useEffect } from "react";
 
+import { CodePanel } from "@/components/code-panel";
 import { GenerationPanel } from "@/components/generation-panel";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { CodePanel } from "@/components/code-panel";
 import { defaultSourceCode } from "@/lib/utils";
 
 export default function Home() {
@@ -52,7 +52,7 @@ export default function Home() {
             setSelectedTest={setSelectedTest}
             prompt={sourceCode}
             outputCode={outputCode}
-            setOuputCode={setOutputCode}
+            setOutputCode={setOutputCode}
             setIsLoading={setIsLoading}
             isLoading={isLoading}
           />

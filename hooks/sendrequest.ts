@@ -11,7 +11,7 @@ interface SendRequestProps {
   prompt: string;
   outputCode: string;
   setIsLoading: (isLoading: boolean) => void;
-  setOuputCode: (outputCode: string) => void;
+  setOutputCode: (outputCode: string) => void;
 }
 
 export const sendRequest = async ({
@@ -19,7 +19,7 @@ export const sendRequest = async ({
   prompt,
   outputCode,
   setIsLoading,
-  setOuputCode,
+  setOutputCode,
 }: SendRequestProps) => {
   setIsLoading(true);
   const isValidTestType = Object.values(TestType).includes(
@@ -27,7 +27,7 @@ export const sendRequest = async ({
   );
 
   if (outputCode !== "") {
-    setOuputCode("");
+    setOutputCode("");
   }
 
   if (!isValidTestType) {
@@ -75,11 +75,11 @@ export const sendRequest = async ({
   const codeFilter = exctractTestCaseCode(data.generated_test);
   if (codeFilter && codeFilter.length > 0) {
     console.log("Extracted code successfully, length:", codeFilter[0].length);
-    setOuputCode(codeFilter[0]);
+    setOutputCode(codeFilter[0]);
   } else {
     console.error("Failed to extract code from response:", data.generated_test);
     toast.error("Failed to parse response");
-    setOuputCode(data.generated_test); // Fallback to using raw response
+    setOutputCode(data.generated_test); // Fallback to using raw response
   }
   setIsLoading(false);
 };
