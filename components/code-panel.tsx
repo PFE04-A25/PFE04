@@ -10,9 +10,10 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { sendToDB } from "@/hooks/sendToDB";
-import { useTestHistory } from "@/hooks/use-test-history";
+import { useTestHistoryContext } from "@/hooks/use-test-history-context";
 import { copyToClipboard } from "@/lib/utils";
 import { AlertCircle, CheckCircle, ClipboardList, Clock, ExternalLink, History, Play, XCircle } from "lucide-react";
+import { useTestExecutionResultsContext } from "@/hooks/use-test-execution-results-context";
 interface CodePanelProps {
   sourceCode: string;
   setSourceCode: (sourceCode: string) => void;
@@ -31,7 +32,8 @@ export function CodePanel({
   isLoading,
 }: CodePanelProps) {
   const router = useRouter();
-  const { addTestToHistory, updateExecutionResults } = useTestHistory();
+  const { addTestToHistory, updateExecutionResults } = useTestHistoryContext();
+  const { addOrUpdateResult } = useTestExecutionResultsContext();
   const [, setIsLoadingSendToDB] = React.useState<boolean>(false);
   const [currentTestHistoryId, setCurrentTestHistoryId] = React.useState<string | null>(null);
   
@@ -70,6 +72,22 @@ export function CodePanel({
                   ...data,
                   detailed_metrics: detailedData
                 }));
+                // Sauvegarder dans le Context des résultats
+                addOrUpdateResult({
+                  execution_id: executionId!,
+                  timestamp: new Date().toISOString(),
+                  status: data.status,
+                  logs: data.logs || '',
+                  metrics: detailedData.metrics || data.metrics,
+                  quality_analysis: detailedData.quality_analysis,
+                  recommendations: detailedData.recommendations,
+                  coverage_summary: detailedData.coverage_summary,
+                  start_time: data.start_time || new Date().toISOString(),
+                  end_time: data.end_time || new Date().toISOString(),
+                  source_code: sourceCode,
+                  generated_test: outputCode,
+                  test_type: selectedTest
+                });
               }
             } catch (detailedError) {
               console.log('Métriques détaillées non disponibles:', detailedError);

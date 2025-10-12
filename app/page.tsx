@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useEffect } from "react";
-
 import { CodePanel } from "@/components/code-panel";
 import { GenerationPanel } from "@/components/generation-panel";
 import {
@@ -10,13 +9,19 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { defaultSourceCode } from "@/lib/utils";
+import { useAppContext } from "@/context/AppContext";
 
 export default function Home() {
-  const [sourceCode, setSourceCode] = React.useState<string>(defaultSourceCode);
-  const [outputCode, setOutputCode] = React.useState<string>("");
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [selectedTest, setSelectedTest] = React.useState("restassured");
+  // ← CHANGEMENT : Utiliser le Context au lieu du state local
+  const {
+    state,
+    setSourceCode,
+    setOutputCode,
+    setSelectedTest,
+    setIsGenerating
+  } = useAppContext();
+
+  const { sourceCode, outputCode, selectedTest, isGenerating } = state;
 
   // debugging to track state changes
   useEffect(() => {
@@ -28,6 +33,7 @@ export default function Home() {
     console.log("Setting output code:", code ? `${code.substring(0, 50)}...` : "empty");
     setOutputCode(code);
   };
+
   return (
     <ResizablePanelGroup
       direction="horizontal"
@@ -41,7 +47,7 @@ export default function Home() {
           setSourceCode={setSourceCode}
           outputCode={outputCode}
           setOutputCode={setOutputCode}
-          isLoading={isLoading}
+          isLoading={isGenerating}
         />
       </ResizablePanel>
       <ResizableHandle withHandle />
@@ -53,8 +59,8 @@ export default function Home() {
             prompt={sourceCode}
             outputCode={outputCode}
             setOutputCode={setOutputCode}
-            setIsLoading={setIsLoading}
-            isLoading={isLoading}
+            setIsLoading={setIsGenerating}
+            isLoading={isGenerating}
           />
         </div>
       </ResizablePanel>

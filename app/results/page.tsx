@@ -5,7 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { TestExecutionResult, useTestExecutionResults } from '@/hooks/use-test-execution-results';
+import { TestExecutionResult } from '@/context/AppContext';
+import { useTestExecutionResultsContext } from '@/hooks/use-test-execution-results-context';
 import { AlertCircle, ArrowLeft, BarChart3, CheckCircle, Clock, Eye, RefreshCw, Search, Trash2, XCircle } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -24,7 +25,7 @@ export default function TestResultsPage() {
     clearAllResults,
     getGlobalStats,
     searchResults
-  } = useTestExecutionResults();
+  } = useTestExecutionResultsContext();
 
   const [selectedResult, setSelectedResult] = useState<TestExecutionResult | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -185,7 +186,7 @@ export default function TestResultsPage() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => handleDeleteResult(selectedResult.execution_id)}
+                onClick={() => selectedResult && handleDeleteResult(selectedResult.execution_id)}
                 className="flex items-center space-x-2 text-red-600 hover:text-red-700"
               >
                 <Trash2 className="w-4 h-4" />
@@ -204,8 +205,7 @@ export default function TestResultsPage() {
               </CardContent>
             </Card>
           )}
-
-          <TestResultsDisplay testResults={selectedResult} />
+          <TestResultsDisplay testResults={selectedResult as any} />
         </div>
       </div>
     );

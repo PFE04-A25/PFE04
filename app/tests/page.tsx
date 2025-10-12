@@ -1,60 +1,52 @@
 "use client";
 
-import { useTestExecutionResults } from '@/hooks/use-test-execution-results';
+import { useTestExecutionResultsContext } from '@/hooks/use-test-execution-results-context';
+import { useAppContext } from '@/context/AppContext'; // ← AJOUT
 import { Calendar, Code, Copy, Eye, Play, Search, TestTube, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-interface TestHistoryItem {
-  id: string;
-  timestamp: string;
-  sourceCode: string;
-  generatedTest: string;
-  testType: string;
-  description?: string;
-  executionResults?: {
-    execution_id: string;
-    status: string;
-    success_rate?: number;
-    tests_run?: number;
-  };
-}
-
 export default function TestsPage() {
   const router = useRouter();
-  const [testHistory, setTestHistory] = useState<TestHistoryItem[]>([]);
+
+  // ← CHANGEMENT : Utiliser le Context
+  const { state, deleteTestFromHistory } = useAppContext();
+  const { testHistory } = state;
+
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTestType, setSelectedTestType] = useState('all');
-  
-  const { fetchAndSaveResult } = useTestExecutionResults();
-  
-  // Charger l'historique depuis localStorage
+
+ const { fetchAndSaveResult } = useTestExecutionResultsContext();
+
+  // Charger l'historique depuis localStorage au montage (migration)
   useEffect(() => {
     const savedHistory = localStorage.getItem('test_history');
-    if (savedHistory) {
+    if (savedHistory && testHistory.length === 0) {
       try {
-        setTestHistory(JSON.parse(savedHistory));
+        const parsed = JSON.parse(savedHistory);
+        console.log('Historique trouvé dans localStorage:', parsed.length, 'tests');
       } catch (error) {
         console.error('Erreur lors du chargement:', error);
       }
     }
-  }, []);
+  }, [testHistory.length]);
 
   // Filtrer l'historique
   const filteredHistory = testHistory.filter(item => {
-    const matchesSearch = !searchTerm || 
+    const matchesSearch = !searchTerm ||
       item.sourceCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.generatedTest.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase()));
-    
+
     const matchesType = selectedTestType === 'all' || item.testType === selectedTestType;
-    
+
     return matchesSearch && matchesType;
   });
 
   const handleDeleteItem = (id: string) => {
+    deleteTestFromHistory(id);
+    // Garder localStorage synchronisé pour l'instant
     const updatedHistory = testHistory.filter(item => item.id !== id);
-    setTestHistory(updatedHistory);
     localStorage.setItem('test_history', JSON.stringify(updatedHistory));
   };
 
@@ -62,7 +54,7 @@ export default function TestsPage() {
     navigator.clipboard.writeText(code);
   };
 
-  const handleExecuteTest = async (item: TestHistoryItem) => {
+  const handleExecuteTest = async (item: any) => {
     try {
       const response = await fetch('http://127.0.0.1:5000/execute-tests', {
         method: 'POST',
@@ -78,17 +70,14 @@ export default function TestsPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Sauvegarder les informations du test source pour les lier au résultat
         const testInfo = {
           test_history_id: item.id,
           source_code: item.sourceCode,
           generated_test: item.generatedTest,
           test_type: item.testType
         };
-        
-        // Immédiatement sauvegarder le résultat d'exécution avec les infos du test
+
         await fetchAndSaveResult(data.execution_id, testInfo);
-        
         router.push(`/results?execution_id=${data.execution_id}`);
       } else {
         throw new Error(data.error || 'Failed to start test execution');
@@ -237,7 +226,7 @@ export default function TestsPage() {
               {testHistory.length === 0 ? 'Aucun test généré' : 'Aucun résultat trouvé'}
             </h3>
             <p className="text-gray-500 mb-6">
-              {testHistory.length === 0 
+              {testHistory.length === 0
                 ? 'Commencez par générer des tests depuis la page Générateur'
                 : 'Essayez de modifier vos critères de recherche'
               }
@@ -263,7 +252,7 @@ export default function TestsPage() {
                       {item.testType}
                     </span>
                   </div>
-                  
+
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => handleExecuteTest(item)}
@@ -300,8 +289,8 @@ export default function TestsPage() {
                       </div>
                       <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-auto max-h-64">
                         <pre className="text-sm whitespace-pre-wrap font-mono">
-                          {item.sourceCode.length > 500 
-                            ? item.sourceCode.substring(0, 500) + '...' 
+                          {item.sourceCode.length > 500
+                            ? item.sourceCode.substring(0, 500) + '...'
                             : item.sourceCode
                           }
                         </pre>
@@ -324,8 +313,8 @@ export default function TestsPage() {
                       </div>
                       <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-auto max-h-64">
                         <pre className="text-sm whitespace-pre-wrap font-mono">
-                          {item.generatedTest.length > 500 
-                            ? item.generatedTest.substring(0, 500) + '...' 
+                          {item.generatedTest.length > 500
+                            ? item.generatedTest.substring(0, 500) + '...'
                             : item.generatedTest
                           }
                         </pre>
