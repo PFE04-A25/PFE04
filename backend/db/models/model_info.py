@@ -1,4 +1,4 @@
-from backend.db.models.base_model import BaseModel
+from db.models.base_model import BaseModel
 
 
 class ModelInfo(BaseModel):

@@ -1,29 +1,22 @@
-import pytest
-from bson import ObjectId
 from db.repositories.model_repository import ModelRepository
+from db.models.model_info import ModelInfo
 
 def test_model_crud():
     repo = ModelRepository()
-    # Clean collection
     repo.collection.delete_many({})
 
-    # Insert
-    model_data = {"name": "MyModel", "description": "Test model"}
-    inserted_id = repo.insert_one(model_data)
-    assert inserted_id is not None
+    model_data = ModelInfo(name="MyModel", description="Test model")
+    created_model = repo.create(model_data)
+    assert created_model.id is not None
 
-    # Find
-    found = repo.find_by_id(inserted_id)
-    assert found["name"] == "MyModel"
+    found = repo.find_by_id(created_model.id)
+    assert found.name == "MyModel"
 
-    # Update
-    repo.update({"_id": inserted_id}, {"$set": {"name": "Updated"}})
-    updated = repo.find_by_id(inserted_id)
-    assert updated["name"] == "Updated"
+    repo.update(created_model.id, {"name": "Updated"})
+    updated = repo.find_by_id(created_model.id)
+    assert updated.name == "Updated"
 
-    # Delete
-    deleted_count = repo.delete({"_id": inserted_id})
-    assert deleted_count == 1
+    deleted = repo.delete(created_model.id)
+    assert deleted is True
 
-    # Confirm deletion
-    assert repo.find_by_id(inserted_id) is None
+    assert repo.find_by_id(created_model.id) is None
