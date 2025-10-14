@@ -16,24 +16,31 @@ export const sendToDB = async ({
 }: sendToDbProps) => {
   setIsLoading(true);
 
-  const promise = () =>
-    new Promise(async (resolve) =>
-      resolve(
-        await createTestCase({
-          testType,
-          sourceCode: prompt,
-          testCase: testCaseGenerated,
-        })
-      )
-    );
+  try{
+    const promise = () =>
+      new Promise(async (resolve, reject) => {
+        try {
+          const result = await createTestCase({
+            testType,
+            sourceCode: prompt,
+            testCase: testCaseGenerated,
+          });
+          resolve(result);
+        } catch (error) {
+          reject(error);
+        }
+      });
 
-  toast.promise(promise, {
-    loading: "Loading...",
-    success: () => {
-      return `Test case saved to database`;
-    },
-    error: "Failed to save test case to database",
-  });
-
-  setIsLoading(false);
+    await toast.promise(promise, {
+      loading: "Saving to database...",
+      success: () => {
+        return `Test case saved successfully`;
+      },
+      error: (err) => `Failed to save: ${err.message}`,
+    });
+  } catch (error) {
+    console.error("Error in sendToDB:", error);
+  } finally {
+    setIsLoading(false);
+  }
 };
