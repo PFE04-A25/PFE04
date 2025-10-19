@@ -34,7 +34,7 @@ class RestAssuredPrompts:
     @staticmethod
     def get_basic_test_prompt() -> BasePrompt:
         """Prompt for generating basic RestAssured tests"""
-        template = """En tant qu'ingénieur de test API expérimenté, génère un test RestAssured complet pour l'API Spring Boot suivante. Le test doit suivre les meilleures pratiques et inclure toutes les validations nécessaires.
+        template = """En tant qu'ingénieur de test API expérimenté, génère un test RestAssured complet pour l'API Spring Boot suivante, en inclure toutes les validations nécessaires.
 
         Informations API:
         {api_info}
@@ -44,7 +44,7 @@ class RestAssuredPrompts:
         {api_code}
         ```
 
-        Génère uniquement le code Java du test, sans explications supplémentaires. Le test doit:
+        Génère *UNIQUEMENT* le code Java du test, *NE PRODUIT AUCUNE* explication,introduction, conclusion, note ou commentaire avant out après le code. Le test doit:
         1. Inclure toutes les importations nécessaires
         2. Utiliser @SpringBootTest avec RANDOM_PORT
         3. Configurer RestAssured correctement
@@ -52,6 +52,7 @@ class RestAssuredPrompts:
         5. Inclure des tests positifs et négatifs
         6. Utiliser @DisplayName et @Nested pour une meilleure organisation
         7. Inclure des assertions sur le code de statut, les headers et le corps de la réponse"""
+    
 
         return BasePrompt(
             template=template,
