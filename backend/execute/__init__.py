@@ -5,10 +5,8 @@ import time
 import tempfile
 import subprocess
 import os
-import platform
-import shutil
 
-import execute.spring_boot
+import execute.spring_boot as spring_boot
 import execute.maven as maven
 
 import code_manipulation.java as java_utils
@@ -25,75 +23,6 @@ class JavaTestExecutor:
             raise ValueError("api_code cannot be None")
         self.test_code = test_code
         self.api_code = api_code
-        
-    def __get_maven_path(self,):
-        """
-        Détecte automatiquement le chemin vers Maven sur le système.
-        
-        Retourne:
-            str: Le chemin vers l'exécutable Maven
-            
-        Lève:
-            RuntimeError: Si Maven n'est pas trouvé
-        """
-        # Vérifier d'abord si un chemin personnalisé est défini dans .env
-        custom_maven_path = os.environ.get("MAVEN_PATH")
-        if custom_maven_path:
-            if os.path.isfile(custom_maven_path) and os.access(custom_maven_path, os.X_OK):
-                self.logger.info(f"Maven personnalisé trouvé: {custom_maven_path}")
-                return custom_maven_path
-            else:
-                self.logger.warning(f"Chemin Maven personnalisé invalide: {custom_maven_path}")
-
-        # Liste des emplacements possibles pour Maven
-        possible_paths = []
-        
-        if platform.system() == "Windows":
-            # Chemins Windows
-            user_home = os.path.expanduser("~")
-            possible_paths.extend([
-                # Maven dans VS Code Extension
-                os.path.join(user_home, "AppData", "Roaming", "Code", "User", "globalStorage", "pleiades.java-extension-pack-jdk", "maven", "latest", "bin", "mvn.cmd"),
-                # Maven installation standard Windows
-                "C:\\Program Files\\Apache\\maven\\bin\\mvn.cmd",
-                "C:\\Program Files (x86)\\Apache\\maven\\bin\\mvn.cmd",
-                # Maven dans le PATH
-                "mvn.cmd",
-                "mvn"
-            ])
-        else:
-            # Chemins Unix/Linux/macOS
-            possible_paths.extend([
-                "/usr/bin/mvn",
-                "/usr/local/bin/mvn",
-                "/opt/maven/bin/mvn",
-                "mvn"  # Maven dans le PATH
-            ])
-        
-        # Vérifier chaque chemin possible
-        for path in possible_paths:
-            try:
-                if os.path.isfile(path) and os.access(path, os.X_OK):
-                    self.logger.info(f"Maven trouvé à: {path}")
-                    return path
-                elif shutil.which(path):  # Vérifie dans le PATH
-                    maven_path = shutil.which(path)
-                    self.logger.info(f"Maven trouvé dans le PATH: {maven_path}")
-                    return maven_path
-            except Exception:
-                continue
-        
-        # Si aucun Maven n'est trouvé, lever une erreur avec des instructions
-        error_msg = (
-            "Maven n'a pas été trouvé sur ce système. Veuillez installer Maven ou l'ajouter au PATH.\n"
-            "Installation:\n"
-            "- Windows: Téléchargez depuis https://maven.apache.org/download.cgi\n"
-            "- Ubuntu/Debian: sudo apt-get install maven\n"
-            "- macOS: brew install maven\n"
-            "Ou configurez la variable d'environnement MAVEN_HOME"
-        )
-        self.logger.error(error_msg)
-        raise RuntimeError(error_msg)
 
     def __run_java_tests_async(self, execution_id, test_code, api_code=""):
         """Exécute les tests Java en arrière-plan et stocke les résultats"""
@@ -153,7 +82,7 @@ class JavaTestExecutor:
                 shutil.move(test_file, os.path.join(src_test_java, f"{class_name}.java"))
                 
                 # Exécuter les tests avec Maven + JaCoCo pour la couverture
-                mvn_path = self.__get_maven_path()
+                mvn_path = maven.get_maven_path()
                 result = subprocess.run(
                     [mvn_path, 'clean', 'test', 'jacoco:report'],  # Inclure JaCoCo
                     cwd=temp_dir,
@@ -195,7 +124,7 @@ class JavaTestExecutor:
                     'end_time': time.time()
                 })
                 
-                self.logger.info(f"Test execution {execution_id} completed with status: {test_executions[execution_id]['status']}")
+                self.logger.info(f"Test execution {execution_id} completed with status: {self.test_executions[execution_id]['status']}")
                 
         except subprocess.TimeoutExpired:
             self.test_executions[execution_id].update({
