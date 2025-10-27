@@ -2,10 +2,12 @@
 import re
 from logging import Logger
 import os
+import platform
+import shutil
 
 logger = Logger(__name__)
 
-def __get_maven_path(self,):
+def get_maven_path():
         """
         Détecte automatiquement le chemin vers Maven sur le système.
         
@@ -19,10 +21,10 @@ def __get_maven_path(self,):
         custom_maven_path = os.environ.get("MAVEN_PATH")
         if custom_maven_path:
             if os.path.isfile(custom_maven_path) and os.access(custom_maven_path, os.X_OK):
-                self.logger.info(f"Maven personnalisé trouvé: {custom_maven_path}")
+                logger.info(f"Maven personnalisé trouvé: {custom_maven_path}")
                 return custom_maven_path
             else:
-                self.logger.warning(f"Chemin Maven personnalisé invalide: {custom_maven_path}")
+                logger.warning(f"Chemin Maven personnalisé invalide: {custom_maven_path}")
 
         # Liste des emplacements possibles pour Maven
         possible_paths = []
@@ -53,11 +55,11 @@ def __get_maven_path(self,):
         for path in possible_paths:
             try:
                 if os.path.isfile(path) and os.access(path, os.X_OK):
-                    self.logger.info(f"Maven trouvé à: {path}")
+                    logger.info(f"Maven trouvé à: {path}")
                     return path
                 elif shutil.which(path):  # Vérifie dans le PATH
                     maven_path = shutil.which(path)
-                    self.logger.info(f"Maven trouvé dans le PATH: {maven_path}")
+                    logger.info(f"Maven trouvé dans le PATH: {maven_path}")
                     return maven_path
             except Exception:
                 continue
@@ -71,7 +73,7 @@ def __get_maven_path(self,):
             "- macOS: brew install maven\n"
             "Ou configurez la variable d'environnement MAVEN_HOME"
         )
-        self.logger.error(error_msg)
+        logger.error(error_msg)
         raise RuntimeError(error_msg)
 
 def parse_maven_test_results(output):
