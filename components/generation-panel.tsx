@@ -1,15 +1,13 @@
 "use client";
-import React from "react";
-import { Separator } from "./ui/separator";
 import { StartButton } from "@/components/generation-start-button";
+import { sendRequest } from "@/hooks/sendrequest";
+import { GenerationOutput } from "./generation-output";
 import GenerationStatusBadge from "./generation-status-badge";
+import ModelTemperatureSlider from "./model-temperature-slider";
 import PromptTeaxtarea from "./prompt-textarea";
 import SelectTests from "./select-test-type";
-import ModelTemperatureSlider from "./model-temperature-slider";
-import { GenerationOutput } from "./generation-output";
-import { useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
-import { sendRequest } from "@/hooks/sendrequest";
+import { Separator } from "./ui/separator";
 
 export interface GenerationPanelProps {
   prompt: string;
@@ -17,7 +15,7 @@ export interface GenerationPanelProps {
   outputCode: string;
   isLoading: boolean;
   setSelectedTest: (selectedTest: string) => void;
-  setOuputCode: (outputCode: string) => void;
+  setOutputCode: (outputCode: string) => void;
   setIsLoading: (isLoading: boolean) => void;
 }
 
@@ -28,7 +26,7 @@ export function GenerationPanel({
   isLoading,
   setSelectedTest,
   setIsLoading,
-  setOuputCode,
+  setOutputCode,
 }: GenerationPanelProps) {
   return (
     <div className="absolute inset-0 flex flex-col">
@@ -64,7 +62,7 @@ export function GenerationPanel({
                 prompt,
                 outputCode,
                 setIsLoading,
-                setOuputCode,
+                setOutputCode,
               })
             }
           />
