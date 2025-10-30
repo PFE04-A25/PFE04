@@ -12,3 +12,6 @@ class PromptTemplateRepository(BaseRepository[PromptTemplate]):
     def search_by_keyword(self, keyword: str):
         regex_filter = {"template_text": {"$regex": keyword, "$options": "i"}}
         return self.find_all(regex_filter)
+    
+    def find_by_language(self, language: str):
+        return self.find_all({"language": language})

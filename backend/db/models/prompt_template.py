@@ -7,4 +7,5 @@ class PromptTemplate(BaseModel):
         super().__init__(**kwargs)
         self.name = kwargs.get('name')
         self.description = kwargs.get('description')
-        self.template_text = kwargs.get('template_text')  
+        self.template_text = kwargs.get('template_text')
+        self.language = kwargs.get('language')  
