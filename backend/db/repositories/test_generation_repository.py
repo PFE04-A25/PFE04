@@ -10,3 +10,21 @@ class TestGenerationRepository(BaseRepository[TestGeneration]):
 
     def __init__(self, mongo_uri: str = None):
         super().__init__(TestGeneration, mongo_uri)
+        self.model_class = TestGeneration
+
+    def find_by_test_type(self, test_type: str):
+        """Find test cases by test type"""
+        return self.find_all({"test_type": test_type})
+    
+    def find_by_model_id(self, model_id: str):
+        """Find test generations by model ID"""
+        return self.find_all({"model_id": model_id})
+
+    def find_by_pipeline_id(self, pipeline_id: str):
+        """Find test generations by pipeline ID"""
+        return self.find_all({"pipeline_id": pipeline_id})
+
+    def update_executed_flag(self, generation_id: str, executed: bool) -> TestGeneration:
+        """Update the executed flag of a test generation"""
+        update_data = {"executed": executed}
+        return self.update({"_id": generation_id}, update_data)
