@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
-
 import "./globals.css";
-
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AppLayout } from "@/components/app-layout";
+import { AppProvider } from "@/context/AppContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,9 +37,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AppLayout>{children}</AppLayout>
-          <Toaster position="top-center" richColors />
-          <Analytics />
+          <AppProvider> {}
+            <AppLayout>{children}</AppLayout>
+            <Toaster position="top-center" richColors />
+            <Analytics />
+          </AppProvider> {}
         </ThemeProvider>
       </body>
     </html>

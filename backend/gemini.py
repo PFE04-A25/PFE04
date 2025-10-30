@@ -3,6 +3,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 import json
 import re
 from flask import jsonify, Flask, request
+from flask_cors import CORS
 from dotenv import load_dotenv
 
 from logger import setup_logger
@@ -10,6 +11,9 @@ from config_class import EndpointInfo, ApiAnalysis
 from prompts.rest_prompt import (
     RestAssuredPrompts,
 )
+from code_manipulation import java as java_utils
+
+from execute import JavaTestExecutor
 
 
 # Initialize logger
@@ -19,10 +23,13 @@ load_dotenv()
 logger.info("Environment variables loaded.")
 
 app = Flask(__name__)  # Create Flask application instance
-logger.info("Flask app initialized.")
+CORS(
+    app, origins=["http://localhost:3000", "http://localhost:3001"]
+)  # Enable CORS for Next.js frontend
+logger.info("Flask app initialized with CORS.")
 
 
-def setup_llm(api_key=None)-> ChatGoogleGenerativeAI:
+def setup_llm(api_key=None) -> ChatGoogleGenerativeAI:
     """
     Configure et retourne l'instance du modèle LLM.
 
@@ -53,7 +60,7 @@ def setup_llm(api_key=None)-> ChatGoogleGenerativeAI:
         google_api_key=api_key,
         temperature=0.2,  # Valeur basse pour des résultats cohérents
         top_p=0.95,  # Légèrement créatif tout en restant focalisé
-        max_tokens=4096,  # Longueur maximale pour les réponses complètes
+        max_tokens=8192,  # Longueur maximale pour les réponses complètes
     )
 
 
@@ -131,13 +138,18 @@ def generate_basic_test(llm: ChatGoogleGenerativeAI, api_code, api_info):
     if java_match:
         logger.debug("Java code block found in response.")
         test_code = java_match.group(1).strip()
-        logger.info(f"Basic test generated successfully: {len(test_code)} characters")
-        return test_code
+    else:
+        logger.warning("No Java code block found in response, returning raw content")
+        test_code = response.content.strip()
 
-    # Si pas de bloc de code, retourner tout le texte
-    logger.warning("No Java code block found in response, returning raw content")
-    logger.debug(f"Response: {response}")
-    return response.content.strip()
+    # Nettoyer le code des marqueurs markdown résiduels
+    test_code = java_utils.clean_java_code(test_code)
+
+    # Corriger les annotations Spring Boot pour spécifier la classe d'application
+    test_code = java_utils.fix_spring_boot_test_annotation(test_code)
+
+    logger.info(f"Basic test generated successfully: {len(test_code)} characters")
+    return test_code
 
 
 def enhance_test(llm: ChatGoogleGenerativeAI, api_code, basic_test):
@@ -175,18 +187,20 @@ def enhance_test(llm: ChatGoogleGenerativeAI, api_code, basic_test):
     if java_match:
         logger.debug("Java code block found in enhanced test response")
         enhanced_code = java_match.group(1).strip()
-        logger.info(f"Test enhanced successfully: {len(enhanced_code)} characters")
-        return enhanced_code
+    else:
+        logger.warning(
+            "No Java code block found in enhanced test response, returning raw content"
+        )
+        enhanced_code = response.content.strip()
 
-    # Si pas de bloc de code, retourner tout le texte
-    logger.warning(
-        "No Java code block found in enhanced test response, returning raw content"
-    )
-    logger.debug(f"Response: {response}")
-    logger.debug(
-        f"Enhanced test preview: {response.content[:500]}{'...' if len(response.content) > 500 else ''}"
-    )
-    return response.content.strip()
+    # Nettoyer le code des marqueurs markdown résiduels
+    enhanced_code = java_utils.clean_java_code(enhanced_code)
+
+    # Corriger les annotations Spring Boot pour spécifier la classe d'application
+    enhanced_code = java_utils.fix_spring_boot_test_annotation(enhanced_code)
+
+    logger.info(f"Test enhanced successfully: {len(enhanced_code)} characters")
+    return enhanced_code
 
 
 @app.route("/rest-assured-test/gemini", methods=["POST"])
@@ -269,6 +283,188 @@ def generate_restassured_test():
     except Exception as e:
         logger.error(f"Error occurred while generating test: {str(e)}")
         logger.exception("Full traceback:")
+        return jsonify({"error": str(e)}), 500
+
+
+executor = None # temporary global executor instance en attendant l'implémentation complète de la DB
+
+@app.route("/execute-tests", methods=["POST"])
+def execute_tests():
+    """Endpoint pour exécuter les tests Java et retourner un ID d'exécution"""
+    try:
+        data = request.get_json()
+        test_code = data.get("test_code", "")
+        api_code = data.get("api_code", "")
+        language = "java" #TODO - ajouter une méthode dynamique de choisir le language
+
+        if not test_code.strip():
+            return jsonify({"error": "Test code is required"}), 400
+
+        if language.lower() == "java":
+            # Générer un executeur de test java
+            executor = JavaTestExecutor(
+                logger=logger, test_code=test_code, api_code=api_code
+            )
+        elif language.lower() == "python":
+            return jsonify({"error": "Python execution not implemented yet"}), 501
+        execution_id = executor.id
+
+        # Lancer l'exécution en arrière-plan
+        thread = executor.get_thread()
+        thread.start()
+
+        logger.info(f"Started test execution with ID: {execution_id}")
+        return jsonify(
+            {
+                "execution_id": execution_id,
+                "status": "started",
+                "message": "Test execution started",
+            }
+        )
+
+    except Exception as e:
+        logger.error(f"Error starting test execution: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/execution-status/<execution_id>", methods=["GET"])
+def get_execution_status(execution_id):
+    """Endpoint pour récupérer le statut et les résultats d'une exécution"""
+    try:
+        # Check temporaire en attendant l'implémentation complète de la DB
+        if executor is None:
+            return jsonify({"error": "No test execution in progress"}), 404
+        if isinstance(executor, JavaTestExecutor):
+            if execution_id not in executor.test_executions.keys():
+                return jsonify({"error": "Execution ID not found"}), 404
+            else:
+                test_executions = executor.test_executions
+        else:
+            return jsonify({"error": "Unsupported executor type"}), 500
+
+        execution_data = test_executions[execution_id]
+
+        return jsonify(
+            {
+                "execution_id": execution_id,
+                "status": execution_data["status"],
+                "logs": execution_data["logs"],
+                "metrics": execution_data["metrics"],
+                "start_time": execution_data.get("start_time"),
+                "end_time": execution_data.get("end_time"),
+            }
+        )
+
+    except Exception as e:
+        logger.error(f"Error retrieving execution status: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/execution-metrics/<execution_id>", methods=["GET"])
+def get_detailed_metrics(execution_id):
+    """Endpoint pour récupérer les métriques détaillées avec analyse de couverture"""
+    try:
+        # Check temporaire en attendant l'implémentation complète de la DB
+        if executor is None:
+            return jsonify({"error": "No test execution in progress"}), 404
+        if isinstance(executor, JavaTestExecutor):
+            if execution_id not in executor.test_executions.keys():
+                return jsonify({"error": "Execution ID not found"}), 404
+            else:
+                test_executions = executor.test_executions
+        else:
+            return jsonify({"error": "Unsupported executor type"}), 500
+
+        execution_data = test_executions[execution_id]
+        metrics = execution_data.get("metrics", {})
+
+        # Analyser les métriques de qualité
+        quality_analysis = {
+            "coverage_quality": "poor",  # poor, fair, good, excellent
+            "test_completeness": "insufficient",  # insufficient, minimal, adequate, comprehensive
+            "overall_score": 0.0,  # 0-100
+        }
+
+        # Évaluer la qualité de la couverture
+        line_coverage = metrics.get("line_coverage", 0)
+        branch_coverage = metrics.get("branch_coverage", 0)
+
+        if line_coverage >= 90 and branch_coverage >= 85:
+            quality_analysis["coverage_quality"] = "excellent"
+        elif line_coverage >= 80 and branch_coverage >= 70:
+            quality_analysis["coverage_quality"] = "good"
+        elif line_coverage >= 60 and branch_coverage >= 50:
+            quality_analysis["coverage_quality"] = "fair"
+        else:
+            quality_analysis["coverage_quality"] = "poor"
+
+        # Évaluer la complétude des tests
+        tests_per_endpoint = metrics.get("tests_per_endpoint", 0)
+        endpoints_count = metrics.get("endpoints_count", 0)
+
+        if tests_per_endpoint >= 3:
+            quality_analysis["test_completeness"] = "comprehensive"
+        elif tests_per_endpoint >= 2:
+            quality_analysis["test_completeness"] = "adequate"
+        elif tests_per_endpoint >= 1:
+            quality_analysis["test_completeness"] = "minimal"
+        else:
+            quality_analysis["test_completeness"] = "insufficient"
+
+        # Score global (pondéré)
+        coverage_score = (
+            line_coverage * 0.4
+            + branch_coverage * 0.4
+            + metrics.get("instruction_coverage", 0) * 0.2
+        )
+        test_score = min(
+            100, tests_per_endpoint * 25
+        )  # 25 points par test par endpoint, max 100
+
+        quality_analysis["overall_score"] = coverage_score * 0.7 + test_score * 0.3
+
+        # Recommandations
+        recommendations = []
+
+        if line_coverage < 70:
+            recommendations.append("Augmenter la couverture de lignes (cible: 80%+)")
+        if branch_coverage < 60:
+            recommendations.append(
+                "Améliorer la couverture des branches - tester tous les cas if/else/switch"
+            )
+        if tests_per_endpoint < 2:
+            recommendations.append(
+                "Ajouter plus de tests par endpoint (recommandé: 2-3 tests minimum)"
+            )
+        if endpoints_count > 0 and metrics.get("tests_run", 0) == 0:
+            recommendations.append(
+                "Aucun test détecté - implémenter des tests pour tous les endpoints"
+            )
+
+        if not recommendations:
+            recommendations.append(
+                "Excellente couverture de tests ! Continuer les bonnes pratiques."
+            )
+
+        return jsonify(
+            {
+                "execution_id": execution_id,
+                "metrics": metrics,
+                "quality_analysis": quality_analysis,
+                "recommendations": recommendations,
+                "coverage_summary": {
+                    "line_coverage": f"{line_coverage:.1f}%",
+                    "branch_coverage": f"{branch_coverage:.1f}%",
+                    "instruction_coverage": f"{metrics.get('instruction_coverage', 0):.1f}%",
+                    "tests_per_endpoint": f"{tests_per_endpoint:.1f}",
+                    "total_endpoints": endpoints_count,
+                    "total_tests": metrics.get("tests_run", 0),
+                },
+            }
+        )
+
+    except Exception as e:
+        logger.error(f"Error retrieving detailed metrics: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 
