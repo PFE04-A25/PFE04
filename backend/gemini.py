@@ -8,8 +8,8 @@ from dotenv import load_dotenv
 
 from logger import setup_logger
 from config_class import EndpointInfo, ApiAnalysis
-from prompts.rest_prompt import (
-    RestAssuredPrompts,
+from pipelines import(
+    rest_pipeline
 )
 from db.services.test_case import TestCaseService
 from code_manipulation import java as java_utils
@@ -69,145 +69,6 @@ def setup_llm(api_key=None) -> ChatGoogleGenerativeAI:
     )
 
 
-def analyze_api_code(llm, api_code):
-    """
-    Analyse le code API pour extraire des informations structurées.
-
-    Arguments:
-        llm: Instance du modèle de langage
-        api_code: Code Java Spring Boot à analyser
-
-    Retourne:
-        Dictionnaire contenant les informations structurées sur l'API ou None en cas d'erreur
-    """
-    try:
-        logger.info("Starting API code analysis...")
-        # Utiliser l'API du model avec LangChain
-        api_analysis_prompt = RestAssuredPrompts.get_api_analysis_prompt().prompt
-        chain = api_analysis_prompt | llm
-        logger.info("Prompt chain created.")
-        response = chain.invoke({"api_code": api_code})
-
-        # Extraire le JSON de la réponse (peut être encapsulé dans des blocs de code)
-        json_match = re.search(r"```json\s*([\s\S]*?)\s*```", response.content)
-        if json_match:
-            logger.debug("JSON block found in response.")
-            json_str = json_match.group(1)  # Si un bloc JSON est trouvé, on l'extrait
-        else:
-            logger.debug("No JSON block found, using full response content.")
-            json_str = response.content  # Sinon, on prend tout le texte brute
-
-        # Nettoyer et parser le JSON
-        api_info = json.loads(json_str)
-        logger.info(
-            f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
-        )
-        return api_info
-    except Exception as e:
-        logger.error(f"Erreur lors de l'analyse: {str(e)}")
-        logger.debug(
-            f"Response received: {response.content if 'response' in locals() else 'N/A'}"
-        )
-        logger.exception("Full traceback:")
-        return None
-
-
-def generate_basic_test(llm: ChatGoogleGenerativeAI, api_code, api_info):
-    """
-    Génère un test RestAssured de base pour l'API.
-
-    Arguments:
-        llm: Instance du modèle de langage
-        api_code: Code Java de l'API
-        api_info: Informations structurées sur l'API
-
-    Retourne:
-        Code Java du test RestAssured généré
-    """
-    logger.info("Generating basic RestAssured test...")
-    # Convertir api_info en chaîne formatée pour le prompt
-    api_info_str = json.dumps(api_info, indent=2)
-
-    # Génération du test
-    basic_test_prompt = RestAssuredPrompts.get_basic_test_prompt().prompt
-    chain = basic_test_prompt | llm
-    logger.debug("Prompt chain for basic test created.")
-    response = chain.invoke({"api_code": api_code, "api_info": api_info_str})
-    logger.info(
-        f"Input tokens: {response.usage_metadata['input_tokens']}, "
-        f"Max tokens allowed: {llm.max_output_tokens}"
-    )
-
-    # Extraire le code Java de la réponse
-    java_match = re.search(r"```(?:java)?\s*([\s\S]*?)\s*```", response.content)
-    if java_match:
-        logger.debug("Java code block found in response.")
-        test_code = java_match.group(1).strip()
-    else:
-        logger.warning("No Java code block found in response, returning raw content")
-        test_code = response.content.strip()
-
-    # Nettoyer le code des marqueurs markdown résiduels
-    test_code = java_utils.clean_java_code(test_code)
-
-    # Corriger les annotations Spring Boot pour spécifier la classe d'application
-    test_code = java_utils.fix_spring_boot_test_annotation(test_code)
-
-    logger.info(f"Basic test generated successfully: {len(test_code)} characters")
-    return test_code
-
-
-def enhance_test(llm: ChatGoogleGenerativeAI, api_code, basic_test):
-    """
-    Améliore le test de base avec des scénarios avancés et des techniques sophistiquées.
-
-    Arguments:
-        llm: Instance du modèle de langage
-        api_code: Code Java de l'API
-        basic_test: Code du test de base généré précédemment
-
-    Retourne:
-        Code Java du test RestAssured amélioré
-    """
-    logger.info("Enhancing test with advanced scenarios")
-
-    # Générer le test amélioré
-    advanced_test_prompt = RestAssuredPrompts.get_advanced_test_prompt().prompt
-    chain = advanced_test_prompt | llm
-    logger.debug("Invoking LLM for test enhancement")
-    response = chain.invoke({"api_code": api_code, "basic_test": basic_test})
-    logger.info(
-        f"Input tokens: {response.usage_metadata['input_tokens']}, "
-        f"Max tokens allowed: {llm.max_output_tokens}"
-    )
-
-    filled_prompt = advanced_test_prompt.format_prompt(
-        api_code=api_code, basic_test=basic_test
-    ).text
-    logger.debug(f"Enhancement prompt length: {len(filled_prompt)} characters")
-    logger.debug(f"Final enhancement prompt:\n{filled_prompt}")
-
-    # Extraire le code Java de la réponse
-    java_match = re.search(r"```(?:java)?\s*([\s\S]*?)\s*```", response.content)
-    if java_match:
-        logger.debug("Java code block found in enhanced test response")
-        enhanced_code = java_match.group(1).strip()
-    else:
-        logger.warning(
-            "No Java code block found in enhanced test response, returning raw content"
-        )
-        enhanced_code = response.content.strip()
-
-    # Nettoyer le code des marqueurs markdown résiduels
-    enhanced_code = java_utils.clean_java_code(enhanced_code)
-
-    # Corriger les annotations Spring Boot pour spécifier la classe d'application
-    enhanced_code = java_utils.fix_spring_boot_test_annotation(enhanced_code)
-
-    logger.info(f"Test enhanced successfully: {len(enhanced_code)} characters")
-    return enhanced_code
-
-
 @app.route("/rest-assured-test/gemini", methods=["POST"])
 def generate_restassured_test():
     """
@@ -249,7 +110,7 @@ def generate_restassured_test():
 
         # Étape 1: Analyser l'API
         logger.info("Step 1: Analyzing API code")
-        api_info = analyze_api_code(llm, api_code)
+        api_info = rest_pipeline.analyze_api_code(llm, api_code)
         if not api_info:
             logger.error("API analysis failed!")
             raise Exception("API analysis failed")
@@ -259,7 +120,7 @@ def generate_restassured_test():
 
         # Étape 2: Générer un test de base
         logger.info("Step 2: Generating basic test")
-        basic_test = generate_basic_test(llm, api_code, api_info)
+        basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info)
         logger.info("Basic test generation successful")
         logger.debug("Basic test:\n" + basic_test)
 
@@ -268,7 +129,7 @@ def generate_restassured_test():
         # The enhanced test are always empty using basic_test for now
         if not skipping_enhancement:
             logger.info("Step 3: Enhancing test")
-            enhanced_test = enhance_test(llm, api_code, basic_test)
+            enhanced_test = rest_pipeline.enhance_test(llm, api_code, basic_test)
 
             logger.info("Enhanced test generation successful")
             logger.debug(
