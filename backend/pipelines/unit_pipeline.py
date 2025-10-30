@@ -1,6 +1,6 @@
 import json
 import re
-from logger import setup_logger
+from logger import get_logger
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 from prompts.unit_prompt import (
@@ -8,7 +8,7 @@ from prompts.unit_prompt import (
 )
 from pipelines import cleanup_raw_code_output
 
-logger = setup_logger()
+logger = get_logger()
 
 
 def analyze_code(llm, api_code) -> dict:
