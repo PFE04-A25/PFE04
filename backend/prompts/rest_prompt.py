@@ -54,7 +54,7 @@ class RestAssuredPrompts:
 
         return BasePrompt(
             template=template,
-            input_variables=["api_code", "api_code"],
+            input_variables=["api_info", "api_code"],
             temperature=0.2,
         )
 

@@ -37,7 +37,7 @@ export const sendRequest = async ({
   }
 
   try {
-    const api = `/api/${testType}`;
+    const api = `/api/generate-test`;
 
     const response = await fetch(api, {
       method: "POST",
@@ -46,6 +46,7 @@ export const sendRequest = async ({
       },
       body: JSON.stringify({
         api_code: prompt,
+        testType: testType,
       }),
     });
 
