@@ -8,6 +8,9 @@ class PromptTemplateRepository(BaseRepository[PromptTemplate]):
 
     def find_by_name(self, name: str):
         return self.find_all({"name": name})
+    
+    def find_active_by_name(self, name: str):
+        return self.find_all({"name": name, "active": True})
 
     def search_by_keyword(self, keyword: str):
         regex_filter = {"template_text": {"$regex": keyword, "$options": "i"}}

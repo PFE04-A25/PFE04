@@ -7,6 +7,7 @@ from prompts.basic_prompt import BasePrompt, api_parser
 
 class RestAssuredPrompts:
     """Collection of prompts for generating RestAssured tests"""
+    # TODO (Refactoring) - On pourrait envisager que la classe recoit les resultats de la query qui fetch les prompts de la DB et build un dict de PromptTemplate à l'aide du BasePrompt
 
     @staticmethod
     def get_api_analysis_prompt() -> BasePrompt:

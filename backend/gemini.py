@@ -35,8 +35,13 @@ CORS(
 logger.info("Flask app initialized with CORS.")
 logger.info("Flask app initialized.")
 
+# Deprecated, was used to test DB implementation
 test_case_service = TestCaseService()
 logger.info("TestCaseService initialized.")
+
+# Should instead use the Services class to init all services needed
+from db.services import Services
+db_services = Services()
 
 def get_gemini_key() -> str:
     """
@@ -129,12 +134,22 @@ def generate_restassured_test():
         # On devrait donc fetch le modèle depuis la DB pour obtenir ses informations (comme son ID, les configs, etc.)
         # Cependant pour simplicité puisqu'on utilise directement Gemini nous utilisons un ID statique pour l'instant.
 
-        # TODO - Fetch the pipeline in the DB and use its prompts
-        # TODO - Ajouter dans la réponse le data du pipeline utilisé
+        # TODO (DB) - Fetch the active rest pipeline in the DB and fetch its prompt_templates
+        # TODO (DB) - Init un des PromptTemplate pour les prompts utilisés lors de la génération
+        # Exemple:
+        #       prompt_X = basic_prompt.BasicPipeline(...)
+        #       prompts_dict = {1: prompt_1.prompt, 2: prompt_2.prompt, 3: prompt_3.prompt}
+        # TODO (Refactoring) - Initialise le pipeline avec ces prompts
+        # Exemple:
+        #      rest_pipeline = pipelines.rest_pipeline.RestAssuredPipeline(llm, prompts_dict)
+        # TODO (Refactoring) - Run the pipeline (generate_test) pour générer le test complet
 
+        # TODO (Refactoring) - Supprimer la logique de la génération du test dans ce endpoint une fois le pipeline fonctionnel
         # Étape 1: Analyser l'API
         logger.info("Step 1: Analyzing API code")
-        api_info = rest_pipeline.analyze_api_code(llm, api_code)
+        # TODO (DB) Utiliser le prompt de la DB selon le ID du step 1
+        current_prompt = rest_pipeline.RestAssuredPrompts.get_api_analysis_prompt().prompt
+        api_info = rest_pipeline.analyze_api_code(llm, api_code, current_prompt)
         if not api_info:
             logger.error("API analysis failed!")
             raise Exception("API analysis failed")
@@ -144,7 +159,9 @@ def generate_restassured_test():
 
         # Étape 2: Générer un test de base
         logger.info("Step 2: Generating basic test")
-        basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info)
+        # TODO (DB) Utiliser le prompt de la DB selon le ID du step 2
+        current_prompt = rest_pipeline.RestAssuredPrompts.get_basic_test_prompt().prompt
+        basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, current_prompt)
         logger.info("Basic test generation successful")
         logger.debug("Basic test:\n" + basic_test)
 
@@ -153,7 +170,9 @@ def generate_restassured_test():
         # The enhanced test are always empty using basic_test for now
         if not skipping_enhancement:
             logger.info("Step 3: Enhancing test")
-            enhanced_test = rest_pipeline.enhance_test(llm, api_code, basic_test)
+            # TODO (DB) Utiliser le prompt de la DB selon le ID du step 3
+            current_prompt = rest_pipeline.RestAssuredPrompts.get_advanced_test_prompt().prompt
+            enhanced_test = rest_pipeline.enhance_test(llm, api_code, basic_test, current_prompt)
 
             logger.info("Enhanced test generation successful")
             logger.debug(
@@ -267,7 +286,7 @@ def generate_unit_test():
         logger.exception("Full traceback:")
         return jsonify({"error": str(e)}), 500
 
-
+# TODO (DB) - Rework les endpoints CRUD de la DB pour la nouvelles architecture des services
 @app.route("/db/testcases", methods=["POST"])
 def create_test_case():
     data = request.json
@@ -303,6 +322,12 @@ def create_test_case():
         return jsonify({"error": "testCase must be a string"}), 400
 
     try:
+        # Deprecated, ne pas utiliser test_case comme objet
+        # TODO (DB) - Utiliser le Services class pour orchestrer les appels aux différents services nécessaires
+        # EX: 
+        #   1. Créer un code_snippet, 
+        #   2.fetch le id du modèle & pipeline utilisé 
+        #   3. Créer test_génération avec les FK
         result = test_case_service.create_test_case(
             test_type=data.get("testType"),
             source_code=data.get("sourceCode"),
@@ -321,6 +346,7 @@ def create_test_case():
         return jsonify({"error": f"Failed to create test case: {str(e)}"}), 500
 
 
+# TODO (DB) - Rework les endpoints CRUD de la DB pour la nouvelles architecture des services et models
 @app.route("/db/testcases", methods=["GET"])
 def get_test_cases():
     try:
@@ -381,6 +407,7 @@ def get_test_cases():
         logger.exception("Full traceback:")
         return jsonify({"error": f"Failed to retrieve test cases: {str(e)}"}), 500
 
+# TODO (DB) - Rework les endpoints CRUD de la DB pour la nouvelles architecture des services et models
 @app.route("/db/testcases/<id>", methods=["DELETE"])
 def delete_test_case(id):
     try:
@@ -393,6 +420,7 @@ def delete_test_case(id):
         logger.error(f"Error deleting test case: {str(e)}")
         return jsonify({"error": f"Failed to delete test case: {str(e)}"}), 500
     
+# TODO (DB) - Rework les endpoints CRUD de la DB pour la nouvelles architecture des services et models
 @app.route("/db/testcases/<id>", methods=["PUT"])
 def update_test_case(id):
     data = request.json

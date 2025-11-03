@@ -43,6 +43,11 @@ class PipelineService:
         logger.info(f"Retrieving pipelines with name {name}")
         return self.repository.find_by_name(name)
     
+    def get_pipeline_active_by_name(self, name: str) -> List[Pipeline]:
+        """Get active pipelines by name"""
+        logger.info(f"Retrieving active pipelines with name {name}")
+        return self.repository.find_active_by_name(name)
+    
     def get_pipeline_version(self,name: str, version: str) -> Optional[Pipeline]:
         """Get pipeline by name and version"""
         logger.info(f"Retrieving pipeline with name {name} and version {version}")

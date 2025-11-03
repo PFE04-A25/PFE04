@@ -8,14 +8,16 @@ logger = setup_logger()
 class PromptTemplateService:
     def __init__(self):
         self.repository = PromptTemplateRepository()
-    
-    def create_prompt_template(self, name: str, description: str, template_text: str, language: str) -> PromptTemplate:
+
+    def create_prompt_template(self, name: str, description: str, template_text: str, language: str, input_variables: list, partial_variables: dict) -> PromptTemplate:
         """Create a new prompt template"""
         prompt_template_obj = PromptTemplate(
             name=name,
             description=description,
             template_text=template_text,
-            language=language
+            language=language,
+            input_variables=input_variables,
+            partial_variables=partial_variables,
         )
         logger.info(f"Creating new prompt template: {name}")
         return self.repository.create(prompt_template_obj)

@@ -25,6 +25,8 @@ We've implemented the **Repository Design Pattern**, which provides:
 
 ### Component Structure
 
+All Database classes extends the BaseModel or the  BaseRepository<T> 
+
 ```raw
 
 db/
@@ -61,27 +63,24 @@ classDiagram
     }
 
     %% TestCase Classes
-    class TestCase {
-        +str collection_name = "testcases"
-        +str test_type
-        +str source_code
-        +str test_case
+    class Example {
+        +str collection_name = "Exemple"
         +__init__(**kwargs)
     }
 
-    class TestCaseRepository {
+    class ExampleRepository {
         +__init__(mongo_uri: str)
-        +find_by_test_type(test_type: str) List[TestCase]
+        +find_by_id(example_id) uuid
     }
 
-    class TestCaseService {
-        +TestCaseRepository repository
+    class ExampleService {
+        +ExampleRepository repository
         +__init__()
-        +create_test_case(test_type, source_code, test_case) TestCase
-        +get_test_cases(filter_dict) List[TestCase]
-        +get_test_case(id) Optional[TestCase]
-        +update_test_case(id, update_data) Optional[TestCase]
-        +delete_test_case(id) bool
+        +create_example(test_type, source_code, test_case) TestCase
+        +get_example(filter_dict) List[TestCase]
+        +get_example(id) Optional[TestCase]
+        +update_example(id, update_data) Optional[TestCase]
+        +delete_example(id) bool
     }
 
     %% External Interfaces
@@ -96,19 +95,82 @@ classDiagram
     }
 
     %% Relationships
-    FlaskAPI ..> TestCaseService : uses
-    BaseModel <|-- TestCase : inherits
-    BaseRepository <|-- TestCaseRepository : inherits
+    FlaskAPI ..> ExampleService : uses
+    BaseModel <|-- Example : inherits
+    BaseRepository <|-- ExampleRepository : inherits
     
-    TestCaseRepository --> TestCase : uses
-    TestCaseRepository ..> MongoDB : interacts
+    ExampleRepository --> Example : uses
+    ExampleRepository ..> MongoDB : interacts
     
-    TestCaseService --> TestCaseRepository : contains
+    ExampleService --> ExampleRepository : contains
     
     
     %% Generic Type Binding
     BaseRepository ..> BaseModel : T extends
 
+```
+
+#### Current Architecture
+
+```mermaid
+classDiagram
+
+    %% Models Used by Services
+    class Pipeline {
+        +str collection_name = "pipelines"
+        +str name
+        +str version
+        +str description
+        +str language
+        +bool active
+        +List[Dict] prompts
+    }
+
+    class PromptTemplate {
+        +str collection_name = "prompt_templates"
+        +str name
+        +str template
+        +List[str] variables
+        +str category
+    }
+
+    class CodeSnippet {
+        +str collection_name = "code_snippets"
+        +str code
+        +str language
+        +str description
+    }
+
+    class ModelInfo {
+        +str collection_name = "model_info"
+        +str model_name
+        +str model_version
+        +Dict parameters
+        +str provider
+    }
+
+    class TestGeneration {
+        +str collection_name = "test_generations"
+        +str source_code_id
+        +str model_id
+        +List[str] generated_tests
+        +datetime generated_at
+    }
+
+    class TestExecution {
+        +str collection_name = "test_executions"
+        +str test_generation_id
+        +str status
+        +str output
+        +datetime executed_at
+    }
+
+    %% Model Relationships
+    Pipeline --> PromptTemplate : uses
+    Pipeline--> TestGeneration: uses
+    CodeSnippet --> TestGeneration: references (source_code_id)
+    ModelInfo --> TestGeneration : references (model_id)
+    TestExecution --> TestGeneration : references (test_case_id)
 ```
 
 #### Model Layer

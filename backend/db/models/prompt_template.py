@@ -8,4 +8,10 @@ class PromptTemplate(BaseModel):
         self.name = kwargs.get('name')
         self.description = kwargs.get('description')
         self.template_text = kwargs.get('template_text')
-        self.language = kwargs.get('language')  
+        self.language = kwargs.get('language') 
+
+        # Input variables that the template expects (e.g., ["api_code", "api_info"])
+        self.input_variables = kwargs.get('input_variables', [])
+        
+        # Partial variables (pre-filled variables like format_instructions)
+        self.partial_variables = kwargs.get('partial_variables', {}) 

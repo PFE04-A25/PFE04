@@ -8,17 +8,18 @@ class Pipeline(BaseModel):
         self.name = kwargs.get('name')
         self.version = kwargs.get('version')
         self.description = kwargs.get('description')
-        self.language = kwargs.get('language')  
+        self.language = kwargs.get('language') 
+        self.active = kwargs.get('active', False) 
 
         # Storing a list of prompt template configurations
         self.prompts = kwargs.get('prompts')
         # Structure: [
         #   {
-        #     "step_name": "<name of the step>",
-        #     "template": "<template prompt text>",
         #     "order": 1,
-        #     "input_variables": [<list of input variable names>],
+        #     "prompt_id": <id of the prompt template>,
         #   },
         #   ...
         # ]
+
+        
         
