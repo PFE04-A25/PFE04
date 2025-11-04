@@ -2,17 +2,112 @@ import json
 import re
 from logger import get_logger
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.schema.runnable import RunnablePassthrough, RunnableLambda
+from langchain.schema import StrOutputParser
+from langchain.prompts import PromptTemplate
 
 from prompts.rest_prompt import (
     RestAssuredPrompts,
 )
+from pipelines.base_pipeline import BasePipeline
 
 from code_manipulation import java as java_utils
 
 logger = get_logger()
 
+# TODO (Refactoring) - Implémenter cette classe dans le serveur Gemini pour faciliter la génération (à tester avant)
+class RestPipeline(BasePipeline):
+    """
+    Pipeline pour analyser le code API Spring Boot et générer des tests RestAssured.
+    """
 
-def analyze_api_code(llm, api_code):
+    def create_pipeline_chain(self, skip_enhancement: bool = False):
+        """
+        Create a unified LangChain pipeline for REST test generation.
+    
+        Pipeline flow:
+        1. API Analysis: Extract structured information from API code
+        2. Basic Test Generation: Generate initial RestAssured test
+        3. Enhancement (optional): Add advanced test scenarios
+        
+        Args:
+            llm: The language model instance
+            skip_enhancement: Whether to skip the enhancement step
+        
+        Returns:
+            A runnable pipeline that takes api_code and returns generated test
+        """
+        # Note - On pourrait rajouter un log dans chaque étape
+        # Step 1: API Analysis Chain
+        analysis_chain = (
+            self.prompts.get(1)
+            | self.llm
+            | RunnableLambda(lambda x: self.extract_json_from_response(x.content))
+            # | RunnableLambda(lambda x: self._log_step("Analysis", x))
+        )
+    
+        # Step 2: Basic Test Generation Chain
+        basic_test_chain = (
+            self.prompts.get(2)
+            | self.llm
+            | RunnableLambda(lambda x: self.extract_java_code(x.content))
+        )
+        if skip_enhancement:
+            # Simple 2-step pipeline: Analysis -> Basic Test
+            pipeline = (
+                {
+                    "api_code": RunnablePassthrough(),
+                    "api_info": analysis_chain
+                }
+                | RunnableLambda(lambda x: {
+                    "api_code": x["api_code"],
+                    "api_info": json.dumps(x["api_info"], indent=2)
+                })
+                | basic_test_chain
+            )
+        else:
+            # Full 3-step pipeline: Analysis -> Basic Test -> Enhancement
+            enhancement_chain = (
+                self.prompts.get(3)
+                | self.llm
+                | RunnableLambda(lambda x: self.extract_java_code(x.content))
+            )
+            
+            pipeline = (
+                {
+                    "api_code": RunnablePassthrough(),
+                    "api_info": analysis_chain
+                }
+                | RunnableLambda(lambda x: {
+                    "api_code": x["api_code"],
+                    "api_info": json.dumps(x["api_info"], indent=2)
+                })
+                | RunnableLambda(lambda x: {
+                    "api_code": x["api_code"],
+                    "basic_test": basic_test_chain.invoke(x)
+                })
+                | enhancement_chain
+            )
+        
+        return pipeline
+    
+    def generate(self, code_snippet: str, skip_enhancement: bool = False) -> str:
+        """
+        Exécute le pipeline complet pour générer un test RestAssured.
+
+        Arguments:
+            code_snippet: Code Java Spring Boot de l'API à tester
+        Retourne:
+            Code Java du test RestAssured généré
+        """
+        logger.info("Starting RestAssured test generation pipeline")
+        logger.debug(f"API code snippet length: {len(code_snippet)} characters")
+        
+        pipeline = self.create_pipeline_chain(skip_enhancement=skip_enhancement)
+        generated_test = pipeline.invoke({"api_code": code_snippet})
+        return generated_test
+
+def analyze_api_code(llm, api_code, api_analysis_prompt: PromptTemplate):
     """
     Analyse le code API pour extraire des informations structurées.
 
@@ -26,7 +121,6 @@ def analyze_api_code(llm, api_code):
     try:
         logger.info("Starting API code analysis...")
         # Utiliser l'API du model avec LangChain
-        api_analysis_prompt = RestAssuredPrompts.get_api_analysis_prompt().prompt
         chain = api_analysis_prompt | llm
         logger.info("Prompt chain created.")
         response = chain.invoke({"api_code": api_code})
@@ -55,7 +149,7 @@ def analyze_api_code(llm, api_code):
         return None
 
 
-def generate_basic_test(llm: ChatGoogleGenerativeAI, api_code, api_info):
+def generate_basic_test(llm: ChatGoogleGenerativeAI, api_code, api_info, basic_test_prompt: PromptTemplate):
     """
     Génère un test RestAssured de base pour l'API.
 
@@ -72,7 +166,6 @@ def generate_basic_test(llm: ChatGoogleGenerativeAI, api_code, api_info):
     api_info_str = json.dumps(api_info, indent=2)
 
     # Génération du test
-    basic_test_prompt = RestAssuredPrompts.get_basic_test_prompt().prompt
     chain = basic_test_prompt | llm
     logger.debug("Prompt chain for basic test created.")
     response = chain.invoke({"api_code": api_code, "api_info": api_info_str})
@@ -102,7 +195,7 @@ def generate_basic_test(llm: ChatGoogleGenerativeAI, api_code, api_info):
     return test_code
 
 
-def enhance_test(llm: ChatGoogleGenerativeAI, api_code, basic_test):
+def enhance_test(llm: ChatGoogleGenerativeAI, api_code, basic_test, advanced_test_prompt: PromptTemplate):
     """
     Améliore le test de base avec des scénarios avancés et des techniques sophistiquées.
 
@@ -117,7 +210,6 @@ def enhance_test(llm: ChatGoogleGenerativeAI, api_code, basic_test):
     logger.info("Enhancing test with advanced scenarios")
 
     # Générer le test amélioré
-    advanced_test_prompt = RestAssuredPrompts.get_advanced_test_prompt().prompt
     chain = advanced_test_prompt | llm
     logger.debug("Invoking LLM for test enhancement")
     response = chain.invoke({"api_code": api_code, "basic_test": basic_test})
