@@ -287,6 +287,7 @@ def generate_unit_test():
         return jsonify({"error": str(e)}), 500
 
 # TODO (DB) - Rework les endpoints CRUD de la DB pour la nouvelles architecture des services
+# Noter que le FE va surement aussi devoir être mis à jour pour envoyer les bonnes données
 @app.route("/db/testcases", methods=["POST"])
 def create_test_case():
     data = request.json
@@ -472,6 +473,8 @@ def update_test_case(id):
 
 executor = None # temporary global executor instance en attendant l'implémentation complète de la DB
 
+# TODO (DB) - Ajouter l'enregistrement des exécutions de tests dans la DB.
+# Noter qu'il va surement falloir envoyer plus de data du FE pour récupérer la pipeline, modèle, etc.
 @app.route("/execute-tests", methods=["POST"])
 def execute_tests():
     """Endpoint pour exécuter les tests Java et retourner un ID d'exécution"""
