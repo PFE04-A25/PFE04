@@ -16,7 +16,8 @@ class PipelineService:
         description: str,
         version: str,
         prompts: List[str],
-        language: str
+        language: str,
+        active: bool = False,
     ) -> Pipeline:
         """Create a new pipeline"""
         pipeline_obj = Pipeline(
@@ -24,7 +25,8 @@ class PipelineService:
             description=description,
             version=version,  
             prompts=prompts,
-            language=language
+            language=language,
+            active=active,
         )
         logger.info(f"Creating new pipeline: {name}")
         return self.repository.create(pipeline_obj)
@@ -58,3 +60,14 @@ class PipelineService:
         """Get pipelines by language"""
         logger.info(f"Retrieving pipelines with language {language}")
         return self.repository.find_by_language(language)
+    
+    def purge_pipelines(self) -> bool:
+        """Delete all pipelines from the database"""
+        logger.info("Purging all pipelines from the database")
+        all_pipelines = self.get_all_pipelines()
+        deleted_count = 0
+        for pipeline in all_pipelines:
+            if self.repository.delete(pipeline.id):
+                deleted_count += 1
+        logger.info(f"Deleted {deleted_count} pipelines from the database")
+        return deleted_count == len(all_pipelines)
