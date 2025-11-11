@@ -5,7 +5,7 @@ import json
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import PromptTemplate
 
-logger = get_logger()
+logger = get_logger("base_pipeline")
 
 class BasePipeline:
     """

@@ -1,9 +1,10 @@
 from db.repositories.test_execution_repository import TestExecutionRepository
 from db.models.test_execution import TestExecution
-from logger import setup_logger
+from logger import get_logger
 from typing import List, Optional, Dict
 
 logger = setup_logger()
+logger = get_logger("test_execution_service")
 
 
 class TestExecutionService:

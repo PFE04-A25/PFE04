@@ -2,7 +2,7 @@ from db.repositories.test_case import TestCaseRepository
 from db.models.test_case import TestCase
 from logger import get_logger
 
-logger = get_logger()
+logger = get_logger("test_case_service")
 
 class TestCaseService:
     def __init__(self):

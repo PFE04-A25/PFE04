@@ -1,9 +1,9 @@
 from db.repositories.pipeline_repository import PipelineRepository
 from db.models.pipeline import Pipeline
-from logger import setup_logger
+from logger import get_logger
 from typing import List, Optional, Dict
 
-logger = setup_logger()
+logger = get_logger("pipeline_service")
 
 
 class PipelineService:
