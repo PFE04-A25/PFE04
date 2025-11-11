@@ -3,7 +3,6 @@ from db.models.test_execution import TestExecution
 from logger import get_logger
 from typing import List, Optional, Dict
 
-logger = setup_logger()
 logger = get_logger("test_execution_service")
 
 
