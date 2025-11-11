@@ -5,6 +5,7 @@ import time
 import uuid
 from db.services import Services
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.prompts import PromptTemplate
 import json
 from flask import jsonify, Flask, request
 from flask_cors import CORS
@@ -130,30 +131,41 @@ def generate_restassured_test():
             raise ValueError("No active pipeline found for 'REST'")
         pipeline = pipeline_list[0]
 
-        prompts = []
         prompts_dict = {}
         for prompt_conf in pipeline.prompts:
             prompt_obj = prompt_service.get_prompt_template(str(prompt_conf["prompt_id"]))
             if prompt_obj:
-                prompts.append(prompt_obj)
+                prompts_dict.update(
+                    {prompt_conf["order"]: PromptTemplate(
+                        template=prompt_obj.template_text,
+                        input_variables=prompt_obj.input_variables,
+                        partial_variables=prompt_obj.partial_variables,
+                    )}
+                )
 
-        prompts_dict = {p_idx + 1: prompts[p_idx].template_text for p_idx in range(len(prompts))}
-        logger.info(f"Loaded {len(prompts)} prompts for REST pipeline.")
+        # prompts_dict = {p_idx + 1: prompts[p_idx].template_text for p_idx in range(len(prompts))}
+        logger.info(f"Loaded {len(prompts_dict)} prompts for REST pipeline.")
 
         logger.info("Step 1: Analyzing API code")
+        if 1 not in prompts_dict.keys():
+            raise Exception("Missing prompt for API analysis step")
         api_info = rest_pipeline.analyze_api_code(llm, api_code, prompts_dict[1])
         if not api_info:
             raise Exception("API analysis failed")
 
         logger.info("Step 2: Generating basic test")
+        if 2 not in prompts_dict.keys():
+            raise Exception("Missing prompt for basic test generation step")
         basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
         logger.info("Basic test generation successful")
 
         enhanced_test = None
         skipping_enhancement = True
-        if not skipping_enhancement and len(prompts) >= 3:
+        if not skipping_enhancement and 3 in prompts_dict.keys():
             logger.info("Step 3: Enhancing test")
             enhanced_test = rest_pipeline.enhance_test(llm, api_code, basic_test, prompts_dict[3])
+        elif not skipping_enhancement and 3 not in prompts_dict.keys():
+            raise Exception("Missing prompt for enhanced test generation step")
         else:
             enhanced_test = basic_test
 
