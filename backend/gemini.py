@@ -1,21 +1,26 @@
-import os
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import threading
 import time
 import uuid
+from backend.db.services.code_snippet import CodeSnippetService
+from backend.db.services.model import ModelService
+from backend.db.services.pipeline import PipelineService
+from backend.db.services.prompt_template import PromptTemplateService
+from backend.db.services.test_execution import TestExecutionService
+from backend.db.services.test_generation import TestGenerationService
 from db.services import Services
+from pipelines import rest_pipeline
 from langchain_google_genai import ChatGoogleGenerativeAI
 import json
-import re
 from flask import jsonify, Flask, request
 from flask_cors import CORS
 from dotenv import load_dotenv
-
 from logger import get_logger
 from pipelines import(
     unit_pipeline,
 )
-from db.services.test_case import TestCaseService
-
+from db.services import Services
 from execute import JavaTestExecutor
 
 
@@ -36,12 +41,6 @@ CORS(
 logger.info("Flask app initialized with CORS.")
 logger.info("Flask app initialized.")
 
-# Deprecated, was used to test DB implementation
-test_case_service = TestCaseService()
-logger.info("TestCaseService initialized.")
-
-# Should instead use the Services class to init all services needed
-from db.services import Services
 db_services = Services()
 
 def get_gemini_key() -> str:
@@ -145,7 +144,6 @@ def generate_restassured_test():
         prompts_dict = {p_idx + 1: prompts[p_idx].template_text for p_idx in range(len(prompts))}
         logger.info(f"Loaded {len(prompts)} prompts for REST pipeline.")
 
-        from pipelines import rest_pipeline
         logger.info("Step 1: Analyzing API code")
         api_info = rest_pipeline.analyze_api_code(llm, api_code, prompts_dict[1])
         if not api_info:
@@ -506,8 +504,6 @@ def execute_tests():
         # TODO: FE should send test generation ID to link execution
         test_generation_id = data.get("test_generation_id")
 
-        language = "java" 
-
         if not test_code.strip():
             return jsonify({"error": "Test code is required"}), 400
 
@@ -720,3 +716,8 @@ def get_detailed_metrics(execution_id):
     except Exception as e:
         logger.error(f"Error retrieving detailed metrics: {str(e)}", exc_info=True)
         return jsonify({"error": str(e)}), 500
+    
+if __name__ == "__main__":
+    if os.environ.get("WERKZEUG_RUN_MAIN") == "true" or not os.environ.get("WERKZEUG_RUN_MAIN"):
+        logger.info("Starting Gemini Flask server on http://127.0.0.1:5000")
+    app.run(host="0.0.0.0", port=5000, debug=False)

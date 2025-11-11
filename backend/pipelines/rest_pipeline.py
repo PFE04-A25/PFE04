@@ -120,6 +120,9 @@ def analyze_api_code(llm, api_code, api_analysis_prompt: PromptTemplate):
     """
     try:
         logger.info("Starting API code analysis...")
+        if isinstance(api_analysis_prompt, str):
+            api_analysis_prompt = PromptTemplate.from_template(api_analysis_prompt)
+
         # Utiliser l'API du model avec LangChain
         chain = api_analysis_prompt | llm
         logger.info("Prompt chain created.")

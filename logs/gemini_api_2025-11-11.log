@@ -1,0 +1,2268 @@
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,450 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,472 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:45,476 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:24:46,328 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:04,854 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:28,887 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:30,135 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:35,382 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:27:59,802 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:46,495 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:47,863 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:28:53,955 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:33:10,909 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,379 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,398 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:34,407 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:35,153 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,748 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,757 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:43,863 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,322 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:44,848 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,904 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:45,908 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:49,885 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:41:52,912 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:43:38,555 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:25,975 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,006 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:26,016 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:27,008 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,919 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,924 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:30,985 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,296 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:31,807 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,887 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:32,891 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:35,307 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:47:39,343 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,409 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,423 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:58,428 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:50:59,059 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:03,779 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:09,778 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:10,665 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:15,725 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:16,256 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,622 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:17,625 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:20,432 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:23,837 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:51:57,682 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:29,545 - gemini_api - ERROR - Erreur lors de l'analyse: 'controller_name'
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:36,056 - gemini_api - DEBUG - Response received: ```json
+{
+  "controllerName": "UserController",
+  "endpoints": [
+    {
+      "path": "/users",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "GET"
+    },
+    {
+      "path": "/users",
+      "method": "POST"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PUT"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "DELETE"
+    },
+    {
+      "path": "/users/search",
+      "method": "GET"
+    },
+    {
+      "path": "/users/{id}",
+      "method": "PATCH"
+    }
+  ]
+}
+```
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:37,891 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 143, in analyze_api_code
+    f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
+                                            ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'controller_name'
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,217 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:52:49,220 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,754 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,781 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:35,792 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:36,509 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,897 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,902 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:41,974 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,374 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:42,893 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,933 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:43,936 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:45,923 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:56:49,295 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:01,563 - gemini_api - ERROR - Erreur lors de l'analyse: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:04,165 - gemini_api - DEBUG - Response received: N/A
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:37,639 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 129, in analyze_api_code
+    response = chain.invoke({"api_code": api_code})
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 3244, in invoke
+    input_ = context.run(step.invoke, input_, config, **kwargs)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 214, in invoke
+    return self._call_with_config(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        self._format_prompt_with_error_handling,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        serialized=self._serialized,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 2092, in _call_with_config
+    context.run(
+    ~~~~~~~~~~~^
+        call_func_with_variable_args,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ),
+    ^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 187, in _format_prompt_with_error_handling
+    inner_input_ = self._validate_input(inner_input)
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\prompts\base.py", line 181, in _validate_input
+    raise KeyError(
+        create_message(message=msg, error_code=ErrorCode.INVALID_PROMPT_INPUT)
+    )
+KeyError: 'Input to PromptTemplate is missing variables {\'\\n  "controller_name"\'}.  Expected: [\'\\n  "controller_name"\'] Received: [\'api_code\']\nNote: if you intended {\n  "controller_name"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n  "controller_name"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,620 - gemini_api - ERROR - Error occurred while generating test: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:57:41,628 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 150, in generate_restassured_test
+    raise Exception("API analysis failed")
+Exception: API analysis failed
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,738 - gemini_api - INFO - Environment variables loaded.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,753 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:56,763 - gemini_api - INFO - Flask app initialized.
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:58:57,419 - gemini_api - INFO - Starting Gemini Flask server on http://127.0.0.1:5000
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,646 - gemini_api - INFO - REST API endpoint /rest-assured-test/gemini called
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,653 - gemini_api - INFO - Using Gemini model: gemini-2.5-flash
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:02,750 - gemini_api - INFO - LLM setup complete.
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,267 - gemini_api - INFO - Retrieving models with name Gemini
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:03,788 - gemini_api - INFO - Retrieving active pipelines with name REST
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,852 - gemini_api - INFO - Loaded 3 prompts for REST pipeline.
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:04,857 - gemini_api - INFO - Step 1: Analyzing API code
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:07,318 - gemini_api - INFO - Starting API code analysis...
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 13:59:10,509 - gemini_api - INFO - Prompt chain created.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:00,426 - gemini_api - DEBUG - JSON block found in response.
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:06,349 - gemini_api - INFO - API analysis completed successfully: ProductController with 5 endpoints
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:10,994 - gemini_api - INFO - Step 2: Generating basic test
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:11,880 - gemini_api - INFO - Generating basic RestAssured test...
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:22,560 - gemini_api - ERROR - Error occurred while generating test: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
+2025-11-11 14:00:27,713 - gemini_api - ERROR - Full traceback:
+Traceback (most recent call last):
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\gemini.py", line 153, in generate_restassured_test
+    basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+  File "C:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\pipelines\rest_pipeline.py", line 172, in generate_basic_test
+    chain = basic_test_prompt | llm
+            ~~~~~~~~~~~~~~~~~~^~~~~
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 658, in __ror__
+    return RunnableSequence(coerce_to_runnable(other), self)
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\sanaa\OneDrive\Desktop\PFE\PFE04\backend\.venv\Lib\site-packages\langchain_core\runnables\base.py", line 6218, in coerce_to_runnable
+    raise TypeError(msg)
+TypeError: Expected a Runnable, callable or dict.Instead got an unsupported type: <class 'str'>
