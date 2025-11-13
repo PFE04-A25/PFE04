@@ -1,0 +1,263 @@
+import pytest
+import prompts.rest_prompt
+from gemini import app, setup_llm, analyze_api_code, generate_basic_test
+
+"""List des pytests pour tester le fichier gemini.py et ses fonctions:
+
+   1. setup_llm()
+   2. analyze_api_code()
+   3. generate_basic_test()
+   4. generate_restassured_test()"""
+
+@pytest.fixture
+def client(): #Create an object client for Flask tests
+    app.config['TESTING'] = True
+    with app.test_client() as client:
+        yield client
+
+def test_setup_llm_missing_api(monkeypatch):
+    """Cherche qu'une erreur est levée si la clé API est manquante."""
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False) #Create a test environment without the API key
+
+    with pytest.raises(ValueError, match="Clé API Google Gemini non fournie"): #Check for a raised ValueError
+        setup_llm()
+
+def test_setup_llm_with_api(monkeypatch):
+    """Vérifie que le LLM est configuré correctement avec une clé API."""
+
+    FAKE_API_KEY = "fake_api_key"
+    monkeypatch.setenv("GEMINI_API_KEY", FAKE_API_KEY) #Create a test environment with a fake API key
+    llm = setup_llm()
+
+    assert llm is not None #Check that the LLM is properly set up
+
+def test_analyze_api_code_success():
+    """Test si le LLM retourne une réponse JSON valide et que la fonction parse correctement le JSON."""
+
+    class FakeResponse:
+        #Fake valid JSON response from LLM
+        content = '```json\n{"controller_name": "TestController", "endpoints": []}\n```'
+
+    def FakeLLM(input):
+        return FakeResponse()
+            
+    #Initialize test parameters
+    fake_llm = FakeLLM
+    api_code = "public class TestController {}" 
+    result = analyze_api_code(fake_llm, api_code)
+
+    assert result is not None
+    assert result['controller_name'] == "TestController"
+    assert isinstance(result['endpoints'], list)
+
+def test_analyze_api_code_failure():  
+    """Test si une erreur est levée pour une réponse sans JSON/vide."""
+    
+    class FakeResponse:
+        content = '' #Empty or invalid Java test code response to simulate failure
+
+    def FakeLLM(input):
+        return FakeResponse() #Return an object holing the fake response
+
+    #Initialize test parameters     
+    fake_llm = FakeLLM
+    api_code = "public class TestController {}"
+
+    result = analyze_api_code(fake_llm, api_code)
+
+    assert result is None
+
+def test_generate_basic_test_success(monkeypatch):
+    
+    class FakeResponse:
+        content = '```java\npublic class Test {}\n```' #Fake valid Java test code response
+        usage_metadata = {'input_tokens': 100} #Simulate input token usage
+    
+    class FakeLLM:
+        max_output_tokens = 8192 
+        def invoke(self, prompt):
+            return FakeResponse() #Return an object holding the fake response
+        
+    class Prompt:
+        def __or__(self, other):
+            return other 
+    
+    class FakePrompt:
+        prompt = Prompt() #Return an object holding the prompt chain
+
+    #Implement dependencies without effecting the test  
+    monkeypatch.setattr("code_manipulation.java.clean_java_code", lambda code: code.replace("Test", "TestCleaned"))
+    monkeypatch.setattr("code_manipulation.java.fix_spring_boot_test_annotation", lambda code: code + "//fixed")
+    monkeypatch.setattr(prompts.rest_prompt.RestAssuredPrompts, "get_basic_test_prompt", lambda: FakePrompt())
+
+    #Initialize test parameters
+    llm = FakeLLM()
+    api_code = "public class TestController {}"
+    api_info = {"controller_name": "TestController", "endpoints": []} 
+    
+    result = generate_basic_test(llm, api_code, api_info)
+    
+    assert "TestCleaned" in result
+    assert "//fixed" in result
+
+def test_generate_restassured_test_api_key(client, monkeypatch):
+    """Testez le point de terminaison /rest-assured-test/gemini avec une fausse clé API et un LLM simulé"""
+
+    # Mock LLM and prompt chain
+    class FakeResponse:
+        content = '```java\npublic class Test {}\n```' #Fake valid Java test code response
+        usage_metadata = {'input_tokens': 100} #Simulate input token usage
+
+    class FakeLLM:
+        max_output_tokens = 4096 
+        def invoke(self, prompt):
+            return FakeResponse() #Return an object holding the fake response
+        
+    class Prompt:
+        def __or__(self, other):
+            return other
+        
+    class FakePrompt:
+        prompt = Prompt() #Return an object holding the prompt chain
+
+    #Implement dependencies without effecting the test  
+    monkeypatch.setenv("GEMINI_API_KEY", "fake_api_key")
+    monkeypatch.setattr("code_manipulation.java.clean_java_code", lambda code: code.replace("Test", "TestCleaned"))
+    monkeypatch.setattr("code_manipulation.java.fix_spring_boot_test_annotation", lambda code: code + "//fixed")
+    monkeypatch.setattr(prompts.rest_prompt.RestAssuredPrompts, "get_basic_test_prompt", lambda: FakePrompt())
+    monkeypatch.setattr("gemini.setup_llm", lambda api_key=None: FakeLLM())
+    monkeypatch.setattr("gemini.analyze_api_code", lambda llm, api_code: {"controller_name": "TestController", "endpoints": []})
+
+    # Simulate post request to the endpoint
+    response = client.post(
+        "/rest-assured-test/gemini",
+        json={"api_code": "public class TestController {}"}
+    )
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert "generated_test" in data
+    assert "TestCleaned" in data["generated_test"]
+    assert "//fixed" in data["generated_test"]
+
+def test_execute_tests_missing_test_code(client):
+    """"Test si le fonction retourne le propre erreur si il manque une test_code."""
+    response = client.post("/execute-tests", json={"test_cde": "", "api_code": "test api code"})  #Implement response without test_code block   
+    assert response.status_code == 400 #Check for 400 Error
+    assert "Test code is required" in response.get_json()["error"]
+
+def test_execute_tests_success(client, monkeypatch):
+    """Test si le fonction retourne le propre réponse si il y a une test_code et id."""
+    class FakeExecutor:
+        id = "fake id"
+        def get_thread(self): 
+            class thread:
+                def start(self): pass
+            return thread()
+
+    #Implement dependencies without effecting the test   
+    monkeypatch.setattr("gemini.JavaTestExecutor", lambda **kwargs: FakeExecutor())
+
+    response = client.post("/execute-tests", json={"test_code": "test code", "api_code": "test api code"}) #Implement response with valid test_code and api_code
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert data["execution_id"] == "fake id" 
+    assert data["status"] == "started"
+
+def test_get_execution_status_no_id(client):
+    """Test si le fonction retourne le propre erreur si il manque une id."""
+    response = client.get("/execution-status/<execution_id>")    
+    assert response.status_code == 404 #Check for 404 Error if execution_id is missing
+
+def test_get_execution_status_invalid_id(client):    
+    """Test si le fonction retourne le propre erreur si il y a une id invalide."""
+    response = client.get("/execution-status/invalid_id")
+    assert response.status_code == 404 #Check for 404 Error if execution_id is invalid
+    data = response.get_json()
+    assert data is not None
+    assert "error" in data
+
+def test_get_execution_status_success(client, monkeypatch):
+    """Test si le fonction retourne le propre réponse si il y a une id valide."""
+    class FakeExecutor:
+        test_executions = { #Simulate a valid execution ID with status details
+            "valid_id": {
+                "status": "completed",
+                "logs": "All tests passed",
+                "metrics": {},
+                "start_time": "now",
+                "end_time": "later"
+            }
+        }
+
+    #Implement dependencies without effecting the test 
+    monkeypatch.setattr("gemini.executor", FakeExecutor())
+    monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
+    
+    response = client.get("/execution-status/valid_id")
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert data["execution_id"] == "valid_id"
+    assert data["status"] == "completed"
+    assert data["logs"] == "All tests passed"
+    assert data["metrics"] == {}
+    assert data["start_time"] == "now"
+    assert data["end_time"] == "later"   
+
+def test_get_detailed_metrics_missing_id(client):
+    """"Test si le fonction retourne le propre erreur si il manque une id pour les métriques détaillées."""
+    response = client.get("/execution-metrics/<execution_id>")
+    assert response.status_code == 404 #Check for 404 Error if execution_id is missing
+
+def test_get_detailed_metrics_invalid_id(client):
+    """Test si le fonction retourne le propre erreur si il y a une id invalide pour les métriques détaillées."""
+    response = client.get("/execution-metrics/invalid_id")
+    assert response.status_code == 404 #Check for 404 Error if execution_id is invalid
+    data = response.get_json()
+    assert data is not None
+    assert "error" in data    
+
+def test_get_detailed_metrics_success(client, monkeypatch):
+    """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées"""
+    class FakeExecutor:
+        test_executions = {
+            "valid_id": {
+                "status": "completed",
+                "logs": "All tests passed",
+                "metrics": { 
+                    "line_coverage": 85.0,
+                    "branch_coverage": 75.0,
+                    "instruction_coverage": 80.0,
+                    "tests_per_endpoint": 2.0,
+                    "endpoints_count": 5,
+                    "tests_run": 10
+                }
+            }
+        }
+
+    #Implement dependencies without effecting the test 
+    monkeypatch.setattr("gemini.executor", FakeExecutor())
+    monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
+
+    response = client.get("/execution-metrics/valid_id")
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert data["execution_id"] == "valid_id"
+    assert data["metrics"]["line_coverage"] == 85.0
+    assert data["metrics"]["branch_coverage"] == 75.0
+    assert data["metrics"]["instruction_coverage"] == 80.0
+    assert data["metrics"]["tests_per_endpoint"] == 2.0
+    assert data["metrics"]["endpoints_count"] == 5
+    assert data["metrics"]["tests_run"] == 10
+
+
+
+
+
+
+
+
+
+
+
+
+
