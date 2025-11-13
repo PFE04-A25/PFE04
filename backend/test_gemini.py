@@ -7,7 +7,10 @@ from gemini import app, setup_llm, analyze_api_code, generate_basic_test
    1. setup_llm()
    2. analyze_api_code()
    3. generate_basic_test()
-   4. generate_restassured_test()"""
+   4. generate_restassured_test()
+   5. execute_tests()
+   6. get_execution_status()
+   7. get_detailed_metrics()"""
 
 @pytest.fixture
 def client(): #Create an object client for Flask tests
@@ -71,7 +74,8 @@ def test_generate_basic_test_success(monkeypatch):
     
     class FakeResponse:
         content = '```java\npublic class Test {}\n```' #Fake valid Java test code response
-        usage_metadata = {'input_tokens': 100} #Simulate input token usage
+        usage_metadata = {'input_tokens': 100, 'output_tokens': 200} #Simulate input token usage
+        response_metadata = {'finish_reason': 'stop'} #Simulate finish reason
     
     class FakeLLM:
         max_output_tokens = 8192 
@@ -106,10 +110,11 @@ def test_generate_restassured_test_api_key(client, monkeypatch):
     # Mock LLM and prompt chain
     class FakeResponse:
         content = '```java\npublic class Test {}\n```' #Fake valid Java test code response
-        usage_metadata = {'input_tokens': 100} #Simulate input token usage
+        usage_metadata = {'input_tokens': 100, 'output_tokens': 200} #Simulate input token usage
+        response_metadata = {'finish_reason': 'stop'} #Simulate finish reason
 
     class FakeLLM:
-        max_output_tokens = 4096 
+        max_output_tokens = 8192  
         def invoke(self, prompt):
             return FakeResponse() #Return an object holding the fake response
         
@@ -249,7 +254,9 @@ def test_get_detailed_metrics_success(client, monkeypatch):
     assert data["metrics"]["endpoints_count"] == 5
     assert data["metrics"]["tests_run"] == 10
 
-
+def test_get_detailed_metrics_coverage_quality_poor(client, monkeypatch):
+    """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité pauvre"""
+    
 
 
 
