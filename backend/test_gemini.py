@@ -225,7 +225,7 @@ def test_get_detailed_metrics_success(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées"""
     class FakeExecutor:
         test_executions = {
-            "valid_id": {
+            "valid_id": { #Create fake metris for simulation 
                 "status": "completed",
                 "logs": "All tests passed",
                 "metrics": { 
@@ -246,7 +246,7 @@ def test_get_detailed_metrics_success(client, monkeypatch):
     response = client.get("/execution-metrics/valid_id")
     assert response.status_code == 200 #Check for successful response
     data = response.get_json()
-    assert data["execution_id"] == "valid_id"
+    assert data["execution_id"] == "valid_id" #Check if it returns the correct mock data
     assert data["metrics"]["line_coverage"] == 85.0
     assert data["metrics"]["branch_coverage"] == 75.0
     assert data["metrics"]["instruction_coverage"] == 80.0
@@ -255,11 +255,260 @@ def test_get_detailed_metrics_success(client, monkeypatch):
     assert data["metrics"]["tests_run"] == 10
 
 def test_get_detailed_metrics_coverage_quality_poor(client, monkeypatch):
-    """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité pauvre"""
-    
+    """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité couverture pauvre"""
+    class FakeExecutor:
+        def __init__(self,executions):
+            self.test_executions = executions
+            
+    execution_id = "valid_id"
+    test_executions = {
+        "valid_id": {
+            "status": "completed",
+            "logs": "All tests passed",
+            "metrics": {  #Create fake metris for simulation 
+                "line_coverage": 50.0, 
+                "branch_coverage": 40.0,
+                "instruction_coverage": 80.0,
+                "tests_per_endpoint": 2.0,
+                "endpoints_count": 5,
+                "tests_run": 10
+            }
+        }
+    }
 
+    #Implement dependencies without effecting the test 
+    monkeypatch.setattr("gemini.executor", FakeExecutor( executions=test_executions))
+    monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
 
+    response = client.get(f"/execution-metrics/{execution_id}")
 
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert data["quality_analysis"]["coverage_quality"] == "poor" #Check for poor coverage quality
+
+def test_get_detailed_metrics_coverage_quality_fair(client, monkeypatch):
+    """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité couverture fair"""
+    class FakeExecutor:
+        def __init__(self,executions):
+            self.test_executions = executions
+            
+    execution_id = "valid_id"
+    test_executions = {
+        "valid_id": {
+            "status": "completed",
+            "logs": "All tests passed",
+            "metrics": {  #Create fake metris for simulation 
+                "line_coverage": 60.0, 
+                "branch_coverage": 50.0,
+                "instruction_coverage": 80.0,
+                "tests_per_endpoint": 2.0,
+                "endpoints_count": 5,
+                "tests_run": 10
+            }
+        }
+    }
+
+    #Implement dependencies without effecting the test 
+    monkeypatch.setattr("gemini.executor", FakeExecutor( executions=test_executions))
+    monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
+
+    response = client.get(f"/execution-metrics/{execution_id}")
+
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert data["quality_analysis"]["coverage_quality"] == "fair" #Check for fair coverage quality    
+
+def test_get_detailed_metrics_coverage_quality_good(client, monkeypatch):
+    """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité couverture bonne"""
+    class FakeExecutor:
+        def __init__(self,executions):
+            self.test_executions = executions
+            
+    execution_id = "valid_id"
+    test_executions = {
+        "valid_id": {
+            "status": "completed",
+            "logs": "All tests passed",
+            "metrics": {  #Create fake metris for simulation 
+                "line_coverage": 80.0, 
+                "branch_coverage": 70.0,
+                "instruction_coverage": 80.0,
+                "tests_per_endpoint": 2.0,
+                "endpoints_count": 5,
+                "tests_run": 10
+            }
+        }
+    }
+
+    #Implement dependencies without effecting the test 
+    monkeypatch.setattr("gemini.executor", FakeExecutor( executions=test_executions))
+    monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
+
+    response = client.get(f"/execution-metrics/{execution_id}")
+
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert data["quality_analysis"]["coverage_quality"] == "good" #Check for good coverage quality
+
+def test_get_detailed_metrics_coverage_quality_excellent(client, monkeypatch):
+    """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité couverture excellent"""
+    class FakeExecutor:
+        def __init__(self,executions):
+            self.test_executions = executions
+            
+    execution_id = "valid_id"
+    test_executions = {
+        "valid_id": {
+            "status": "completed",
+            "logs": "All tests passed",
+            "metrics": {  #Create fake metris for simulation 
+                "line_coverage": 90.0, 
+                "branch_coverage": 85.0,
+                "instruction_coverage": 80.0,
+                "tests_per_endpoint": 2.0,
+                "endpoints_count": 5,
+                "tests_run": 10
+            }
+        }
+    }
+
+    #Implement dependencies without effecting the test 
+    monkeypatch.setattr("gemini.executor", FakeExecutor( executions=test_executions))
+    monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
+
+    response = client.get(f"/execution-metrics/{execution_id}")
+
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert data["quality_analysis"]["coverage_quality"] == "excellent" #Check for excellent coverage quality
+
+def test_get_detailed_metrics_test_completeness_insufficient(client, monkeypatch):
+    """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une complétude des tests insuffisantes"""
+    class FakeExecutor:
+        def __init__(self,executions):
+            self.test_executions = executions
+            
+    execution_id = "valid_id"
+    test_executions = {
+        "valid_id": {
+            "status": "completed",
+            "logs": "All tests passed",
+            "metrics": {  #Create fake metris for simulation 
+                "line_coverage": 85.0, 
+                "branch_coverage": 75.0,
+                "instruction_coverage": 80.0,
+                "tests_per_endpoint": 0.0,
+                "endpoints_count": 5,
+                "tests_run": 10
+            }
+        }
+    }
+
+    #Implement dependencies without effecting the test 
+    monkeypatch.setattr("gemini.executor", FakeExecutor( executions=test_executions))
+    monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
+
+    response = client.get(f"/execution-metrics/{execution_id}")
+
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert data["quality_analysis"]["test_completeness"] == "insufficient" #Check for good coverage quality 
+
+def test_get_detailed_metrics_test_completeness_minimal(client, monkeypatch):
+    """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une complétude des tests minimale"""
+    class FakeExecutor:
+        def __init__(self,executions):
+            self.test_executions = executions
+            
+    execution_id = "valid_id"
+    test_executions = {
+        "valid_id": {
+            "status": "completed",
+            "logs": "All tests passed",
+            "metrics": {  #Create fake metris for simulation 
+                "line_coverage": 85.0, 
+                "branch_coverage": 75.0,
+                "instruction_coverage": 80.0,
+                "tests_per_endpoint": 1.0,
+                "endpoints_count": 5,
+                "tests_run": 10
+            }
+        }
+    }
+
+    #Implement dependencies without effecting the test 
+    monkeypatch.setattr("gemini.executor", FakeExecutor( executions=test_executions))
+    monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
+
+    response = client.get(f"/execution-metrics/{execution_id}")
+
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert data["quality_analysis"]["test_completeness"] == "minimal" #Check for good coverage quality 
+
+def test_get_detailed_metrics_test_completeness_adequate(client, monkeypatch):
+    """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une complétude des tests adéquate"""
+    class FakeExecutor:
+        def __init__(self,executions):
+            self.test_executions = executions
+            
+    execution_id = "valid_id"
+    test_executions = {
+        "valid_id": {
+            "status": "completed",
+            "logs": "All tests passed",
+            "metrics": {  #Create fake metris for simulation 
+                "line_coverage": 85.0, 
+                "branch_coverage": 75.0,
+                "instruction_coverage": 80.0,
+                "tests_per_endpoint": 2.0,
+                "endpoints_count": 5,
+                "tests_run": 10
+            }
+        }
+    }
+
+    #Implement dependencies without effecting the test 
+    monkeypatch.setattr("gemini.executor", FakeExecutor( executions=test_executions))
+    monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
+
+    response = client.get(f"/execution-metrics/{execution_id}")
+
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert data["quality_analysis"]["test_completeness"] == "adequate" #Check for good coverage quality   
+
+def test_get_detailed_metrics_test_completeness_comprehensive(client, monkeypatch):
+    """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une complétude des tests compréhensive"""
+    class FakeExecutor:
+        def __init__(self,executions):
+            self.test_executions = executions
+            
+    execution_id = "valid_id"
+    test_executions = {
+        "valid_id": {
+            "status": "completed",
+            "logs": "All tests passed",
+            "metrics": {  #Create fake metris for simulation 
+                "line_coverage": 85.0, 
+                "branch_coverage": 75.0,
+                "instruction_coverage": 80.0,
+                "tests_per_endpoint": 3.0,
+                "endpoints_count": 5,
+                "tests_run": 10
+            }
+        }
+    }
+
+    #Implement dependencies without effecting the test 
+    monkeypatch.setattr("gemini.executor", FakeExecutor( executions=test_executions))
+    monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
+
+    response = client.get(f"/execution-metrics/{execution_id}")
+
+    assert response.status_code == 200 #Check for successful response
+    data = response.get_json()
+    assert data["quality_analysis"]["test_completeness"] == "comprehensive" #Check for good coverage quality 
 
 
 
