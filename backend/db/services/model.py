@@ -45,3 +45,14 @@ class ModelService:
         """Get models by name"""
         logger.info(f"Retrieving models with name {name}")
         return self.repository.find_by_name(name)
+    
+    def purge_models(self) -> bool:
+        """Delete all models from the database"""
+        logger.info("Purging all models from the database")
+        all_models = self.get_all_models()
+        deleted_count = 0
+        for model in all_models:
+            if self.repository.delete(model.id):
+                deleted_count += 1
+        logger.info(f"Deleted {deleted_count} models from the database")
+        return deleted_count == len(all_models)
