@@ -8,7 +8,7 @@ from prompts.unit_prompt import (
 )
 from pipelines import cleanup_raw_code_output
 
-logger = get_logger()
+logger = get_logger("unit_pipeline")
 
 
 def analyze_code(llm, api_code) -> dict:

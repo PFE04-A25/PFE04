@@ -16,11 +16,11 @@ import json
 from flask import jsonify, Flask, request
 from flask_cors import CORS
 from dotenv import load_dotenv
-from logger import get_logger
 from pipelines import(
     unit_pipeline,
 )
 from db.services import Services
+from logger import setup_logger
 from execute import JavaTestExecutor
 
 
@@ -29,7 +29,7 @@ class EnhancedTestGenerationError(Exception):
     pass
 
 # Initialize logger
-logger = get_logger()
+logger = setup_logger("gemini_app")
 
 load_dotenv()
 logger.info("Environment variables loaded.")
@@ -41,7 +41,9 @@ CORS(
 logger.info("Flask app initialized with CORS.")
 logger.info("Flask app initialized.")
 
+logger.info("Initializing database services...")
 db_services = Services()
+logger.info("Database services initialized.")
 
 def get_gemini_key() -> str:
     """

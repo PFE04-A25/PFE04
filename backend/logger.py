@@ -41,8 +41,8 @@ def setup_logger(name: str = "gemini_api"):
     self_logger = logger
     return logger
 
-def get_logger():
+def get_logger(name: str = "gemini_api"):
     global self_logger
     if self_logger is None:
-        self_logger = setup_logger()
+        self_logger = setup_logger(name)
     return self_logger

@@ -13,7 +13,7 @@ from pipelines.base_pipeline import BasePipeline
 
 from code_manipulation import java as java_utils
 
-logger = get_logger()
+logger = get_logger('rest_pipeline')
 
 # TODO (Refactoring) - Implémenter cette classe dans le serveur Gemini pour faciliter la génération (à tester avant)
 class RestPipeline(BasePipeline):

@@ -1,9 +1,9 @@
 from db.repositories.prompt_template_repository import PromptTemplateRepository
 from db.models.prompt_template import PromptTemplate
-from logger import setup_logger
+from logger import get_logger
 from typing import List, Optional, Dict
 
-logger = setup_logger()
+logger = get_logger("prompt_template_service")
 
 class PromptTemplateService:
     def __init__(self):
