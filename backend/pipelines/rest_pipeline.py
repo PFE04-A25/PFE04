@@ -13,7 +13,7 @@ from pipelines.base_pipeline import BasePipeline
 
 from code_manipulation import java as java_utils
 
-logger = get_logger()
+logger = get_logger('rest_pipeline')
 
 # TODO (Refactoring) - Implémenter cette classe dans le serveur Gemini pour faciliter la génération (à tester avant)
 class RestPipeline(BasePipeline):
@@ -120,21 +120,30 @@ def analyze_api_code(llm, api_code, api_analysis_prompt: PromptTemplate):
     """
     try:
         logger.info("Starting API code analysis...")
+        if isinstance(api_analysis_prompt, str):
+            api_analysis_prompt = PromptTemplate.from_template(api_analysis_prompt)
+
         # Utiliser l'API du model avec LangChain
         chain = api_analysis_prompt | llm
         logger.info("Prompt chain created.")
         response = chain.invoke({"api_code": api_code})
-
-        # Extraire le JSON de la réponse (peut être encapsulé dans des blocs de code)
+        # Extraire le JSON de la réponse (avec ou sans bloc ```json```)
         json_match = re.search(r"```json\s*([\s\S]*?)\s*```", response.content)
+
         if json_match:
             logger.debug("JSON block found in response.")
-            json_str = json_match.group(1)  # Si un bloc JSON est trouvé, on l'extrait
+            json_str = json_match.group(1)
         else:
-            logger.debug("No JSON block found, using full response content.")
-            json_str = response.content  # Sinon, on prend tout le texte brute
+            logger.debug("No JSON block found, attempting to detect raw JSON.")
+            # Capture tout ce qui est entre { ... }
+            raw_match = re.search(r"(\{[\s\S]*\})", response.content)
+            if raw_match:
+                json_str = raw_match.group(1)
+            else:
+                raise ValueError("Aucun JSON trouvé dans la réponse")
 
         # Nettoyer et parser le JSON
+        json_str = json_str.strip()
         api_info = json.loads(json_str)
         logger.info(
             f"API analysis completed successfully: {api_info['controller_name']} with {len(api_info['endpoints'])} endpoints"
@@ -164,7 +173,9 @@ def generate_basic_test(llm: ChatGoogleGenerativeAI, api_code, api_info, basic_t
     logger.info("Generating basic RestAssured test...")
     # Convertir api_info en chaîne formatée pour le prompt
     api_info_str = json.dumps(api_info, indent=2)
-
+   
+    if isinstance(basic_test_prompt, str):
+        basic_test_prompt = PromptTemplate.from_template(basic_test_prompt)
     # Génération du test
     chain = basic_test_prompt | llm
     logger.debug("Prompt chain for basic test created.")

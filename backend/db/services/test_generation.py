@@ -1,9 +1,9 @@
 from db.repositories.test_generation_repository import TestGenerationRepository
 from db.models.test_generation import TestGeneration
-from logger import setup_logger
+from logger import get_logger
 from typing import Optional, List, Dict
 
-logger = setup_logger()
+logger = get_logger("test_generation_service")
 
 
 class TestGenerationService:

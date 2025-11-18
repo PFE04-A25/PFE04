@@ -1,9 +1,9 @@
 from db.repositories.prompt_template_repository import PromptTemplateRepository
 from db.models.prompt_template import PromptTemplate
-from logger import setup_logger
+from logger import get_logger
 from typing import List, Optional, Dict
 
-logger = setup_logger()
+logger = get_logger("prompt_template_service")
 
 class PromptTemplateService:
     def __init__(self):
@@ -41,3 +41,14 @@ class PromptTemplateService:
     def find_templates_by_language(self, language: str) -> List[PromptTemplate]:
         """Find prompt templates by programming language"""
         return self.repository.find_by_language(language)
+    
+    def purge_prompt_templates(self) -> bool:
+        """Delete all prompt templates from the database"""
+        logger.info("Purging all prompt templates from the database")
+        all_templates = self.get_prompt_templates()
+        deleted_count = 0
+        for template in all_templates:
+            if self.repository.delete(template.id):
+                deleted_count += 1
+        logger.info(f"Purged {deleted_count} prompt templates from the database")
+        return deleted_count == len(all_templates)

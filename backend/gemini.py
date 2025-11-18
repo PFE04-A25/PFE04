@@ -1,20 +1,20 @@
-import os
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+import threading
+import time
+import uuid
+from db.services import Services
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.prompts import PromptTemplate
 import json
-import re
 from flask import jsonify, Flask, request
 from flask_cors import CORS
 from dotenv import load_dotenv
-
-from logger import get_logger
-from config_class import EndpointInfo, ApiAnalysis
 from pipelines import(
-    rest_pipeline,
     unit_pipeline,
+    rest_pipeline,
 )
-from db.services.test_case import TestCaseService
-from code_manipulation import java as java_utils
-
+from logger import setup_logger
 from execute import JavaTestExecutor
 
 
@@ -23,7 +23,7 @@ class EnhancedTestGenerationError(Exception):
     pass
 
 # Initialize logger
-logger = get_logger()
+logger = setup_logger("gemini_app")
 
 load_dotenv()
 logger.info("Environment variables loaded.")
@@ -35,13 +35,9 @@ CORS(
 logger.info("Flask app initialized with CORS.")
 logger.info("Flask app initialized.")
 
-# Deprecated, was used to test DB implementation
-test_case_service = TestCaseService()
-logger.info("TestCaseService initialized.")
-
-# Should instead use the Services class to init all services needed
-from db.services import Services
+logger.info("Initializing database services...")
 db_services = Services()
+logger.info("Database services initialized.")
 
 def get_gemini_key() -> str:
     """
@@ -106,94 +102,100 @@ def generate_restassured_test():
     logger.info("REST API endpoint /rest-assured-test/gemini called")
 
     data = request.get_json()
-    logger.debug(f"Request received with content type: {request.content_type}")
-
     if "api_code" not in data:
-        logger.warning("Request missing api_code parameter")
         return jsonify({"error": "Missing api_code parameter"}), 400
 
     api_code = data["api_code"]
-    logger.debug(f"Received API code of length: {len(api_code)} characters")
-
     api_key = os.environ.get("GEMINI_API_KEY")
+
     if not api_key:
-        logger.error("GEMINI_API_KEY not found in environment variables")
-        return (
-            jsonify({"error": "Missing GEMINI_API_KEY in environment variables"}),
-            400,
-        )
+        return jsonify({"error": "Missing GEMINI_API_KEY in environment variables"}), 400
 
     try:
-        # Initialiser le modèle de langage
-        logger.info("Setting up LLM...")
         llm = setup_llm(api_key)
         logger.info("LLM setup complete.")
 
-        # **Note**  
-        # Le scope de notre projet est exclusivement pour Gemini. Cependant, nous avons fait une architecture de DB permettant d'avoir plusieurs modèles.
-        # On devrait donc fetch le modèle depuis la DB pour obtenir ses informations (comme son ID, les configs, etc.)
-        # Cependant pour simplicité puisqu'on utilise directement Gemini nous utilisons un ID statique pour l'instant.
+        model_service = db_services.model_service
+        pipeline_service = db_services.pipeline_service
+        prompt_service = db_services.prompt_template_service
+        snippet_service = db_services.code_snippet_service
+        generation_service = db_services.test_generation_service
 
-        # TODO (DB) - Fetch the active rest pipeline in the DB and fetch its prompt_templates
-        # TODO (DB) - Init un des PromptTemplate pour les prompts utilisés lors de la génération
-        # Exemple:
-        #       prompt_X = basic_prompt.BasicPipeline(...)
-        #       prompts_dict = {1: prompt_1.prompt, 2: prompt_2.prompt, 3: prompt_3.prompt}
-        # TODO (Refactoring) - Initialise le pipeline avec ces prompts
-        # Exemple:
-        #      rest_pipeline = pipelines.rest_pipeline.RestAssuredPipeline(llm, prompts_dict)
-        # TODO (Refactoring) - Run the pipeline (generate_test) pour générer le test complet
+        model = model_service.get_models_by_name("Gemini")
+        if not model:
+            raise ValueError("Model 'Gemini' not found in DB")
+        model = model[0]
 
-        # TODO (Refactoring) - Supprimer la logique de la génération du test dans ce endpoint une fois le pipeline fonctionnel
-        # Étape 1: Analyser l'API
+        pipeline_list = pipeline_service.get_pipeline_active_by_name("REST")
+        if not pipeline_list:
+            raise ValueError("No active pipeline found for 'REST'")
+        pipeline = pipeline_list[0]
+
+        prompts_dict = {}
+        for prompt_conf in pipeline.prompts:
+            prompt_obj = prompt_service.get_prompt_template(str(prompt_conf["prompt_id"]))
+            if prompt_obj:
+                prompts_dict.update(
+                    {prompt_conf["order"]: PromptTemplate(
+                        template=prompt_obj.template_text,
+                        input_variables=prompt_obj.input_variables,
+                        partial_variables=prompt_obj.partial_variables,
+                    )}
+                )
+
+        # prompts_dict = {p_idx + 1: prompts[p_idx].template_text for p_idx in range(len(prompts))}
+        logger.info(f"Loaded {len(prompts_dict)} prompts for REST pipeline.")
+
         logger.info("Step 1: Analyzing API code")
-        # TODO (DB) Utiliser le prompt de la DB selon le ID du step 1
-        current_prompt = rest_pipeline.RestAssuredPrompts.get_api_analysis_prompt().prompt
-        api_info = rest_pipeline.analyze_api_code(llm, api_code, current_prompt)
+        if 1 not in prompts_dict.keys():
+            raise Exception("Missing prompt for API analysis step")
+        api_info = rest_pipeline.analyze_api_code(llm, api_code, prompts_dict[1])
         if not api_info:
-            logger.error("API analysis failed!")
             raise Exception("API analysis failed")
 
-        logger.info(f"API analysis successful")
-        logger.debug(f"API analysis details: {json.dumps(api_info, indent=2)[:500]}")
-
-        # Étape 2: Générer un test de base
         logger.info("Step 2: Generating basic test")
-        # TODO (DB) Utiliser le prompt de la DB selon le ID du step 2
-        current_prompt = rest_pipeline.RestAssuredPrompts.get_basic_test_prompt().prompt
-        basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, current_prompt)
+        if 2 not in prompts_dict.keys():
+            raise Exception("Missing prompt for basic test generation step")
+        basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
         logger.info("Basic test generation successful")
-        logger.debug("Basic test:\n" + basic_test)
 
-        # Étape 3: Améliorer le test
+        enhanced_test = None
         skipping_enhancement = True
-        # The enhanced test are always empty using basic_test for now
-        if not skipping_enhancement:
+        if not skipping_enhancement and 3 in prompts_dict.keys():
             logger.info("Step 3: Enhancing test")
-            # TODO (DB) Utiliser le prompt de la DB selon le ID du step 3
-            current_prompt = rest_pipeline.RestAssuredPrompts.get_advanced_test_prompt().prompt
-            enhanced_test = rest_pipeline.enhance_test(llm, api_code, basic_test, current_prompt)
-
-            logger.info("Enhanced test generation successful")
-            logger.debug(
-                "Enhanced test preview: "
-                + (
-                    enhanced_test[:500] + "..."
-                    if len(enhanced_test) > 500
-                    else enhanced_test
-                )
-            )
-
-            logger.info("Test generation completed successfully")
-            return jsonify({"generated_test": enhanced_test})
+            enhanced_test = rest_pipeline.enhance_test(llm, api_code, basic_test, prompts_dict[3])
+        elif not skipping_enhancement and 3 not in prompts_dict.keys():
+            raise Exception("Missing prompt for enhanced test generation step")
         else:
-            return jsonify({"generated_test": basic_test})
+            enhanced_test = basic_test
+
+        snippet = snippet_service.create_code_snippet(
+            source_code=api_code,
+            language="java",
+            description="Spring Boot API analyzed for RestAssured test generation"
+        )
+
+        generation = generation_service.create_test_generation(
+            model_id=str(model.id),
+            pipeline_id=str(pipeline.id),
+            code_snippet_id=str(snippet.id),
+            generated_analysis=str(api_info),
+            generated_test=enhanced_test,
+            token_usage={"prompt_tokens": 0, "completion_tokens": 0},  # placeholder
+            executed=False
+        )
+
+        logger.info(f"Test generation saved in DB (ID: {generation.id})")
+
+        return jsonify({
+            "generated_test": enhanced_test,
+            "generation_id": str(generation.id)
+        })
 
     except Exception as e:
         logger.error(f"Error occurred while generating test: {str(e)}")
         logger.exception("Full traceback:")
         return jsonify({"error": str(e)}), 500
-
 
 @app.route("/unit-test/gemini", methods=["POST"])
 def generate_unit_test():
@@ -286,295 +288,385 @@ def generate_unit_test():
         logger.exception("Full traceback:")
         return jsonify({"error": str(e)}), 500
 
-# TODO (DB) - Rework les endpoints CRUD de la DB pour la nouvelles architecture des services
-# Noter que le FE va surement aussi devoir être mis à jour pour envoyer les bonnes données
 @app.route("/db/testcases", methods=["POST"])
 def create_test_case():
+    """
+    Crée un enregistrement complet de test_generation à partir d’un code source et d’un test généré.
+    Utilise la nouvelle architecture Mongo : CodeSnippet, ModelInfo, Pipeline, TestGeneration.
+    """
     data = request.json
-
-    # Vérifier si la requête contient des données JSON
     if not data:
-        logger.warning("Request body is empty")
         return jsonify({"error": "Request body is required"}), 400
 
-    # Vérifier la présence des champs requis
     required_fields = ["testType", "sourceCode", "testCase"]
-    missing_fields = [
-        field
-        for field in required_fields
-        if field not in data or data.get(field) is None
-    ]
-
+    missing_fields = [f for f in required_fields if f not in data or data.get(f) is None]
     if missing_fields:
-        logger.warning(f"Missing required fields: {', '.join(missing_fields)}")
-        return (
-            jsonify({"error": f"Missing required fields: {', '.join(missing_fields)}"}),
-            400,
-        )
+        return jsonify({"error": f"Missing required fields: {', '.join(missing_fields)}"}), 400
 
-    # Validation des types de données
-    if not isinstance(data.get("testType"), str):
-        return jsonify({"error": "testType must be a string"}), 400
-
-    if not isinstance(data.get("sourceCode"), str):
-        return jsonify({"error": "sourceCode must be a string"}), 400
-
-    if not isinstance(data.get("testCase"), str):
-        return jsonify({"error": "testCase must be a string"}), 400
+    # Validation des types
+    if not all(isinstance(data.get(f), str) for f in required_fields):
+        return jsonify({"error": "All fields (testType, sourceCode, testCase) must be strings"}), 400
 
     try:
-        # Deprecated, ne pas utiliser test_case comme objet
-        # TODO (DB) - Utiliser le Services class pour orchestrer les appels aux différents services nécessaires
-        # EX: 
-        #   1. Créer un code_snippet, 
-        #   2.fetch le id du modèle & pipeline utilisé 
-        #   3. Créer test_génération avec les FK
-        result = test_case_service.create_test_case(
-            test_type=data.get("testType"),
-            source_code=data.get("sourceCode"),
-            test_case=data.get("testCase"),
+        test_type = data.get("testType")      
+        source_code = data.get("sourceCode")  
+        test_case = data.get("testCase")      
+
+        snippet_service = db_services.code_snippet_service
+        model_service = db_services.model_service
+        pipeline_service = db_services.pipeline_service
+        generation_service = db_services.test_generation_service
+
+        snippet = snippet_service.create_code_snippet(
+            source_code=source_code,
+            language="java" if test_type.upper() == "REST" else "python",
+            description=f"Code source pour test {test_type}"
         )
 
-        return jsonify(
-            {
-                "id": str(result.id),
-                "testType": result.test_type,
-                "createdAt": result.created_at.isoformat(),
-            }
+        model_list = model_service.get_models_by_name("Gemini")
+        if not model_list:
+            raise ValueError("Model 'Gemini' not found in DB")
+        model = model_list[0]
+
+        pipeline_list = pipeline_service.get_pipeline_active_by_name(test_type.upper())
+        if not pipeline_list:
+            raise ValueError(f"No active pipeline found for testType: {test_type}")
+        pipeline = pipeline_list[0]
+
+        generation = generation_service.create_test_generation(
+            model_id=str(model.id),
+            pipeline_id=str(pipeline.id),
+            code_snippet_id=str(snippet.id),
+            generated_analysis="Manual creation via /db/testcases",
+            generated_test=test_case,
+            token_usage={"prompt_tokens": 0, "completion_tokens": 0},
+            executed=False
         )
+
+
+        return jsonify({
+            "id": str(generation.id),
+            "testType": test_type,
+            "model": model.name,
+            "pipeline": pipeline.name,
+            "createdAt": generation.created_at.isoformat()
+        }), 201
+
     except Exception as e:
-        logger.error(f"Error creating test case: {str(e)}")
-        return jsonify({"error": f"Failed to create test case: {str(e)}"}), 500
+        logger.error(f"Error creating test generation: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
-
-# TODO (DB) - Rework les endpoints CRUD de la DB pour la nouvelles architecture des services et models
 @app.route("/db/testcases", methods=["GET"])
 def get_test_cases():
+    """
+    Retourne la liste des tests générés depuis la nouvelle structure MongoDB.
+    Combine test_generations + code_snippets + pipeline.
+    """
     try:
-        # Récupération et validation des paramètres de requête
         test_type = request.args.get("testType")
         limit = request.args.get("limit")
         offset = request.args.get("offset")
 
-        # Validation des paramètres numériques
-        if limit:
-            try:
-                limit = int(limit)
-                if limit <= 0:
-                    return jsonify({"error": "limit must be a positive integer"}), 400
-            except ValueError:
-                return jsonify({"error": "limit must be a valid integer"}), 400
+        try:
+            limit = int(limit) if limit else None
+            offset = int(offset) if offset else 0
+        except ValueError:
+            return jsonify({"error": "limit and offset must be integers"}), 400
 
-        if offset:
-            try:
-                offset = int(offset)
-                if offset < 0:
-                    return (
-                        jsonify({"error": "offset must be a non-negative integer"}),
-                        400,
-                    )
-            except ValueError:
-                return jsonify({"error": "offset must be a valid integer"}), 400
+        generation_service = db_services.test_generation_service
+        pipeline_service = db_services.pipeline_service
+        snippet_service = db_services.code_snippet_service
 
-        # Vous pouvez adapter le service pour prendre en compte ces paramètres ou un dict de filtre
-        # Pour le moment, nous utilisons l'appel existant retournant tout les cas de test
-        test_cases = test_case_service.get_test_cases()
+        generations = generation_service.repository.find_all()
 
-        # Filtrer par type de test si spécifié
         if test_type:
-            test_cases = [tc for tc in test_cases if tc.test_type == test_type]
+            pipelines = pipeline_service.get_pipelines_by_name(test_type.upper())
+            pipeline_ids = {str(p.id) for p in pipelines}
+            generations = [g for g in generations if str(g.pipeline_id) in pipeline_ids]
 
-        # Appliquer pagination si spécifiée
-        if offset and limit:
-            test_cases = test_cases[offset : offset + limit]
-        elif limit:
-            test_cases = test_cases[:limit]
+        if limit:
+            generations = generations[offset:offset + limit]
 
-        # Formatage de la réponse
-        return jsonify(
-            [
-                {
-                    "id": str(tc.id),
-                    "testType": tc.test_type,
-                    "sourceCode": tc.source_code,
-                    "testCase": tc.test_case,
-                    "createdAt": tc.created_at.isoformat(),
-                }
-                for tc in test_cases
-            ]
-        )
+        snippets_by_id = {str(s.id): s for s in snippet_service.repository.find_all()}
+
+        response = []
+        for gen in generations:
+            snippet = snippets_by_id.get(str(gen.code_snippet_id))
+            response.append({
+                "id": str(gen.id),
+                "testType": test_type or "UNKNOWN",
+                "sourceCode": snippet.source_code if snippet else None,
+                "generatedTest": gen.generated_test,
+                "executed": gen.executed,
+                "createdAt": gen.created_at.isoformat() if hasattr(gen, "created_at") else None,
+            })
+
+        return jsonify(response)
+
     except Exception as e:
-        logger.error(f"Error retrieving test cases: {str(e)}")
+        logger.error(f"Error retrieving test generations: {str(e)}")
         logger.exception("Full traceback:")
-        return jsonify({"error": f"Failed to retrieve test cases: {str(e)}"}), 500
-
-# TODO (DB) - Rework les endpoints CRUD de la DB pour la nouvelles architecture des services et models
+        return jsonify({"error": str(e)}), 500
+    
 @app.route("/db/testcases/<id>", methods=["DELETE"])
 def delete_test_case(id):
+    """
+    Supprime un test généré (test_generation) et son code source associé (code_snippet)
+    selon la nouvelle architecture MongoDB.
+    """
     try:
-        success = test_case_service.delete_test_case(id)
-        if success:
-            return jsonify({"message": "Test case deleted"}), 200
-        else:
-            return jsonify({"error": "Test case not found"}), 404
+        generation_service = db_services.test_generation_service
+        snippet_service = db_services.code_snippet_service
+
+        generation = generation_service.get_generation(id)
+        if not generation:
+            logger.warning(f"TestGeneration with ID {id} not found.")
+            return jsonify({"error": "Test generation not found"}), 404
+
+        snippet_id = getattr(generation, "code_snippet_id", None)
+
+        deleted_gen = generation_service.repository.delete(id)
+        if not deleted_gen:
+            logger.warning(f"Failed to delete TestGeneration with ID {id}.")
+            return jsonify({"error": "Failed to delete test generation"}), 500
+
+        if snippet_id:
+            snippet_service.repository.delete(snippet_id)
+            logger.info(f"Deleted CodeSnippet with ID {snippet_id}")
+
+        logger.info(f"Successfully deleted TestGeneration {id} and associated CodeSnippet.")
+        return jsonify({"message": f"Test generation {id} deleted successfully"}), 200
+
     except Exception as e:
-        logger.error(f"Error deleting test case: {str(e)}")
-        return jsonify({"error": f"Failed to delete test case: {str(e)}"}), 500
+        logger.error(f"Error deleting test generation: {str(e)}", exc_info=True)
+        return jsonify({"error": f"Failed to delete test generation: {str(e)}"}), 500
     
-# TODO (DB) - Rework les endpoints CRUD de la DB pour la nouvelles architecture des services et models
 @app.route("/db/testcases/<id>", methods=["PUT"])
 def update_test_case(id):
+    """
+    Met à jour un test généré (test_generation) ou son code source (code_snippet)
+    selon la nouvelle structure MongoDB.
+    """
     data = request.json
-
-    # Verify request contains JSON data
     if not data:
-        logger.warning("Request body is empty")
         return jsonify({"error": "Request body is required"}), 400
 
-    # Check for fields to update and convert from camelCase to snake_case
-    update_data = {}
-    
-    if "testType" in data:
-        if not isinstance(data["testType"], str):
-            return jsonify({"error": "testType must be a string"}), 400
-        update_data["test_type"] = data["testType"]
-        
-    if "sourceCode" in data:
-        if not isinstance(data["sourceCode"], str):
-            return jsonify({"error": "sourceCode must be a string"}), 400
-        update_data["source_code"] = data["sourceCode"]
-        
-    if "testCase" in data:
-        if not isinstance(data["testCase"], str):
-            return jsonify({"error": "testCase must be a string"}), 400
-        update_data["test_case"] = data["testCase"]
-    
-    if not update_data:
-        return jsonify({"error": "No valid fields to update"}), 400
-
     try:
-        # Call service method
-        result = test_case_service.update_test_case(id, update_data)
-        
-        if not result:
-            return jsonify({"error": "Test case not found"}), 404
-            
-        return jsonify({
-            "id": str(result.id),
-            "testType": result.test_type,
-            "sourceCode": result.source_code,
-            "testCase": result.test_case,
-            "createdAt": result.created_at.isoformat(),
-            "updatedAt": result.updated_at.isoformat() if hasattr(result, "updated_at") else None
-        })
+        generation_service = db_services.test_generation_service
+        snippet_service = db_services.code_snippet_service
+
+        generation = generation_service.get_generation(id)
+        if not generation:
+            return jsonify({"error": f"Test generation with ID {id} not found"}), 404
+
+        generation_updates = {}
+        snippet_updates = {}
+
+        if "testCase" in data:
+            if not isinstance(data["testCase"], str):
+                return jsonify({"error": "testCase must be a string"}), 400
+            generation_updates["generated_test"] = data["testCase"]
+
+        if "sourceCode" in data:
+            if not isinstance(data["sourceCode"], str):
+                return jsonify({"error": "sourceCode must be a string"}), 400
+            snippet_updates["source_code"] = data["sourceCode"]
+
+        if not generation_updates and not snippet_updates:
+            return jsonify({"error": "No valid fields to update"}), 400
+
+        updated_gen = None
+        updated_snippet = None
+
+        if generation_updates:
+            updated_gen = generation_service.repository.update(id, generation_updates)
+
+        if snippet_updates and hasattr(generation, "code_snippet_id"):
+            updated_snippet = snippet_service.repository.update(
+                generation.code_snippet_id, snippet_updates
+            )
+
+        response = {
+            "id": str(id),
+            "testType": getattr(generation, "test_type", "N/A"),
+            "sourceCode": getattr(updated_snippet or {}, "source_code", None),
+            "generatedTest": getattr(updated_gen or generation, "generated_test", None),
+            "executed": getattr(generation, "executed", False),
+            "updatedAt": getattr(updated_gen or generation, "updated_at", None),
+        }
+
+        logger.info(f"Updated test generation {id}")
+        return jsonify(response), 200
+
     except Exception as e:
-        logger.error(f"Error updating test case: {str(e)}")
-        return jsonify({"error": f"Failed to update test case: {str(e)}"}), 500
-
-executor = None # temporary global executor instance en attendant l'implémentation complète de la DB
-
-# TODO (DB) - Ajouter l'enregistrement des exécutions de tests dans la DB.
-# Noter qu'il va surement falloir envoyer plus de data du FE pour récupérer la pipeline, modèle, etc.
+        logger.error(f"Error updating test generation: {str(e)}", exc_info=True)
+        return jsonify({"error": f"Failed to update test generation: {str(e)}"}), 500
+    
 @app.route("/execute-tests", methods=["POST"])
 def execute_tests():
-    """Endpoint pour exécuter les tests Java et retourner un ID d'exécution"""
+    """Lance l'exécution des tests et enregistre les résultats dans MongoDB"""
     try:
         data = request.get_json()
         test_code = data.get("test_code", "")
         api_code = data.get("api_code", "")
-        language = "java" #TODO - ajouter une méthode dynamique de choisir le language
+        # TODO: FE should send test generation ID to link execution
+        test_generation_id = data.get("test_generation_id")
 
         if not test_code.strip():
             return jsonify({"error": "Test code is required"}), 400
 
-        if language.lower() == "java":
-            # Générer un executeur de test java
-            executor = JavaTestExecutor(
-                logger=logger, test_code=test_code, api_code=api_code
-            )
-        elif language.lower() == "python":
-            return jsonify({"error": "Python execution not implemented yet"}), 501
-        execution_id = executor.id
+        exec_service = db_services.test_execution_service
+        execution_id = str(uuid.uuid4())
 
-        # Lancer l'exécution en arrière-plan
-        thread = executor.get_thread()
-        thread.start()
-
-        logger.info(f"Started test execution with ID: {execution_id}")
-        return jsonify(
-            {
-                "execution_id": execution_id,
-                "status": "started",
-                "message": "Test execution started",
-            }
+        execution = exec_service.create_test_execution(
+            test_generation_id=test_generation_id,
+            build_success=False,
+            tests_run=0,
+            error_count=0,
+            failure_count=0,
+            skipped_count=0,
+            success_rate=0.0,
+            execution_time=0.0,
+            line_coverage=0.0,
+            timestamp=time.time(),
+            logs="Execution started...",
         )
 
+        executor = JavaTestExecutor(logger=logger, test_code=test_code, api_code=api_code)
+
+        def run_and_save_to_db(exec_id: str, executor: JavaTestExecutor):
+            try:
+                result = executor.run_blocking()  
+                metrics = result.get("metrics", {})
+                logs = result.get("logs", "")
+
+                exec_service.repository.update(
+                    str(execution.id),
+                    {
+                        "build_success": metrics.get("return_code", 1) == 0,
+                        "tests_run": metrics.get("tests_run", 0),
+                        "error_count": metrics.get("errors", 0),
+                        "failure_count": metrics.get("failures", 0),
+                        "skipped_count": metrics.get("skipped", 0),
+                        "success_rate": metrics.get("success_rate", 0.0),
+                        "execution_time": metrics.get("execution_time", 0.0),
+                        "line_coverage": metrics.get("line_coverage", 0.0),
+                        "logs": logs,
+                        "timestamp": time.time(),
+                    },
+                )
+                logger.info(f"Test execution {exec_id} completed and saved to MongoDB")
+
+            except Exception as e:
+                logger.error(f"Error during execution {exec_id}: {str(e)}", exc_info=True)
+                exec_service.repository.update(
+                    str(execution.id),
+                    {"logs": f"Execution failed: {str(e)}", "build_success": False},
+                )
+
+        thread = threading.Thread(target=run_and_save_to_db, args=(execution_id, executor))
+        thread.daemon = True
+        thread.start()
+
+        return jsonify({
+            "execution_id": execution_id,
+            "status": "started",
+            "message": "Test execution started"
+        }), 200
+
     except Exception as e:
-        logger.error(f"Error starting test execution: {str(e)}")
+        logger.error(f"Error starting test execution: {str(e)}", exc_info=True)
         return jsonify({"error": str(e)}), 500
+
 
 
 @app.route("/execution-status/<execution_id>", methods=["GET"])
 def get_execution_status(execution_id):
-    """Endpoint pour récupérer le statut et les résultats d'une exécution"""
+    """Retourne le statut et les métriques d'une exécution depuis MongoDB"""
     try:
-        # Check temporaire en attendant l'implémentation complète de la DB
-        if executor is None:
-            return jsonify({"error": "No test execution in progress"}), 404
-        if isinstance(executor, JavaTestExecutor):
-            if execution_id not in executor.test_executions.keys():
-                return jsonify({"error": "Execution ID not found"}), 404
-            else:
-                test_executions = executor.test_executions
+        exec_service = db_services.test_execution_service
+        execution = exec_service.get_test_execution(execution_id)
+
+        if not execution:
+            return jsonify({"error": "Execution not found"}), 404
+
+        if not execution.build_success and execution.logs == "Execution started...":
+            status = "running"
+        elif execution.build_success:
+            status = "completed"
+        elif "failed" in (execution.logs or "").lower():
+            status = "failed"
         else:
-            return jsonify({"error": "Unsupported executor type"}), 500
+            status = "unknown"
 
-        execution_data = test_executions[execution_id]
+        response = {
+            "execution_id": execution_id,
+            "status": status,
+            "logs": execution.logs or "",
+            "metrics": {
+                "tests_run": execution.tests_run or 0,
+                "failures": execution.failure_count or 0,
+                "errors": execution.error_count or 0,
+                "skipped": execution.skipped_count or 0,
+                "success_rate": execution.success_rate or 0.0,
+                "build_success": execution.build_success or False,
+                "line_coverage": execution.line_coverage or 0.0,
+                "execution_time": execution.execution_time or 0.0,
+            },
+            "start_time": execution.timestamp or time.time(),
+            "end_time": None if status == "running" else time.time(),
+        }
 
-        return jsonify(
-            {
-                "execution_id": execution_id,
-                "status": execution_data["status"],
-                "logs": execution_data["logs"],
-                "metrics": execution_data["metrics"],
-                "start_time": execution_data.get("start_time"),
-                "end_time": execution_data.get("end_time"),
-            }
-        )
+        logger.info(f"Status fetched for execution {execution_id}: {status}")
+        return jsonify(response), 200
 
     except Exception as e:
-        logger.error(f"Error retrieving execution status: {str(e)}")
+        logger.error(f"Error retrieving execution status: {str(e)}", exc_info=True)
         return jsonify({"error": str(e)}), 500
-
 
 @app.route("/execution-metrics/<execution_id>", methods=["GET"])
 def get_detailed_metrics(execution_id):
-    """Endpoint pour récupérer les métriques détaillées avec analyse de couverture"""
+    """Récupère les métriques détaillées avec analyse de couverture depuis MongoDB"""
     try:
-        # Check temporaire en attendant l'implémentation complète de la DB
-        if executor is None:
-            return jsonify({"error": "No test execution in progress"}), 404
-        if isinstance(executor, JavaTestExecutor):
-            if execution_id not in executor.test_executions.keys():
-                return jsonify({"error": "Execution ID not found"}), 404
-            else:
-                test_executions = executor.test_executions
-        else:
-            return jsonify({"error": "Unsupported executor type"}), 500
+        exec_service = db_services.test_execution_service
+        execution = exec_service.get_test_execution(execution_id)
 
-        execution_data = test_executions[execution_id]
-        metrics = execution_data.get("metrics", {})
+        if not execution:
+            return jsonify({"error": "Execution not found"}), 404
 
-        # Analyser les métriques de qualité
-        quality_analysis = {
-            "coverage_quality": "poor",  # poor, fair, good, excellent
-            "test_completeness": "insufficient",  # insufficient, minimal, adequate, comprehensive
-            "overall_score": 0.0,  # 0-100
+        metrics = {
+            "tests_run": execution.tests_run or 0,
+            "failures": execution.failure_count or 0,
+            "errors": execution.error_count or 0,
+            "skipped": execution.skipped_count or 0,
+            "success_rate": execution.success_rate or 0.0,
+            "build_success": execution.build_success or False,
+            "line_coverage": execution.line_coverage or 0.0,
+            "branch_coverage": getattr(execution, "branch_coverage", 0.0),
+            "instruction_coverage": getattr(execution, "instruction_coverage", 0.0),
+            "lines_covered": getattr(execution, "lines_covered", 0),
+            "lines_total": getattr(execution, "lines_total", 0),
+            "branches_covered": getattr(execution, "branches_covered", 0),
+            "branches_total": getattr(execution, "branches_total", 0),
+            "instructions_covered": getattr(execution, "instructions_covered", 0),
+            "instructions_total": getattr(execution, "instructions_total", 0),
+            "endpoints_count": getattr(execution, "endpoints_count", 0),
+            "tests_per_endpoint": getattr(execution, "tests_per_endpoint", 0.0),
+            "execution_time": execution.execution_time or 0.0,
+            "return_code": getattr(execution, "return_code", 0),
         }
 
-        # Évaluer la qualité de la couverture
+        quality_analysis = {
+            "coverage_quality": "poor",
+            "test_completeness": "insufficient",
+            "overall_score": 0.0,
+        }
+
         line_coverage = metrics.get("line_coverage", 0)
         branch_coverage = metrics.get("branch_coverage", 0)
+        instruction_coverage = metrics.get("instruction_coverage", 0)
+        tests_per_endpoint = metrics.get("tests_per_endpoint", 0)
+        endpoints_count = metrics.get("endpoints_count", 0)
 
         if line_coverage >= 90 and branch_coverage >= 85:
             quality_analysis["coverage_quality"] = "excellent"
@@ -585,10 +677,6 @@ def get_detailed_metrics(execution_id):
         else:
             quality_analysis["coverage_quality"] = "poor"
 
-        # Évaluer la complétude des tests
-        tests_per_endpoint = metrics.get("tests_per_endpoint", 0)
-        endpoints_count = metrics.get("endpoints_count", 0)
-
         if tests_per_endpoint >= 3:
             quality_analysis["test_completeness"] = "comprehensive"
         elif tests_per_endpoint >= 2:
@@ -598,61 +686,46 @@ def get_detailed_metrics(execution_id):
         else:
             quality_analysis["test_completeness"] = "insufficient"
 
-        # Score global (pondéré)
         coverage_score = (
             line_coverage * 0.4
             + branch_coverage * 0.4
-            + metrics.get("instruction_coverage", 0) * 0.2
+            + instruction_coverage * 0.2
         )
-        test_score = min(
-            100, tests_per_endpoint * 25
-        )  # 25 points par test par endpoint, max 100
-
+        test_score = min(100, tests_per_endpoint * 25)
         quality_analysis["overall_score"] = coverage_score * 0.7 + test_score * 0.3
 
-        # Recommandations
         recommendations = []
-
         if line_coverage < 70:
             recommendations.append("Augmenter la couverture de lignes (cible: 80%+)")
         if branch_coverage < 60:
-            recommendations.append(
-                "Améliorer la couverture des branches - tester tous les cas if/else/switch"
-            )
+            recommendations.append("Améliorer la couverture des branches - tester tous les cas if/else/switch")
         if tests_per_endpoint < 2:
-            recommendations.append(
-                "Ajouter plus de tests par endpoint (recommandé: 2-3 tests minimum)"
-            )
+            recommendations.append("Ajouter plus de tests par endpoint (recommandé: 2-3 tests minimum)")
         if endpoints_count > 0 and metrics.get("tests_run", 0) == 0:
-            recommendations.append(
-                "Aucun test détecté - implémenter des tests pour tous les endpoints"
-            )
-
+            recommendations.append("Aucun test détecté - implémenter des tests pour tous les endpoints")
         if not recommendations:
-            recommendations.append(
-                "Excellente couverture de tests ! Continuer les bonnes pratiques."
-            )
+            recommendations.append("Excellente couverture de tests ! Continuer les bonnes pratiques.")
 
-        return jsonify(
-            {
-                "execution_id": execution_id,
-                "metrics": metrics,
-                "quality_analysis": quality_analysis,
-                "recommendations": recommendations,
-                "coverage_summary": {
-                    "line_coverage": f"{line_coverage:.1f}%",
-                    "branch_coverage": f"{branch_coverage:.1f}%",
-                    "instruction_coverage": f"{metrics.get('instruction_coverage', 0):.1f}%",
-                    "tests_per_endpoint": f"{tests_per_endpoint:.1f}",
-                    "total_endpoints": endpoints_count,
-                    "total_tests": metrics.get("tests_run", 0),
-                },
-            }
-        )
+        return jsonify({
+            "execution_id": execution_id,
+            "metrics": metrics,
+            "quality_analysis": quality_analysis,
+            "recommendations": recommendations,
+            "coverage_summary": {
+                "line_coverage": f"{line_coverage:.1f}%",
+                "branch_coverage": f"{branch_coverage:.1f}%",
+                "instruction_coverage": f"{instruction_coverage:.1f}%",
+                "tests_per_endpoint": f"{tests_per_endpoint:.1f}",
+                "total_endpoints": endpoints_count,
+                "total_tests": metrics["tests_run"],
+            },
+        }), 200
 
     except Exception as e:
-        logger.error(f"Error retrieving detailed metrics: {str(e)}")
+        logger.error(f"Error retrieving detailed metrics: {str(e)}", exc_info=True)
         return jsonify({"error": str(e)}), 500
-
+    
 if __name__ == "__main__":
-    app.run(debug=True)
+    if os.environ.get("WERKZEUG_RUN_MAIN") == "true" or not os.environ.get("WERKZEUG_RUN_MAIN"):
+        logger.info("Starting Gemini Flask server on http://127.0.0.1:5000")
+    app.run(host="0.0.0.0", port=5000, debug=False)

@@ -130,7 +130,7 @@ export function CodePanel({
         success_rate: testResults.metrics.success_rate,
         tests_run: testResults.metrics.tests_run,
         failures: testResults.metrics.failures,
-        errors: testResults.metrics.errors
+        errors: testResults.metrics.errors,
       });
     }
   }, [currentTestHistoryId, testResults, executionStatus, executionId]);

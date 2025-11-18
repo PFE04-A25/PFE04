@@ -1,9 +1,9 @@
 from db.repositories.code_snippet_repository import CodeSnippetRepository
 from db.models.code_snippet import CodeSnippet
-from logger import setup_logger
+from logger import get_logger
 from typing import List, Optional, Dict
 
-logger = setup_logger()
+logger = get_logger("code_snippet_service")
 
 class CodeSnippetService:
     def __init__(self):

@@ -1,9 +1,9 @@
 from db.repositories.model_repository import ModelRepository
 from db.models.model_info import ModelInfo
-from logger import setup_logger
+from logger import get_logger
 from typing import List, Optional, Dict
 
-logger = setup_logger()
+logger = get_logger("model_service")
 
 
 class ModelService:
@@ -45,3 +45,14 @@ class ModelService:
         """Get models by name"""
         logger.info(f"Retrieving models with name {name}")
         return self.repository.find_by_name(name)
+    
+    def purge_models(self) -> bool:
+        """Delete all models from the database"""
+        logger.info("Purging all models from the database")
+        all_models = self.get_all_models()
+        deleted_count = 0
+        for model in all_models:
+            if self.repository.delete(model.id):
+                deleted_count += 1
+        logger.info(f"Deleted {deleted_count} models from the database")
+        return deleted_count == len(all_models)
