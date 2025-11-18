@@ -3,23 +3,17 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import threading
 import time
 import uuid
-from backend.db.services.code_snippet import CodeSnippetService
-from backend.db.services.model import ModelService
-from backend.db.services.pipeline import PipelineService
-from backend.db.services.prompt_template import PromptTemplateService
-from backend.db.services.test_execution import TestExecutionService
-from backend.db.services.test_generation import TestGenerationService
 from db.services import Services
-from pipelines import rest_pipeline
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.prompts import PromptTemplate
 import json
 from flask import jsonify, Flask, request
 from flask_cors import CORS
 from dotenv import load_dotenv
 from pipelines import(
     unit_pipeline,
+    rest_pipeline,
 )
-from db.services import Services
 from logger import setup_logger
 from execute import JavaTestExecutor
 
@@ -121,11 +115,11 @@ def generate_restassured_test():
         llm = setup_llm(api_key)
         logger.info("LLM setup complete.")
 
-        model_service = ModelService()
-        pipeline_service = PipelineService()
-        prompt_service = PromptTemplateService()
-        snippet_service = CodeSnippetService()
-        generation_service = TestGenerationService()
+        model_service = db_services.model_service
+        pipeline_service = db_services.pipeline_service
+        prompt_service = db_services.prompt_template_service
+        snippet_service = db_services.code_snippet_service
+        generation_service = db_services.test_generation_service
 
         model = model_service.get_models_by_name("Gemini")
         if not model:
@@ -137,29 +131,41 @@ def generate_restassured_test():
             raise ValueError("No active pipeline found for 'REST'")
         pipeline = pipeline_list[0]
 
-        prompts = []
+        prompts_dict = {}
         for prompt_conf in pipeline.prompts:
             prompt_obj = prompt_service.get_prompt_template(str(prompt_conf["prompt_id"]))
             if prompt_obj:
-                prompts.append(prompt_obj)
+                prompts_dict.update(
+                    {prompt_conf["order"]: PromptTemplate(
+                        template=prompt_obj.template_text,
+                        input_variables=prompt_obj.input_variables,
+                        partial_variables=prompt_obj.partial_variables,
+                    )}
+                )
 
-        prompts_dict = {p_idx + 1: prompts[p_idx].template_text for p_idx in range(len(prompts))}
-        logger.info(f"Loaded {len(prompts)} prompts for REST pipeline.")
+        # prompts_dict = {p_idx + 1: prompts[p_idx].template_text for p_idx in range(len(prompts))}
+        logger.info(f"Loaded {len(prompts_dict)} prompts for REST pipeline.")
 
         logger.info("Step 1: Analyzing API code")
+        if 1 not in prompts_dict.keys():
+            raise Exception("Missing prompt for API analysis step")
         api_info = rest_pipeline.analyze_api_code(llm, api_code, prompts_dict[1])
         if not api_info:
             raise Exception("API analysis failed")
 
         logger.info("Step 2: Generating basic test")
+        if 2 not in prompts_dict.keys():
+            raise Exception("Missing prompt for basic test generation step")
         basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
         logger.info("Basic test generation successful")
 
         enhanced_test = None
         skipping_enhancement = True
-        if not skipping_enhancement and len(prompts) >= 3:
+        if not skipping_enhancement and 3 in prompts_dict.keys():
             logger.info("Step 3: Enhancing test")
             enhanced_test = rest_pipeline.enhance_test(llm, api_code, basic_test, prompts_dict[3])
+        elif not skipping_enhancement and 3 not in prompts_dict.keys():
+            raise Exception("Missing prompt for enhanced test generation step")
         else:
             enhanced_test = basic_test
 
@@ -306,10 +312,10 @@ def create_test_case():
         source_code = data.get("sourceCode")  
         test_case = data.get("testCase")      
 
-        snippet_service = CodeSnippetService()
-        model_service = ModelService()
-        pipeline_service = PipelineService()
-        generation_service = TestGenerationService()
+        snippet_service = db_services.code_snippet_service
+        model_service = db_services.model_service
+        pipeline_service = db_services.pipeline_service
+        generation_service = db_services.test_generation_service
 
         snippet = snippet_service.create_code_snippet(
             source_code=source_code,
@@ -367,9 +373,9 @@ def get_test_cases():
         except ValueError:
             return jsonify({"error": "limit and offset must be integers"}), 400
 
-        generation_service = TestGenerationService()
-        pipeline_service = PipelineService()
-        snippet_service = CodeSnippetService()
+        generation_service = db_services.test_generation_service
+        pipeline_service = db_services.pipeline_service
+        snippet_service = db_services.code_snippet_service
 
         generations = generation_service.repository.find_all()
 
@@ -409,8 +415,8 @@ def delete_test_case(id):
     selon la nouvelle architecture MongoDB.
     """
     try:
-        generation_service = TestGenerationService()
-        snippet_service = CodeSnippetService()
+        generation_service = db_services.test_generation_service
+        snippet_service = db_services.code_snippet_service
 
         generation = generation_service.get_generation(id)
         if not generation:
@@ -446,8 +452,8 @@ def update_test_case(id):
         return jsonify({"error": "Request body is required"}), 400
 
     try:
-        generation_service = TestGenerationService()
-        snippet_service = CodeSnippetService()
+        generation_service = db_services.test_generation_service
+        snippet_service = db_services.code_snippet_service
 
         generation = generation_service.get_generation(id)
         if not generation:
@@ -509,7 +515,7 @@ def execute_tests():
         if not test_code.strip():
             return jsonify({"error": "Test code is required"}), 400
 
-        exec_service = TestExecutionService()
+        exec_service = db_services.test_execution_service
         execution_id = str(uuid.uuid4())
 
         execution = exec_service.create_test_execution(
@@ -578,7 +584,7 @@ def execute_tests():
 def get_execution_status(execution_id):
     """Retourne le statut et les métriques d'une exécution depuis MongoDB"""
     try:
-        exec_service = TestExecutionService()
+        exec_service = db_services.test_execution_service
         execution = exec_service.get_test_execution(execution_id)
 
         if not execution:
@@ -622,7 +628,7 @@ def get_execution_status(execution_id):
 def get_detailed_metrics(execution_id):
     """Récupère les métriques détaillées avec analyse de couverture depuis MongoDB"""
     try:
-        exec_service = TestExecutionService()
+        exec_service = db_services.test_execution_service
         execution = exec_service.get_test_execution(execution_id)
 
         if not execution:
