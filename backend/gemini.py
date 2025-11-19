@@ -203,6 +203,22 @@ def enhance_test(llm: ChatGoogleGenerativeAI, api_code, basic_test):
     return enhanced_code
 
 
+@app.route("/health", methods=["GET"])
+def health_check():
+    """Endpoint de vérification de santé pour les tests automatisés"""
+    return jsonify({
+        "status": "healthy",
+        "service": "gemini-api",
+        "message": "Service Gemini is running",
+        "endpoints": [
+            "/rest-assured-test/gemini",
+            "/execute-tests",
+            "/execution-status/<execution_id>",
+            "/execution-metrics/<execution_id>"
+        ]
+    }), 200
+
+
 @app.route("/rest-assured-test/gemini", methods=["POST"])
 def generate_restassured_test():
     """
