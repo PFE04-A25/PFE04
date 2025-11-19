@@ -448,7 +448,7 @@ def execute_tests():
             return jsonify({"error": "Test code is required"}), 400
 
         exec_service = db_services.test_execution_service
-        execution_id = str(uuid.uuid4())
+        # execution_id = str(uuid.uuid4())
 
         execution = exec_service.create_test_execution(
             test_generation_id=test_generation_id,
@@ -468,7 +468,7 @@ def execute_tests():
 
         def run_and_save_to_db(exec_id: str, executor: JavaTestExecutor):
             try:
-                result = executor.run_blocking()  
+                result = executor.run_java_tests_async(exec_id)
                 metrics = result.get("metrics", {})
                 logs = result.get("logs", "")
 
@@ -496,12 +496,12 @@ def execute_tests():
                     {"logs": f"Execution failed: {str(e)}", "build_success": False},
                 )
 
-        thread = threading.Thread(target=run_and_save_to_db, args=(execution_id, executor))
+        thread = threading.Thread(target=run_and_save_to_db, args=(str(execution.id), executor))
         thread.daemon = True
         thread.start()
 
         return jsonify({
-            "execution_id": execution_id,
+            "execution_id": str(execution.id),
             "status": "started",
             "message": "Test execution started"
         }), 200
