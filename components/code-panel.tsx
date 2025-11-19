@@ -9,7 +9,6 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { sendToDB } from "@/hooks/sendToDB";
 import { useTestHistoryContext } from "@/hooks/use-test-history-context";
 import { copyToClipboard } from "@/lib/utils";
 import { AlertCircle, CheckCircle, ClipboardList, Clock, ExternalLink, History, Play, XCircle } from "lucide-react";
@@ -34,7 +33,6 @@ export function CodePanel({
   const router = useRouter();
   const { addTestToHistory, updateExecutionResults, testHistory } = useTestHistoryContext();
   const { addOrUpdateResult } = useTestExecutionResultsContext();
-  const [, setIsLoadingSendToDB] = React.useState<boolean>(false);
   const [currentTestHistoryId, setCurrentTestHistoryId] = React.useState<string | null>(null);
 
   // États pour l'exécution des tests
@@ -200,21 +198,6 @@ export function CodePanel({
                 <StartButton
                   icon={<ClipboardList size={16} />}
                   action={() => copyToClipboard(outputCode)}
-                />
-              </div>
-              <div className="button-container">
-                <StartButton
-                  buttonText="Send to DB"
-                  className="hover:bg-green-500"
-                  isLoading={isLoading}
-                  action={() =>
-                    sendToDB({
-                      testType: selectedTest,
-                      prompt: sourceCode,
-                      testCaseGenerated: outputCode,
-                      setIsLoading: setIsLoadingSendToDB,
-                    })
-                  }
                 />
               </div>
               <div className="button-container">
