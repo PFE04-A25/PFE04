@@ -263,7 +263,7 @@ def generate_unit_test():
             enhanced_test = unit_pipeline.enhance_test(
                 llm, api_code, api_info, basic_test
             )
-            if enhanced_test is None:
+            if enhanced_test is None or enhanced_test.strip() == "":
                 logger.error("Enhanced test generation failed!")
                 raise EnhancedTestGenerationError("Enhanced test generation failed")
             logger.info("Enhanced test generation successful")
