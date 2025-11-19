@@ -1,7 +1,7 @@
 "use client";
 
 import { useTestExecutionResultsContext } from '@/hooks/use-test-execution-results-context';
-import { useAppContext } from '@/context/AppContext'; // ← AJOUT
+import { useAppContext } from '@/context/AppContext';
 import { Calendar, Code, Copy, Eye, Play, Search, TestTube, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -56,6 +56,14 @@ export default function TestsPage() {
 
   const handleExecuteTest = async (item: any) => {
     try {
+      if (!item.generation_id) {
+        console.warn(`⚠️ Test ${item.id} n'a pas de generation_id`);
+        const proceed = confirm(
+          "Ce test n'a pas d'ID de génération. L'exécution ne pourra pas être liée à la génération."
+        );
+        if (!proceed) return;
+      }
+
       const response = await fetch('http://127.0.0.1:5000/execute-tests', {
         method: 'POST',
         headers: {
@@ -63,7 +71,8 @@ export default function TestsPage() {
         },
         body: JSON.stringify({
           test_code: item.generatedTest,
-          api_code: item.sourceCode
+          api_code: item.sourceCode,
+          test_generation_id: item.generation_id
         }),
       });
 
@@ -74,7 +83,8 @@ export default function TestsPage() {
           test_history_id: item.id,
           source_code: item.sourceCode,
           generated_test: item.generatedTest,
-          test_type: item.testType
+          test_type: item.testType,
+          generation_id: item.generation_id
         };
 
         await fetchAndSaveResult(data.execution_id, testInfo);

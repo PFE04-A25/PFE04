@@ -5,6 +5,7 @@ import { defaultSourceCode } from '@/lib/utils';
 
 export interface TestHistoryItem {
   id: string;
+  generation_id?: string;
   timestamp: string;
   sourceCode: string;
   generatedTest: string;
@@ -110,10 +111,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // ========== Actions pour la page Tests ==========
   const addTestToHistory = useCallback((test: TestHistoryItem) => {
-    setState(prev => ({
-      ...prev,
-      testHistory: [test, ...prev.testHistory]
-    }));
+    console.log("Context : addTestToHistory appelé avec test.id:", test.id, "generation_id:", test.generation_id);
+
+    setState(prev => {
+      const updated = [test, ...prev.testHistory];
+      console.log("Nouveau testHistory length:", updated.length);
+      return { ...prev, testHistory: updated };
+    });
   }, []);
 
   const updateTestInHistory = useCallback((id: string, updates: Partial<TestHistoryItem>) => {

@@ -511,7 +511,6 @@ def execute_tests():
         api_code = data.get("api_code", "")
         # TODO: FE should send test generation ID to link execution
         test_generation_id = data.get("test_generation_id")
-
         if not test_code.strip():
             return jsonify({"error": "Test code is required"}), 400
 

@@ -11,6 +11,7 @@ interface SendRequestProps {
   outputCode: string;
   setIsLoading: (isLoading: boolean) => void;
   setOutputCode: (outputCode: string) => void;
+  onGenerationComplete?: (generationId: string, generatedTest: string) => void;
 }
 
 export const sendRequest = async ({
@@ -19,6 +20,7 @@ export const sendRequest = async ({
   outputCode,
   setIsLoading,
   setOutputCode,
+  onGenerationComplete,
 }: SendRequestProps) => {
   setIsLoading(true);
   
@@ -58,13 +60,13 @@ export const sendRequest = async ({
     }
 
     const data = await response.json();
-    
-    console.log("API Response received:", {
-      hasGeneratedTest: !!data.generated_test,
-      responseLength: data.generated_test?.length || 0,
-    });
 
-    // Check if data.generated_test exists
+    console.log("========== RÉPONSE DU BACKEND ==========");
+    console.log("generated_test présent ?", !!data.generated_test);
+    console.log("generation_id présent ?", !!data.generation_id);
+    console.log("generation_id valeur :", data.generation_id);
+    console.log("=======================================");
+
     if (!data.generated_test) {
       toast.error("No test generated", {
         description: "The server response didn't contain any generated test code",
@@ -73,17 +75,30 @@ export const sendRequest = async ({
       return;
     }
 
-    // Le backend Python nettoie déjà le code, on l'utilise directement
     const cleanCode = data.generated_test.trim();
-    
+
     if (cleanCode && cleanCode.length > 0) {
       console.log("Code received successfully, length:", cleanCode.length);
       setOutputCode(cleanCode);
-      toast.success("Test generated successfully! 🎉");
+
+      if (onGenerationComplete) {
+        if (data.generation_id) {
+          console.log("APPEL onGenerationComplete avec:", {
+            generationId: data.generation_id,
+            testLength: cleanCode.length,
+            timestamp: new Date().toISOString()
+          });
+          onGenerationComplete(data.generation_id, cleanCode);
+        } else {
+          console.warn("generation_id manquant");
+        }
+      }
+
+      toast.success("Test generated successfully!");
     } else {
       console.error("Received empty code from response");
       toast.error("Failed to parse response");
-      setOutputCode(data.generated_test); // Fallback
+      setOutputCode(data.generated_test);
     }
 
   } catch (error) {
