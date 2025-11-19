@@ -412,7 +412,7 @@ def test_get_detailed_metrics_test_completeness_insufficient(client, monkeypatch
 
     assert response.status_code == 200 #Check for successful response
     data = response.get_json()
-    assert data["quality_analysis"]["test_completeness"] == "insufficient" #Check for good coverage quality 
+    assert data["quality_analysis"]["test_completeness"] == "insufficient" #Check for insufficient test completeness
 
 def test_get_detailed_metrics_test_completeness_minimal(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une complétude des tests minimale"""
@@ -444,7 +444,7 @@ def test_get_detailed_metrics_test_completeness_minimal(client, monkeypatch):
 
     assert response.status_code == 200 #Check for successful response
     data = response.get_json()
-    assert data["quality_analysis"]["test_completeness"] == "minimal" #Check for good coverage quality 
+    assert data["quality_analysis"]["test_completeness"] == "minimal" #Check for minimal test completeness 
 
 def test_get_detailed_metrics_test_completeness_adequate(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une complétude des tests adéquate"""
@@ -476,7 +476,7 @@ def test_get_detailed_metrics_test_completeness_adequate(client, monkeypatch):
 
     assert response.status_code == 200 #Check for successful response
     data = response.get_json()
-    assert data["quality_analysis"]["test_completeness"] == "adequate" #Check for good coverage quality   
+    assert data["quality_analysis"]["test_completeness"] == "adequate" #Check for adequate test completeness   
 
 def test_get_detailed_metrics_test_completeness_comprehensive(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une complétude des tests compréhensive"""
@@ -508,7 +508,7 @@ def test_get_detailed_metrics_test_completeness_comprehensive(client, monkeypatc
 
     assert response.status_code == 200 #Check for successful response
     data = response.get_json()
-    assert data["quality_analysis"]["test_completeness"] == "comprehensive" #Check for good coverage quality 
+    assert data["quality_analysis"]["test_completeness"] == "comprehensive" #Check for comprehensive test completeness
 
 
 
