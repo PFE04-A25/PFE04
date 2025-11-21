@@ -145,7 +145,7 @@ def test_generate_restassured_test_api_key(client, monkeypatch):
     assert "//fixed" in data["generated_test"]
 
 def test_execute_tests_missing_test_code(client):
-    """"Test si le fonction retourne le propre erreur si il manque une test_code."""
+    """"Test si le fonction retourne une erreur s'il manque un parameter `test_code`."""
     response = client.post("/execute-tests", json={"test_cde": "", "api_code": "test api code"})  #Implement response without test_code block   
     assert response.status_code == 400 #Check for 400 Error
     assert "Test code is required" in response.get_json()["error"]
