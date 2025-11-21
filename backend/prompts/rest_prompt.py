@@ -34,7 +34,7 @@ class RestAssuredPrompts:
     @staticmethod
     def get_basic_test_prompt() -> BasePrompt:
         """Prompt for generating basic RestAssured tests"""
-        template = """En tant qu'ingénieur de test API expérimenté, génère un test RestAssured complet pour l'API Spring Boot suivante, en inclure toutes les validations nécessaires.
+        template = """En tant qu'ingénieur de test API expérimenté, génère un test RestAssured complet pour l'API Spring Boot suivante. Inclus toutes les validations nécessaires.
 
         Informations API:
         {api_info}
