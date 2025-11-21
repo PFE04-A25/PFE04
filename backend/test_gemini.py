@@ -1,6 +1,8 @@
 import pytest
 import prompts.rest_prompt
 from gemini import app, setup_llm, analyze_api_code, generate_basic_test
+from langchain_core.runnables import Runnable
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 """List des pytests pour tester le fichier gemini.py et ses fonctions:
 
@@ -11,6 +13,39 @@ from gemini import app, setup_llm, analyze_api_code, generate_basic_test
    5. execute_tests()
    6. get_execution_status()
    7. get_detailed_metrics()"""
+
+class FakeExecutor:
+        def __init__(self,executions):
+            self.test_executions = executions
+
+class FakeResponse:
+    content = '```json\n{"controller_name": "TestController", "endpoints": []}\n```' #Fake valid JSON response from LLM
+    usage_metadata = {'input_tokens': 100, 'output_tokens': 200} #Simulate input token usage
+    response_metadata = {'finish_reason': 'stop'} #Simulate finish reason
+
+class FakeEmptyResponse:
+    content = '' #Empty JSON response from LLM
+
+class FakeLLM(Runnable):
+    max_output_tokens = 8192
+    
+    def __init__(self, response_type='success'):
+        # Allow the mock to be initialized to return different responses
+        if response_type == 'empty':
+            self.response = FakeEmptyResponse()
+        else:
+            self.response = FakeResponse()
+
+    def invoke(self, input, config=None):
+        """Matches the LangChain Runnable protocol."""
+        return self.response
+
+class Prompt: #Mocks the pipe operator, returning the next element (usually the LLM)
+        def __or__(self, other):
+            return other 
+    
+class FakePrompt: #Return an object holding the prompt chain  
+    prompt = Prompt()           
 
 @pytest.fixture
 def client(): #Create an object client for Flask tests
@@ -32,17 +67,10 @@ def test_setup_llm_with_api(monkeypatch):
     monkeypatch.setenv("GEMINI_API_KEY", FAKE_API_KEY) #Create a test environment with a fake API key
     llm = setup_llm()
 
-    assert llm is not None #Check that the LLM is properly set up
+    assert isinstance(llm, ChatGoogleGenerativeAI) #Check that the LLM is properly set up
 
 def test_analyze_api_code_success():
     """Test si le LLM retourne une réponse JSON valide et que la fonction parse correctement le JSON."""
-
-    class FakeResponse:
-        #Fake valid JSON response from LLM
-        content = '```json\n{"controller_name": "TestController", "endpoints": []}\n```'
-
-    def FakeLLM(input):
-        return FakeResponse()
             
     #Initialize test parameters
     fake_llm = FakeLLM
@@ -56,39 +84,15 @@ def test_analyze_api_code_success():
 def test_analyze_api_code_failure():  
     """Test si une erreur est levée pour une réponse sans JSON/vide."""
     
-    class FakeResponse:
-        content = '' #Empty or invalid Java test code response to simulate failure
-
-    def FakeLLM(input):
-        return FakeResponse() #Return an object holing the fake response
-
     #Initialize test parameters     
-    fake_llm = FakeLLM
+    fake_llm = FakeEmptyResponse
     api_code = "public class TestController {}"
-
     result = analyze_api_code(fake_llm, api_code)
 
     assert result is None
 
 def test_generate_basic_test_success(monkeypatch):
-    
-    class FakeResponse:
-        content = '```java\npublic class Test {}\n```' #Fake valid Java test code response
-        usage_metadata = {'input_tokens': 100, 'output_tokens': 200} #Simulate input token usage
-        response_metadata = {'finish_reason': 'stop'} #Simulate finish reason
-    
-    class FakeLLM:
-        max_output_tokens = 8192 
-        def invoke(self, prompt):
-            return FakeResponse() #Return an object holding the fake response
         
-    class Prompt:
-        def __or__(self, other):
-            return other 
-    
-    class FakePrompt:
-        prompt = Prompt() #Return an object holding the prompt chain
-
     #Implement dependencies without effecting the test  
     monkeypatch.setattr("code_manipulation.java.clean_java_code", lambda code: code.replace("Test", "TestCleaned"))
     monkeypatch.setattr("code_manipulation.java.fix_spring_boot_test_annotation", lambda code: code + "//fixed")
@@ -106,24 +110,6 @@ def test_generate_basic_test_success(monkeypatch):
 
 def test_generate_restassured_test_api_key(client, monkeypatch):
     """Testez le point de terminaison /rest-assured-test/gemini avec une fausse clé API et un LLM simulé"""
-
-    # Mock LLM and prompt chain
-    class FakeResponse:
-        content = '```java\npublic class Test {}\n```' #Fake valid Java test code response
-        usage_metadata = {'input_tokens': 100, 'output_tokens': 200} #Simulate input token usage
-        response_metadata = {'finish_reason': 'stop'} #Simulate finish reason
-
-    class FakeLLM:
-        max_output_tokens = 8192  
-        def invoke(self, prompt):
-            return FakeResponse() #Return an object holding the fake response
-        
-    class Prompt:
-        def __or__(self, other):
-            return other
-        
-    class FakePrompt:
-        prompt = Prompt() #Return an object holding the prompt chain
 
     #Implement dependencies without effecting the test  
     monkeypatch.setenv("GEMINI_API_KEY", "fake_api_key")
@@ -183,19 +169,19 @@ def test_get_execution_status_invalid_id(client):
 
 def test_get_execution_status_success(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide."""
-    class FakeExecutor:
-        test_executions = { #Simulate a valid execution ID with status details
-            "valid_id": {
-                "status": "completed",
-                "logs": "All tests passed",
-                "metrics": {},
-                "start_time": "now",
-                "end_time": "later"
-            }
+
+    test_executions = { #Simulate a valid execution ID with status details
+        "valid_id": {
+            "status": "completed",
+            "logs": "All tests passed",
+            "metrics": {},
+            "start_time": "now",
+            "end_time": "later"
         }
+    }
 
     #Implement dependencies without effecting the test 
-    monkeypatch.setattr("gemini.executor", FakeExecutor())
+    monkeypatch.setattr("gemini.executor", FakeExecutor(executions=test_executions))
     monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
     
     response = client.get("/execution-status/valid_id")
@@ -223,24 +209,24 @@ def test_get_detailed_metrics_invalid_id(client):
 
 def test_get_detailed_metrics_success(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées"""
-    class FakeExecutor:
-        test_executions = {
-            "valid_id": { #Create fake metris for simulation 
-                "status": "completed",
-                "logs": "All tests passed",
-                "metrics": { 
-                    "line_coverage": 85.0,
-                    "branch_coverage": 75.0,
-                    "instruction_coverage": 80.0,
-                    "tests_per_endpoint": 2.0,
-                    "endpoints_count": 5,
-                    "tests_run": 10
-                }
+
+    test_executions = {
+        "valid_id": { #Create fake metris for simulation 
+            "status": "completed",
+            "logs": "All tests passed",
+            "metrics": { 
+                "line_coverage": 85.0,
+                "branch_coverage": 75.0,
+                "instruction_coverage": 80.0,
+                "tests_per_endpoint": 2.0,
+                "endpoints_count": 5,
+                "tests_run": 10
             }
         }
+    }
 
     #Implement dependencies without effecting the test 
-    monkeypatch.setattr("gemini.executor", FakeExecutor())
+    monkeypatch.setattr("gemini.executor", FakeExecutor(executions=test_executions))
     monkeypatch.setattr("gemini.JavaTestExecutor", FakeExecutor)
 
     response = client.get("/execution-metrics/valid_id")
@@ -256,9 +242,6 @@ def test_get_detailed_metrics_success(client, monkeypatch):
 
 def test_get_detailed_metrics_coverage_quality_poor(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité couverture pauvre"""
-    class FakeExecutor:
-        def __init__(self,executions):
-            self.test_executions = executions
             
     execution_id = "valid_id"
     test_executions = {
@@ -288,9 +271,6 @@ def test_get_detailed_metrics_coverage_quality_poor(client, monkeypatch):
 
 def test_get_detailed_metrics_coverage_quality_fair(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité couverture fair"""
-    class FakeExecutor:
-        def __init__(self,executions):
-            self.test_executions = executions
             
     execution_id = "valid_id"
     test_executions = {
@@ -320,9 +300,6 @@ def test_get_detailed_metrics_coverage_quality_fair(client, monkeypatch):
 
 def test_get_detailed_metrics_coverage_quality_good(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité couverture bonne"""
-    class FakeExecutor:
-        def __init__(self,executions):
-            self.test_executions = executions
             
     execution_id = "valid_id"
     test_executions = {
@@ -352,9 +329,9 @@ def test_get_detailed_metrics_coverage_quality_good(client, monkeypatch):
 
 def test_get_detailed_metrics_coverage_quality_excellent(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité couverture excellent"""
-    class FakeExecutor:
-        def __init__(self,executions):
-            self.test_executions = executions
+    # class FakeExecutor:
+    #     def __init__(self,executions):
+    #         self.test_executions = executions
             
     execution_id = "valid_id"
     test_executions = {
@@ -384,9 +361,6 @@ def test_get_detailed_metrics_coverage_quality_excellent(client, monkeypatch):
 
 def test_get_detailed_metrics_test_completeness_insufficient(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une complétude des tests insuffisantes"""
-    class FakeExecutor:
-        def __init__(self,executions):
-            self.test_executions = executions
             
     execution_id = "valid_id"
     test_executions = {
@@ -416,9 +390,6 @@ def test_get_detailed_metrics_test_completeness_insufficient(client, monkeypatch
 
 def test_get_detailed_metrics_test_completeness_minimal(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une complétude des tests minimale"""
-    class FakeExecutor:
-        def __init__(self,executions):
-            self.test_executions = executions
             
     execution_id = "valid_id"
     test_executions = {
@@ -448,9 +419,6 @@ def test_get_detailed_metrics_test_completeness_minimal(client, monkeypatch):
 
 def test_get_detailed_metrics_test_completeness_adequate(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une complétude des tests adéquate"""
-    class FakeExecutor:
-        def __init__(self,executions):
-            self.test_executions = executions
             
     execution_id = "valid_id"
     test_executions = {
@@ -480,9 +448,6 @@ def test_get_detailed_metrics_test_completeness_adequate(client, monkeypatch):
 
 def test_get_detailed_metrics_test_completeness_comprehensive(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une complétude des tests compréhensive"""
-    class FakeExecutor:
-        def __init__(self,executions):
-            self.test_executions = executions
             
     execution_id = "valid_id"
     test_executions = {
@@ -509,11 +474,3 @@ def test_get_detailed_metrics_test_completeness_comprehensive(client, monkeypatc
     assert response.status_code == 200 #Check for successful response
     data = response.get_json()
     assert data["quality_analysis"]["test_completeness"] == "comprehensive" #Check for comprehensive test completeness
-
-
-
-
-
-
-
-
