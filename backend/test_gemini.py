@@ -205,7 +205,35 @@ def test_get_detailed_metrics_invalid_id(client):
     assert response.status_code == 404 #Check for 404 Error if execution_id is invalid
     data = response.get_json()
     assert data is not None
-    assert "error" in data    
+    assert "error" in data   
+
+#Standard parameters for metrics quality analysis
+base_line_coverage = 85.0
+base_branch_coverage = 75.0
+base_instruction_coverage = 80.0
+base_tests_per_endpoint = 2.0
+base_endpoints_count = 5
+base_tests_run = 10
+#Standard parameters for poor coverage quality
+base_poor_line_coverage = 50.0
+base_poor_branch_coverage = 40.0
+#Standard parameters for fair coverage quality
+base_fair_line_coverage = 60.0
+base_fair_branch_coverage =50.0
+#Standard parameters for good coverage quality
+base_good_line_coverage = 80.0
+base_good_branch_coverage = 70.0
+#Standard parameters for excellent coverage quality
+base_excellent_line_coverage = 90.0
+base_excellent_branch_coverage = 85.0
+#Standard parameters for insufficient test completeness
+base_insufficient_test_completeness = 0.0
+#Standard parameters for minimal test completeness
+base_minimal_test_completeness = 1.0
+#Standard parameters for adequate test completeness
+base_adequate_test_completeness = 2.0
+#Standard parameters for comprehensive test completeness
+base_comprehensive_test_completeness = 3.0
 
 def test_get_detailed_metrics_success(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées"""
@@ -215,12 +243,12 @@ def test_get_detailed_metrics_success(client, monkeypatch):
             "status": "completed",
             "logs": "All tests passed",
             "metrics": { 
-                "line_coverage": 85.0,
-                "branch_coverage": 75.0,
-                "instruction_coverage": 80.0,
-                "tests_per_endpoint": 2.0,
-                "endpoints_count": 5,
-                "tests_run": 10
+                "line_coverage": base_line_coverage,
+                "branch_coverage": base_branch_coverage,
+                "instruction_coverage": base_instruction_coverage,
+                "tests_per_endpoint": base_tests_per_endpoint,
+                "endpoints_count": base_endpoints_count,
+                "tests_run": base_tests_run
             }
         }
     }
@@ -233,12 +261,12 @@ def test_get_detailed_metrics_success(client, monkeypatch):
     assert response.status_code == 200 #Check for successful response
     data = response.get_json()
     assert data["execution_id"] == "valid_id" #Check if it returns the correct mock data
-    assert data["metrics"]["line_coverage"] == 85.0
-    assert data["metrics"]["branch_coverage"] == 75.0
-    assert data["metrics"]["instruction_coverage"] == 80.0
-    assert data["metrics"]["tests_per_endpoint"] == 2.0
-    assert data["metrics"]["endpoints_count"] == 5
-    assert data["metrics"]["tests_run"] == 10
+    assert data["metrics"]["line_coverage"] == base_line_coverage
+    assert data["metrics"]["branch_coverage"] == base_branch_coverage
+    assert data["metrics"]["instruction_coverage"] == base_instruction_coverage
+    assert data["metrics"]["tests_per_endpoint"] == base_tests_per_endpoint
+    assert data["metrics"]["endpoints_count"] == base_endpoints_count
+    assert data["metrics"]["tests_run"] == base_tests_run
 
 def test_get_detailed_metrics_coverage_quality_poor(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité couverture pauvre"""
@@ -249,12 +277,12 @@ def test_get_detailed_metrics_coverage_quality_poor(client, monkeypatch):
             "status": "completed",
             "logs": "All tests passed",
             "metrics": {  #Create fake metris for simulation 
-                "line_coverage": 50.0, 
-                "branch_coverage": 40.0,
-                "instruction_coverage": 80.0,
-                "tests_per_endpoint": 2.0,
-                "endpoints_count": 5,
-                "tests_run": 10
+                "line_coverage": base_poor_line_coverage, 
+                "branch_coverage": base_poor_branch_coverage,
+                "instruction_coverage": base_instruction_coverage,
+                "tests_per_endpoint": base_tests_per_endpoint,
+                "endpoints_count": base_endpoints_count,
+                "tests_run": base_tests_run
             }
         }
     }
@@ -278,12 +306,12 @@ def test_get_detailed_metrics_coverage_quality_fair(client, monkeypatch):
             "status": "completed",
             "logs": "All tests passed",
             "metrics": {  #Create fake metris for simulation 
-                "line_coverage": 60.0, 
-                "branch_coverage": 50.0,
-                "instruction_coverage": 80.0,
-                "tests_per_endpoint": 2.0,
-                "endpoints_count": 5,
-                "tests_run": 10
+                "line_coverage": base_fair_line_coverage, 
+                "branch_coverage": base_fair_branch_coverage,
+                "instruction_coverage": base_instruction_coverage,
+                "tests_per_endpoint": base_tests_per_endpoint,
+                "endpoints_count": base_endpoints_count,
+                "tests_run": base_tests_run
             }
         }
     }
@@ -307,12 +335,12 @@ def test_get_detailed_metrics_coverage_quality_good(client, monkeypatch):
             "status": "completed",
             "logs": "All tests passed",
             "metrics": {  #Create fake metris for simulation 
-                "line_coverage": 80.0, 
-                "branch_coverage": 70.0,
-                "instruction_coverage": 80.0,
-                "tests_per_endpoint": 2.0,
-                "endpoints_count": 5,
-                "tests_run": 10
+                "line_coverage": base_good_line_coverage, 
+                "branch_coverage": base_good_branch_coverage,
+                "instruction_coverage": base_instruction_coverage,
+                "tests_per_endpoint": base_tests_per_endpoint,
+                "endpoints_count": base_endpoints_count,
+                "tests_run": base_tests_run
             }
         }
     }
@@ -329,22 +357,19 @@ def test_get_detailed_metrics_coverage_quality_good(client, monkeypatch):
 
 def test_get_detailed_metrics_coverage_quality_excellent(client, monkeypatch):
     """Test si le fonction retourne le propre réponse si il y a une id valide pour les métriques détaillées avec une qualité couverture excellent"""
-    # class FakeExecutor:
-    #     def __init__(self,executions):
-    #         self.test_executions = executions
-            
+
     execution_id = "valid_id"
     test_executions = {
         "valid_id": {
             "status": "completed",
             "logs": "All tests passed",
             "metrics": {  #Create fake metris for simulation 
-                "line_coverage": 90.0, 
-                "branch_coverage": 85.0,
-                "instruction_coverage": 80.0,
-                "tests_per_endpoint": 2.0,
-                "endpoints_count": 5,
-                "tests_run": 10
+                "line_coverage": base_excellent_line_coverage, 
+                "branch_coverage": base_excellent_branch_coverage,
+                "instruction_coverage": base_instruction_coverage,
+                "tests_per_endpoint": base_tests_per_endpoint,
+                "endpoints_count": base_endpoints_count,
+                "tests_run": base_tests_run
             }
         }
     }
@@ -368,12 +393,12 @@ def test_get_detailed_metrics_test_completeness_insufficient(client, monkeypatch
             "status": "completed",
             "logs": "All tests passed",
             "metrics": {  #Create fake metris for simulation 
-                "line_coverage": 85.0, 
-                "branch_coverage": 75.0,
-                "instruction_coverage": 80.0,
-                "tests_per_endpoint": 0.0,
-                "endpoints_count": 5,
-                "tests_run": 10
+               "line_coverage": base_line_coverage,
+                "branch_coverage": base_branch_coverage,
+                "instruction_coverage": base_instruction_coverage,
+                "tests_per_endpoint": base_insufficient_test_completeness,
+                "endpoints_count": base_endpoints_count,
+                "tests_run": base_tests_run
             }
         }
     }
@@ -397,12 +422,12 @@ def test_get_detailed_metrics_test_completeness_minimal(client, monkeypatch):
             "status": "completed",
             "logs": "All tests passed",
             "metrics": {  #Create fake metris for simulation 
-                "line_coverage": 85.0, 
-                "branch_coverage": 75.0,
-                "instruction_coverage": 80.0,
-                "tests_per_endpoint": 1.0,
-                "endpoints_count": 5,
-                "tests_run": 10
+                "line_coverage": base_line_coverage,
+                "branch_coverage": base_branch_coverage,
+                "instruction_coverage": base_instruction_coverage,
+                "tests_per_endpoint": base_minimal_test_completeness,
+               "endpoints_count": base_endpoints_count,
+                "tests_run": base_tests_run
             }
         }
     }
@@ -426,12 +451,12 @@ def test_get_detailed_metrics_test_completeness_adequate(client, monkeypatch):
             "status": "completed",
             "logs": "All tests passed",
             "metrics": {  #Create fake metris for simulation 
-                "line_coverage": 85.0, 
-                "branch_coverage": 75.0,
-                "instruction_coverage": 80.0,
-                "tests_per_endpoint": 2.0,
-                "endpoints_count": 5,
-                "tests_run": 10
+                "line_coverage": base_line_coverage,
+                "branch_coverage": base_branch_coverage,
+                "instruction_coverage": base_instruction_coverage,
+                "tests_per_endpoint": base_adequate_test_completeness,
+                "endpoints_count": base_endpoints_count,
+                "tests_run": base_tests_run
             }
         }
     }
@@ -455,12 +480,12 @@ def test_get_detailed_metrics_test_completeness_comprehensive(client, monkeypatc
             "status": "completed",
             "logs": "All tests passed",
             "metrics": {  #Create fake metris for simulation 
-                "line_coverage": 85.0, 
-                "branch_coverage": 75.0,
-                "instruction_coverage": 80.0,
-                "tests_per_endpoint": 3.0,
-                "endpoints_count": 5,
-                "tests_run": 10
+                "line_coverage": base_line_coverage,
+                "branch_coverage": base_branch_coverage,
+                "instruction_coverage": base_instruction_coverage,
+                "tests_per_endpoint": base_comprehensive_test_completeness,
+               "endpoints_count": base_endpoints_count,
+                "tests_run": base_tests_run
             }
         }
     }
