@@ -80,7 +80,7 @@ pip install -r requirements.txt
 Run the backend server:
 
 ```bash
-python server.py
+python gemini.py
 ```
 
 The server will start on [http://localhost:5000](http://localhost:5000).
@@ -129,10 +129,17 @@ uvicorn Server_mistral:app --reload
 
 ## 5.Backend MongoDB
 
-First, make sure to pupdate you .env with the connexion to mongo instance :
+First, make sure to update you .env with the connexion to mongo instance :
 
 ```bash
 MONGODB_URL=yourmongourl
+```
+
+Then make sure the required architecture is present (models, pipelines and prompts).
+
+```bash
+cd backend
+python bin/init_project_db.py
 ```
 
 The server will start on [http://127.0.0.1:8000](http://127.0.0.1:8000).

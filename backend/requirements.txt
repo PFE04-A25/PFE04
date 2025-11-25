@@ -16,8 +16,6 @@ requests==2.31.0
 # Environment Configuration
 python-dotenv==1.0.0
 
-# Database (if using MongoDB)
-pymongo==4.6.0
 
 # Testing and Development
 pytest==7.4.3
@@ -33,7 +31,9 @@ jsonschema==4.19.2
 asyncio==3.4.3
 
 # XML Processing (for JaCoCo reports)
-lxml==4.9.3
+lxml==5.3.0
 
 # Subprocess Management
 psutil==5.9.6
+pymongo>=4.15.1
+mongomock>=4.3.0

@@ -1,0 +1,70 @@
+2025-11-06 21:04:52,028 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:04:52,028 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:04:52,028 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:04:52,028 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:04:52,028 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:04:52,028 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:04:52,028 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:04:52,032 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:04:52,032 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:04:52,032 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:04:52,032 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:04:52,032 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:04:52,032 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:04:52,032 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:04:52,033 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:04:52,033 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:04:52,033 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:04:52,033 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:04:52,033 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:04:52,033 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:04:52,033 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:07:31,121 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:07:31,121 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:07:31,121 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:07:31,121 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:07:31,121 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:07:31,121 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:07:31,121 - gemini_api - INFO - Environment variables loaded.
+2025-11-06 21:07:31,124 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:07:31,124 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:07:31,124 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:07:31,124 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:07:31,124 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:07:31,124 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:07:31,124 - gemini_api - INFO - Flask app initialized with CORS.
+2025-11-06 21:07:31,129 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:07:31,129 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:07:31,129 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:07:31,129 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:07:31,129 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:07:31,129 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:07:31,129 - gemini_api - INFO - Flask app initialized.
+2025-11-06 21:07:31,204 - gemini_api - INFO - TestCaseService initialized.
+2025-11-06 21:07:31,204 - gemini_api - INFO - TestCaseService initialized.
+2025-11-06 21:07:31,204 - gemini_api - INFO - TestCaseService initialized.
+2025-11-06 21:07:31,204 - gemini_api - INFO - TestCaseService initialized.
+2025-11-06 21:07:31,204 - gemini_api - INFO - TestCaseService initialized.
+2025-11-06 21:07:31,204 - gemini_api - INFO - TestCaseService initialized.
+2025-11-06 21:07:31,204 - gemini_api - INFO - TestCaseService initialized.
+2025-11-06 21:07:31,697 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:07:31,697 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:07:31,697 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:07:31,697 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:07:31,697 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:07:31,697 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:07:31,697 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:08:02,182 - gemini_api - ERROR - Error creating test case: localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 690d546309d42049d854bddc, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-11-06 21:08:02,182 - gemini_api - ERROR - Error creating test case: localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 690d546309d42049d854bddc, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-11-06 21:08:02,182 - gemini_api - ERROR - Error creating test case: localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 690d546309d42049d854bddc, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-11-06 21:08:02,182 - gemini_api - ERROR - Error creating test case: localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 690d546309d42049d854bddc, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-11-06 21:08:02,182 - gemini_api - ERROR - Error creating test case: localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 690d546309d42049d854bddc, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-11-06 21:08:02,182 - gemini_api - ERROR - Error creating test case: localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 690d546309d42049d854bddc, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-11-06 21:08:02,182 - gemini_api - ERROR - Error creating test case: localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 690d546309d42049d854bddc, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-11-06 21:08:32,826 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:08:32,826 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:08:32,826 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:08:32,826 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:08:32,826 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:08:32,826 - gemini_api - INFO - Creating new test case of type test_restassured
+2025-11-06 21:08:32,826 - gemini_api - INFO - Creating new test case of type test_restassured

@@ -21,10 +21,20 @@ export function useTestHistoryContext() {
     sourceCode: string,
     generatedTest: string,
     testType: string,
-    description?: string
+    description?: string,
+    generation_id?: string
   ): string => {
+
+    console.log("🟢 use-test-history : addTestToHistory appelé", {
+      generation_id,
+      testType,
+      testLength: generatedTest.length,
+      timestamp: new Date().toISOString()
+    });
+
     const newTest: TestHistoryItem = {
       id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+      generation_id,
       timestamp: new Date().toISOString(),
       sourceCode,
       generatedTest,
@@ -34,8 +44,6 @@ export function useTestHistoryContext() {
 
     // Ajouter au Context
     contextAddTest(newTest);
-
-    // Sync avec localStorage pour compatibilité
     try {
       const updatedHistory = [newTest, ...testHistory];
       localStorage.setItem('test_history', JSON.stringify(updatedHistory));
@@ -43,6 +51,7 @@ export function useTestHistoryContext() {
       console.error('Erreur sync localStorage:', error);
     }
 
+    console.log("Test ajouté au Context avec ID:", newTest.id);
     return newTest.id;
   };
 
