@@ -6,7 +6,7 @@ from prompts import rest_prompt
 from langchain_core.runnables import Runnable
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-"""List des pytests pour tester le fichier gemini.py et ses fonctions:
+"""List des pytests pour tester le fichier gemini.py et ses fonctions (deprecated):
 
    1. setup_llm()
    2. analyze_api_code()
