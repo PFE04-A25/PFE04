@@ -8,6 +8,7 @@ import PromptTeaxtarea from "./prompt-textarea";
 import SelectTests from "./select-test-type";
 import { ScrollArea } from "./ui/scroll-area";
 import { Separator } from "./ui/separator";
+import { useTestHistoryContext } from '@/hooks/use-test-history-context';
 
 export interface GenerationPanelProps {
   prompt: string;
@@ -28,6 +29,7 @@ export function GenerationPanel({
   setIsLoading,
   setOutputCode,
 }: GenerationPanelProps) {
+    const { addTestToHistory } = useTestHistoryContext();
   return (
     <div className="absolute inset-0 flex flex-col">
       <ScrollArea className="flex-grow">
@@ -53,19 +55,36 @@ export function GenerationPanel({
             isLoading={isLoading}
             outputCode={outputCode}
           />
-          <StartButton
-            buttonText="Generate"
-            isLoading={isLoading}
-            action={() =>
-              sendRequest({
-                testType: selectedTest,
-                prompt,
-                outputCode,
-                setIsLoading,
-                setOutputCode,
-              })
-            }
-          />
+            <StartButton
+              buttonText="Generate"
+              isLoading={isLoading}
+              action={() =>
+                sendRequest({
+                  testType: selectedTest,
+                  prompt,
+                  outputCode,
+                  setIsLoading,
+                  setOutputCode,
+                  onGenerationComplete: (generationId, generatedTest) => {
+                    console.log("🔵 generation-panel : onGenerationComplete reçu", {
+                      generationId,
+                      testLength: generatedTest.length,
+                      timestamp: new Date().toISOString()
+                    });
+
+                    const testId = addTestToHistory(
+                      prompt,
+                      generatedTest,
+                      selectedTest,
+                      `Test généré le ${new Date().toLocaleString('fr-FR')}`,
+                      generationId
+                    );
+
+                    console.log("Test ajouté avec ID local:", testId);
+                  },
+                })
+              }
+            />
         </div>
       </div>
     </div>

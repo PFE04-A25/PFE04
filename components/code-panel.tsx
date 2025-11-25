@@ -9,7 +9,6 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { sendToDB } from "@/hooks/sendToDB";
 import { useTestHistoryContext } from "@/hooks/use-test-history-context";
 import { copyToClipboard } from "@/lib/utils";
 import { AlertCircle, CheckCircle, ClipboardList, Clock, ExternalLink, History, Play, XCircle } from "lucide-react";
@@ -32,11 +31,10 @@ export function CodePanel({
   isLoading,
 }: CodePanelProps) {
   const router = useRouter();
-  const { addTestToHistory, updateExecutionResults } = useTestHistoryContext();
+  const { addTestToHistory, updateExecutionResults, testHistory } = useTestHistoryContext();
   const { addOrUpdateResult } = useTestExecutionResultsContext();
-  const [, setIsLoadingSendToDB] = React.useState<boolean>(false);
   const [currentTestHistoryId, setCurrentTestHistoryId] = React.useState<string | null>(null);
-  
+
   // États pour l'exécution des tests
   const [isExecutingTests, setIsExecutingTests] = React.useState<boolean>(false);
   const [executionId, setExecutionId] = React.useState<string | null>(null);
@@ -109,17 +107,14 @@ export function CodePanel({
 
   // Sauvegarder automatiquement dans l'historique quand un nouveau test est généré
   React.useEffect(() => {
-    if (outputCode.trim() && sourceCode.trim() && !isLoading) {
-      // Vérifier si c'est un nouveau test (pas juste un changement d'état)
-      const testId = addTestToHistory(
-        sourceCode,
-        outputCode,
-        selectedTest,
-        `Test généré le ${new Date().toLocaleString('fr-FR')}`
-      );
-      setCurrentTestHistoryId(testId);
+    if (testHistory.length > 0 && outputCode.trim()) {
+      const latestTest = testHistory[0];
+      if (latestTest.generatedTest === outputCode) {
+        setCurrentTestHistoryId(latestTest.id);
+        console.log("🔵 ID du test récupéré depuis l'historique:", latestTest.id);
+      }
     }
-  }, [outputCode, sourceCode, selectedTest, isLoading]);
+  }, [testHistory, outputCode]);
 
   // Mettre à jour les résultats d'exécution dans l'historique
   React.useEffect(() => {
@@ -141,7 +136,18 @@ export function CodePanel({
       alert('Aucun code de test à exécuter');
       return;
     }
-    
+
+    // Récupérer le generation_id du test actuel
+    let generationId: string | undefined;
+    if (testHistory.length > 0) {
+      const currentTest = testHistory.find(t => t.generatedTest === outputCode);
+      generationId = currentTest?.generation_id;
+    }
+
+    if (!generationId) {
+      console.warn("Aucun generation_id trouvé pour ce test");
+    }
+
     setIsExecutingTests(true);
     setExecutionStatus('starting');
     setTestResults(null);
@@ -154,7 +160,8 @@ export function CodePanel({
         },
         body: JSON.stringify({
           test_code: outputCode,
-          api_code: sourceCode
+          api_code: sourceCode,
+          test_generation_id: generationId
         }),
       });
       
@@ -191,21 +198,6 @@ export function CodePanel({
                 <StartButton
                   icon={<ClipboardList size={16} />}
                   action={() => copyToClipboard(outputCode)}
-                />
-              </div>
-              <div className="button-container">
-                <StartButton
-                  buttonText="Send to DB"
-                  className="hover:bg-green-500"
-                  isLoading={isLoading}
-                  action={() =>
-                    sendToDB({
-                      testType: selectedTest,
-                      prompt: sourceCode,
-                      testCaseGenerated: outputCode,
-                      setIsLoading: setIsLoadingSendToDB,
-                    })
-                  }
                 />
               </div>
               <div className="button-container">

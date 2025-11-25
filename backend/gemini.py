@@ -288,73 +288,6 @@ def generate_unit_test():
         logger.exception("Full traceback:")
         return jsonify({"error": str(e)}), 500
 
-@app.route("/db/testcases", methods=["POST"])
-def create_test_case():
-    """
-    Crée un enregistrement complet de test_generation à partir d’un code source et d’un test généré.
-    Utilise la nouvelle architecture Mongo : CodeSnippet, ModelInfo, Pipeline, TestGeneration.
-    """
-    data = request.json
-    if not data:
-        return jsonify({"error": "Request body is required"}), 400
-
-    required_fields = ["testType", "sourceCode", "testCase"]
-    missing_fields = [f for f in required_fields if f not in data or data.get(f) is None]
-    if missing_fields:
-        return jsonify({"error": f"Missing required fields: {', '.join(missing_fields)}"}), 400
-
-    # Validation des types
-    if not all(isinstance(data.get(f), str) for f in required_fields):
-        return jsonify({"error": "All fields (testType, sourceCode, testCase) must be strings"}), 400
-
-    try:
-        test_type = data.get("testType")      
-        source_code = data.get("sourceCode")  
-        test_case = data.get("testCase")      
-
-        snippet_service = db_services.code_snippet_service
-        model_service = db_services.model_service
-        pipeline_service = db_services.pipeline_service
-        generation_service = db_services.test_generation_service
-
-        snippet = snippet_service.create_code_snippet(
-            source_code=source_code,
-            language="java" if test_type.upper() == "REST" else "python",
-            description=f"Code source pour test {test_type}"
-        )
-
-        model_list = model_service.get_models_by_name("Gemini")
-        if not model_list:
-            raise ValueError("Model 'Gemini' not found in DB")
-        model = model_list[0]
-
-        pipeline_list = pipeline_service.get_pipeline_active_by_name(test_type.upper())
-        if not pipeline_list:
-            raise ValueError(f"No active pipeline found for testType: {test_type}")
-        pipeline = pipeline_list[0]
-
-        generation = generation_service.create_test_generation(
-            model_id=str(model.id),
-            pipeline_id=str(pipeline.id),
-            code_snippet_id=str(snippet.id),
-            generated_analysis="Manual creation via /db/testcases",
-            generated_test=test_case,
-            token_usage={"prompt_tokens": 0, "completion_tokens": 0},
-            executed=False
-        )
-
-
-        return jsonify({
-            "id": str(generation.id),
-            "testType": test_type,
-            "model": model.name,
-            "pipeline": pipeline.name,
-            "createdAt": generation.created_at.isoformat()
-        }), 201
-
-    except Exception as e:
-        logger.error(f"Error creating test generation: {str(e)}")
-        return jsonify({"error": str(e)}), 500
 
 @app.route("/db/testcases", methods=["GET"])
 def get_test_cases():
@@ -511,12 +444,11 @@ def execute_tests():
         api_code = data.get("api_code", "")
         # TODO: FE should send test generation ID to link execution
         test_generation_id = data.get("test_generation_id")
-
         if not test_code.strip():
             return jsonify({"error": "Test code is required"}), 400
 
         exec_service = db_services.test_execution_service
-        execution_id = str(uuid.uuid4())
+        # execution_id = str(uuid.uuid4())
 
         execution = exec_service.create_test_execution(
             test_generation_id=test_generation_id,
@@ -536,7 +468,7 @@ def execute_tests():
 
         def run_and_save_to_db(exec_id: str, executor: JavaTestExecutor):
             try:
-                result = executor.run_blocking()  
+                result = executor.run_java_tests_async(exec_id)
                 metrics = result.get("metrics", {})
                 logs = result.get("logs", "")
 
@@ -564,12 +496,12 @@ def execute_tests():
                     {"logs": f"Execution failed: {str(e)}", "build_success": False},
                 )
 
-        thread = threading.Thread(target=run_and_save_to_db, args=(execution_id, executor))
+        thread = threading.Thread(target=run_and_save_to_db, args=(str(execution.id), executor))
         thread.daemon = True
         thread.start()
 
         return jsonify({
-            "execution_id": execution_id,
+            "execution_id": str(execution.id),
             "status": "started",
             "message": "Test execution started"
         }), 200
