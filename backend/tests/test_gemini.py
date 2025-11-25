@@ -1,6 +1,8 @@
 import pytest
 import prompts.rest_prompt
-from gemini import app, setup_llm, analyze_api_code, generate_basic_test
+from gemini import app, setup_llm
+from pipelines.rest_pipeline import analyze_api_code, generate_basic_test
+from prompts import rest_prompt
 from langchain_core.runnables import Runnable
 from langchain_google_genai import ChatGoogleGenerativeAI
 
@@ -73,9 +75,10 @@ def test_analyze_api_code_success():
     """Test si le LLM retourne une réponse JSON valide et que la fonction parse correctement le JSON."""
             
     #Initialize test parameters
-    fake_llm = FakeLLM
+    fake_llm = FakeLLM()
     api_code = "public class TestController {}" 
-    result = analyze_api_code(fake_llm, api_code)
+    prompt = rest_prompt.RestAssuredPrompts.get_api_analysis_prompt().prompt
+    result = analyze_api_code(fake_llm, api_code, prompt)
 
     assert result is not None
     assert result['controller_name'] == "TestController"
@@ -87,7 +90,8 @@ def test_analyze_api_code_failure():
     #Initialize test parameters     
     fake_llm = FakeEmptyResponse
     api_code = "public class TestController {}"
-    result = analyze_api_code(fake_llm, api_code)
+    prompt = rest_prompt.RestAssuredPrompts.get_api_analysis_prompt().prompt
+    result = analyze_api_code(fake_llm, api_code, prompt)
 
     assert result is None
 
@@ -102,8 +106,9 @@ def test_generate_basic_test_success(monkeypatch):
     llm = FakeLLM()
     api_code = "public class TestController {}"
     api_info = {"controller_name": "TestController", "endpoints": []} 
-    
-    result = generate_basic_test(llm, api_code, api_info)
+    prompt = rest_prompt.RestAssuredPrompts.get_basic_test_prompt().prompt
+
+    result = generate_basic_test(llm, api_code, api_info, prompt)
     
     assert "TestCleaned" in result
     assert "//fixed" in result
@@ -117,7 +122,8 @@ def test_generate_restassured_test_api_key(client, monkeypatch):
     monkeypatch.setattr("code_manipulation.java.fix_spring_boot_test_annotation", lambda code: code + "//fixed")
     monkeypatch.setattr(prompts.rest_prompt.RestAssuredPrompts, "get_basic_test_prompt", lambda: FakePrompt())
     monkeypatch.setattr("gemini.setup_llm", lambda api_key=None: FakeLLM())
-    monkeypatch.setattr("gemini.analyze_api_code", lambda llm, api_code: {"controller_name": "TestController", "endpoints": []})
+    api_analysis_prompt = rest_prompt.RestAssuredPrompts.get_api_analysis_prompt().prompt
+    monkeypatch.setattr("pipelines.rest_pipeline.analyze_api_code", lambda llm, api_code: {"controller_name": "TestController", "endpoints": []})
 
     # Simulate post request to the endpoint
     response = client.post(
