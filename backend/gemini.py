@@ -112,6 +112,7 @@ def generate_restassured_test():
         return jsonify({"error": "Missing GEMINI_API_KEY in environment variables"}), 400
 
     try:
+        error = None
         llm = setup_llm(api_key)
         logger.info("LLM setup complete.")
 
@@ -157,6 +158,8 @@ def generate_restassured_test():
         if 2 not in prompts_dict.keys():
             raise Exception("Missing prompt for basic test generation step")
         basic_test = rest_pipeline.generate_basic_test(llm, api_code, api_info, prompts_dict[2])
+        if not basic_test or basic_test.strip() == "":
+            raise Exception("Basic test generation failed")
         logger.info("Basic test generation successful")
 
         enhanced_test = None
@@ -164,38 +167,47 @@ def generate_restassured_test():
         if not skipping_enhancement and 3 in prompts_dict.keys():
             logger.info("Step 3: Enhancing test")
             enhanced_test = rest_pipeline.enhance_test(llm, api_code, basic_test, prompts_dict[3])
+            if not enhanced_test or enhanced_test.strip() == "":
+                raise EnhancedTestGenerationError("Enhanced test generation failed")
         elif not skipping_enhancement and 3 not in prompts_dict.keys():
             raise Exception("Missing prompt for enhanced test generation step")
         else:
             enhanced_test = basic_test
-
-        snippet = snippet_service.create_code_snippet(
-            source_code=api_code,
-            language="java",
-            description="Spring Boot API analyzed for RestAssured test generation"
-        )
-
-        generation = generation_service.create_test_generation(
-            model_id=str(model.id),
-            pipeline_id=str(pipeline.id),
-            code_snippet_id=str(snippet.id),
-            generated_analysis=str(api_info),
-            generated_test=enhanced_test,
-            token_usage={"prompt_tokens": 0, "completion_tokens": 0},  # placeholder
-            executed=False
-        )
-
-        logger.info(f"Test generation saved in DB (ID: {generation.id})")
-
-        return jsonify({
-            "generated_test": enhanced_test,
-            "generation_id": str(generation.id)
-        })
-
+    except EnhancedTestGenerationError as etge:
+        logger.error(f"Enhanced test generation error: {str(etge)}")
+        enhanced_test = basic_test
+        error = str(etge)
     except Exception as e:
         logger.error(f"Error occurred while generating test: {str(e)}")
         logger.exception("Full traceback:")
         return jsonify({"error": str(e)}), 500
+    
+
+    snippet = snippet_service.create_code_snippet(
+        source_code=api_code,
+        language="java",
+        description="Spring Boot API analyzed for RestAssured test generation"
+    )
+
+    generation = generation_service.create_test_generation(
+        model_id=str(model.id),
+        pipeline_id=str(pipeline.id),
+        code_snippet_id=str(snippet.id),
+        generated_analysis=str(api_info),
+        generated_test=enhanced_test,
+        token_usage={"prompt_tokens": 0, "completion_tokens": 0},  # placeholder
+        executed=False
+    )
+
+    logger.info(f"Test generation saved in DB (ID: {generation.id})")
+
+    return jsonify({
+        "generated_test": enhanced_test,
+        "generation_id": str(generation.id),
+        "error": error
+    })
+
+
 
 @app.route("/unit-test/gemini", methods=["POST"])
 def generate_unit_test():
@@ -263,7 +275,7 @@ def generate_unit_test():
             enhanced_test = unit_pipeline.enhance_test(
                 llm, api_code, api_info, basic_test
             )
-            if enhanced_test is None:
+            if enhanced_test is None or enhanced_test.strip() == "":
                 logger.error("Enhanced test generation failed!")
                 raise EnhancedTestGenerationError("Enhanced test generation failed")
             logger.info("Enhanced test generation successful")
@@ -282,7 +294,8 @@ def generate_unit_test():
             return jsonify({"generated_test": basic_test})
     except EnhancedTestGenerationError as etge:
         logger.error(f"Enhanced test generation error: {str(etge)}")
-        return jsonify({"generated_test": basic_test})
+        return jsonify({"generated_test": basic_test,
+                        "error": str(etge)}), 200
     except Exception as e:
         logger.error(f"Error occurred while generating unit test pipeline: {str(e)}")
         logger.exception("Full traceback:")
@@ -444,6 +457,8 @@ def execute_tests():
         api_code = data.get("api_code", "")
         # TODO: FE should send test generation ID to link execution
         test_generation_id = data.get("test_generation_id")
+        if not test_generation_id or test_generation_id.strip() == "":
+            return jsonify({"error": "test_generation_id is required"}), 400
         if not test_code.strip():
             return jsonify({"error": "Test code is required"}), 400
 
